@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe } from 'lucide-react';
 
 const STIFFNESS = 400;
