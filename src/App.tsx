@@ -48,7 +48,7 @@ const MagneticElement = ({ children, className }: { children: ReactNode, classNa
   );
 };
 
-const TiltCard = ({ children, className }: { children: ReactNode, className?: string }) => {
+const TiltCard = ({ children, className }: { children: ReactNode, className?: string, key?: string | number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
