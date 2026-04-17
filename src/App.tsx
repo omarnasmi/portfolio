@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode, type MouseEvent, type FC } from 'react';
+import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type FC } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe } from 'lucide-react';
 
@@ -30,7 +30,7 @@ const MagneticElement = ({ children, className }: { children: ReactNode, classNa
   const springX = useSpring(x, { stiffness: STIFFNESS, damping: DAMPING });
   const springY = useSpring(y, { stiffness: STIFFNESS, damping: DAMPING });
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -58,7 +58,7 @@ const TiltCard: FC<{ children: ReactNode, className?: string }> = ({ children, c
   const springRotateX = useSpring(rotateX, { stiffness: STIFFNESS, damping: DAMPING });
   const springRotateY = useSpring(rotateY, { stiffness: STIFFNESS, damping: DAMPING });
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
