@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode, type MouseEvent } from 'react';
+import { useState, useEffect, useRef, type ReactNode, type MouseEvent, type FC } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe } from 'lucide-react';
 
@@ -48,7 +48,7 @@ const MagneticElement = ({ children, className }: { children: ReactNode, classNa
   );
 };
 
-const TiltCard = ({ children, className }: { children: ReactNode, className?: string, key?: string | number }) => {
+const TiltCard: FC<{ children: ReactNode, className?: string }> = ({ children, className }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
