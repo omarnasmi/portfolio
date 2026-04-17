@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type FC } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Coffee, Zap, Braces, Database, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather } from 'lucide-react';
+import profileImage from '../assets/image.png';
+import TerminalIntro from './TerminalIntro';
 
 const STIFFNESS = 400;
 const DAMPING = 30;
@@ -85,6 +87,26 @@ const TiltCard: FC<{ children: ReactNode, className?: string }> = ({ children, c
   );
 };
 
+const FranceFlag = () => (
+  <svg width="16" height="12" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1" height="2" fill="#002395" />
+    <rect x="1" width="1" height="2" fill="#FFF" />
+    <rect x="2" width="1" height="2" fill="#ED2939" />
+  </svg>
+);
+
+const UKFlag = () => (
+  <svg width="16" height="12" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+    <rect width="60" height="30" fill="#012169" />
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#c8102e" strokeWidth="4" clipPath="url(#clip)" />
+    <rect y="12" width="60" height="6" fill="#fff" />
+    <rect y="13" width="60" height="4" fill="#c8102e" />
+    <rect x="24" width="12" height="30" fill="#fff" />
+    <rect x="26" width="8" height="30" fill="#c8102e" />
+  </svg>
+);
+
 const badges = [
   { url: "https://www.credly.com/badges/5445de2e-c511-4a64-a180-cea415ac483f", img: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" },
   { url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
@@ -92,6 +114,45 @@ const badges = [
   { url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
   { url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" }
 ];
+
+const getTagIcon = (tag: string) => {
+  const iconMap: { [key: string]: typeof Coffee } = {
+    "Java": Coffee,
+    "Python": Cpu,
+    "C": Code,
+    "JavaScript": Zap,
+    "TypeScript": Braces,
+    "React / Next.js": Layers,
+    "React": Layers,
+    "Next.js": Layers,
+    "Vue.js": Zap,
+    "Node.js": Box,
+    "PHP / Laravel": Code,
+    "PHP": Code,
+    "Laravel": Code,
+    "API REST": Feather,
+    "REST APIs": Feather,
+    "Docker": Container,
+    "Traefik": Share2,
+    "Linux (Debian)": Terminal,
+    "IP Networks": Globe,
+    "Réseaux IP": Globe,
+    "App Security": Lock,
+    "Sécurité applicative": Lock,
+    "Microservices": Share2,
+    "Micro-services": Share2,
+    "Design Patterns": Palette,
+    "Clean Code": Sparkles,
+    "TDD (JUnit/Jest)": CheckSquare,
+    "Agile (Scrum)": Rocket,
+    "Architecture MVC": Layout,
+    "MVC Architecture": Layout,
+    "Gemini AI": Sparkles,
+    "PostgreSQL": Database,
+    "Vector DB": Database,
+  };
+  return iconMap[tag] || Code;
+};
 
 const translations = {
   fr: {
@@ -206,6 +267,8 @@ type Lang = 'fr' | 'en';
 
 export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('omar_lang') as Lang;
@@ -213,9 +276,13 @@ export default function App() {
   }, []);
 
   const toggleLang = () => {
-    const next = lang === 'fr' ? 'en' : 'fr';
-    setLang(next);
-    localStorage.setItem('omar_lang', next);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      const next = lang === 'fr' ? 'en' : 'fr';
+      setLang(next);
+      localStorage.setItem('omar_lang', next);
+      setIsTransitioning(false);
+    }, 300);
   };
 
   const t = translations[lang];
@@ -225,9 +292,15 @@ export default function App() {
 
   return (
     <>
+      {!introComplete && <TerminalIntro onComplete={() => setIntroComplete(true)} />}
+      
       <motion.div className="atmosphere-bg bg-[#0A0A0A] fixed inset-0 z-[-1]" style={{ y: backgroundY }} />
-      <div className="min-h-screen text-[#FFFFFF] flex flex-col items-center relative z-10 font-sans">
-        
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: introComplete ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+        className="min-h-screen text-[#FFFFFF] flex flex-col items-center relative z-10 font-sans">
+      
         {/* Navbar */}
         <nav className="fixed top-0 inset-x-0 z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/10">
           <div className="max-w-[1280px] w-full mx-auto px-6 h-[82px] flex items-center justify-between">
@@ -235,20 +308,28 @@ export default function App() {
               O. NASMI // ENGINE
             </div>
             <div className="hidden md:flex gap-8 text-[0.85rem] font-medium text-[#8E9299]">
-              <a href="#experience" className="hover:text-white transition-colors">{t.nav.experience}</a>
-              <a href="#skills" className="hover:text-white transition-colors">{t.nav.skills}</a>
-              <a href="#projects" className="hover:text-white transition-colors">{t.nav.projects}</a>
+              <a href="#experience" className="hover:text-white transition-colors duration-300">{t.nav.experience}</a>
+              <a href="#skills" className="hover:text-white transition-colors duration-300">{t.nav.skills}</a>
+              <a href="#projects" className="hover:text-white transition-colors duration-300">{t.nav.projects}</a>
             </div>
             <div className="flex items-center gap-4">
               <button 
                 onClick={toggleLang} 
-                className="font-mono text-[0.75rem] text-[#8E9299] border border-white/10 px-2.5 py-1 rounded hover:border-[#7C3AED] hover:text-white transition-all uppercase"
+                className="font-mono text-[0.75rem] text-[#8E9299] border border-white/10 px-3 py-1.5 rounded hover:border-[#7C3AED] hover:text-white transition-all duration-300 uppercase flex items-center gap-2"
               >
-                {lang === 'fr' ? 'FR / EN' : 'EN / FR'}
+                {lang === 'fr' ? (
+                  <>
+                    <FranceFlag /> FR / <UKFlag /> EN
+                  </>
+                ) : (
+                  <>
+                    <UKFlag /> EN / <FranceFlag /> FR
+                  </>
+                )}
               </button>
               <a 
                 href="#contact" 
-                className="hidden md:inline-flex px-4 py-2 bg-white/10 border border-white/10 text-white text-[0.85rem] font-medium rounded hover:border-[#7C3AED] transition-colors"
+                className="hidden md:inline-flex px-4 py-2 bg-white/10 border border-white/10 text-white text-[0.85rem] font-medium rounded hover:border-[#7C3AED] transition-colors duration-300"
               >
                 {t.nav.contact}
               </a>
@@ -263,12 +344,18 @@ export default function App() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
+            key={`identity-${lang}`}
             className="flex flex-col gap-6 lg:sticky lg:top-[124px] h-fit"
           >
-            <motion.div variants={fadeUpVariants}>
-              <div className="relative w-28 h-28 mb-6 rounded-2xl overflow-hidden border border-white/10 group bg-white/[0.02]">
+            <motion.div 
+              variants={fadeUpVariants}
+              initial={{ opacity: isTransitioning ? 0 : 1 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="relative w-48 h-48 mb-6 rounded-2xl overflow-hidden border border-white/10 group bg-white/[0.02]">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#7C3AED]/10 to-transparent z-10 mix-blend-overlay"></div>
-                <img src="https://picsum.photos/seed/omar/200/200?grayscale" alt="Omar Nasmi" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src={profileImage} alt="Omar Nasmi" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               
               <span className="font-mono text-[#7C3AED] text-[0.85rem] tracking-[1px] uppercase block mb-4">
@@ -325,7 +412,13 @@ export default function App() {
           </motion.section>
 
           {/* Content Column */}
-          <section className="flex flex-col gap-16">
+          <motion.section 
+            className="flex flex-col gap-16"
+            initial={{ opacity: isTransitioning ? 0 : 1 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            key={`content-${lang}`}
+          >
             
             {/* Projects */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} id="projects" className="scroll-mt-[124px]">
@@ -344,12 +437,15 @@ export default function App() {
                       {proj.desc}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {proj.tags.map((tag, idx) => (
-                        <span key={idx} className="bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-md text-[0.75rem] font-mono text-white flex items-center gap-2">
-                          <span className="text-[8px] text-[#7C3AED]">●</span>
-                          {tag}
-                        </span>
-                      ))}
+                      {proj.tags.map((tag, idx) => {
+                        const IconComponent = getTagIcon(tag);
+                        return (
+                          <span key={idx} className="bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-md text-[0.75rem] font-mono text-white flex items-center gap-1.5">
+                            <IconComponent size={14} className="flex-shrink-0" />
+                            {tag}
+                          </span>
+                        );
+                      })}
                     </div>
                   </TiltCard>
                 ))}
@@ -373,11 +469,15 @@ export default function App() {
                       <h4 className="text-[0.95rem] font-medium text-white">{cat.name}</h4>
                     </div>
                     <div className="flex flex-wrap gap-2 relative z-10">
-                      {cat.tags.map((tag, idx) => (
-                        <span key={idx} className="bg-white/5 border border-white/10 px-2.5 py-1.5 rounded text-[0.75rem] font-mono text-[#D1D5DB] group-hover:border-white/20 transition-colors">
-                          {tag}
-                        </span>
-                      ))}
+                      {cat.tags.map((tag, idx) => {
+                        const IconComponent = getTagIcon(tag);
+                        return (
+                          <span key={idx} className="bg-white/5 border border-white/10 px-2.5 py-1.5 rounded text-[0.75rem] font-mono text-[#D1D5DB] group-hover:border-white/20 transition-colors flex items-center gap-1.5">
+                            <IconComponent size={14} className="flex-shrink-0" />
+                            {tag}
+                          </span>
+                        );
+                      })}
                     </div>
                   </TiltCard>
                 ))}
@@ -461,9 +561,9 @@ export default function App() {
               <p>Designed with Intent. Built for Scale.</p>
             </footer>
 
-          </section>
+          </motion.section>
         </main>
-      </div>
+      </motion.div>
     </>
   );
 }
