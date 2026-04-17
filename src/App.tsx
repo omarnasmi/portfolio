@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type ReactNode, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const staggerContainer = {
   }
 };
 
-const MagneticElement = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+const MagneticElement = ({ children, className }: { children: ReactNode, className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -30,7 +30,7 @@ const MagneticElement = ({ children, className }: { children: React.ReactNode, c
   const springX = useSpring(x, { stiffness: STIFFNESS, damping: DAMPING });
   const springY = useSpring(y, { stiffness: STIFFNESS, damping: DAMPING });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -48,7 +48,7 @@ const MagneticElement = ({ children, className }: { children: React.ReactNode, c
   );
 };
 
-const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+const TiltCard = ({ children, className }: { children: ReactNode, className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -58,7 +58,7 @@ const TiltCard = ({ children, className }: { children: React.ReactNode, classNam
   const springRotateX = useSpring(rotateX, { stiffness: STIFFNESS, damping: DAMPING });
   const springRotateY = useSpring(rotateY, { stiffness: STIFFNESS, damping: DAMPING });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
