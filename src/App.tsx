@@ -1,18 +1,14 @@
-import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type FC } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Coffee, Zap, Braces, Database, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X } from 'lucide-react';
 import profileImage from '../assets/image.png';
-import TerminalIntro from './TerminalIntro';
 
-const STIFFNESS = 400;
-const DAMPING = 30;
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 40 },
+const fadeIn = {
+  hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: STIFFNESS, damping: DAMPING } 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
   }
 };
 
@@ -20,71 +16,8 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
-};
-
-const MagneticElement = ({ children, className }: { children: ReactNode, className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springX = useSpring(x, { stiffness: STIFFNESS, damping: DAMPING });
-  const springY = useSpring(y, { stiffness: STIFFNESS, damping: DAMPING });
-
-  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * 0.2);
-    y.set((e.clientY - centerY) * 0.2);
-  };
-
-  const handleMouseLeave = () => { x.set(0); y.set(0); };
-
-  return (
-    <motion.div ref={ref} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ x: springX, y: springY }} className={className}>
-      {children}
-    </motion.div>
-  );
-};
-
-const TiltCard: FC<{ children: ReactNode, className?: string }> = ({ children, className }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const rotateX = useTransform(y, [-0.5, 0.5], ["3deg", "-3deg"]);
-  const rotateY = useTransform(x, [-0.5, 0.5], ["-3deg", "3deg"]);
-  const springRotateX = useSpring(rotateX, { stiffness: STIFFNESS, damping: DAMPING });
-  const springRotateY = useSpring(rotateY, { stiffness: STIFFNESS, damping: DAMPING });
-
-  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    x.set(mouseX / rect.width - 0.5);
-    y.set(mouseY / rect.height - 0.5);
-    
-    ref.current.style.setProperty('--mouse-x', `${mouseX}px`);
-    ref.current.style.setProperty('--mouse-y', `${mouseY}px`);
-  };
-
-  const handleMouseLeave = () => { x.set(0); y.set(0); };
-
-  return (
-    <motion.div
-       ref={ref} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
-       style={{ rotateX: springRotateX, rotateY: springRotateY, transformStyle: "preserve-3d", perspective: 1500 }}
-       className={className}
-    >
-       <div style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d", height: "100%" }}>
-         {children}
-       </div>
-    </motion.div>
-  );
 };
 
 const FranceFlag = () => (
@@ -108,50 +41,61 @@ const UKFlag = () => (
 );
 
 const badges = [
-  { url: "https://www.credly.com/badges/5445de2e-c511-4a64-a180-cea415ac483f", img: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" },
-  { url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
-  { url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
-  { url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
-  { url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" }
+  { title: "Introduction to Cybersecurity", url: "https://www.credly.com/badges/5445de2e-c511-4a64-a180-cea415ac483f", img: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" },
+  { title: "Networking Basics", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
+  { title: "Networking Devices and Initial Configuration", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
+  { title: "Data Analytics Essentials", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
+  { title: "Introduction to IoT", url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" }
 ];
 
-const getTagIcon = (tag: string) => {
-  const iconMap: { [key: string]: typeof Coffee } = {
-    "Java": Coffee,
-    "Python": Cpu,
-    "C": Code,
-    "JavaScript": Zap,
-    "TypeScript": Braces,
-    "React / Next.js": Layers,
-    "React": Layers,
-    "Next.js": Layers,
-    "Vue.js": Zap,
-    "Node.js": Box,
-    "PHP / Laravel": Code,
-    "PHP": Code,
-    "Laravel": Code,
-    "API REST": Feather,
-    "REST APIs": Feather,
-    "Docker": Container,
-    "Traefik": Share2,
-    "Linux (Debian)": Terminal,
-    "IP Networks": Globe,
-    "Réseaux IP": Globe,
-    "App Security": Lock,
-    "Sécurité applicative": Lock,
-    "Microservices": Share2,
-    "Micro-services": Share2,
-    "Design Patterns": Palette,
-    "Clean Code": Sparkles,
-    "TDD (JUnit/Jest)": CheckSquare,
-    "Agile (Scrum)": Rocket,
-    "Architecture MVC": Layout,
-    "MVC Architecture": Layout,
-    "Gemini AI": Sparkles,
-    "PostgreSQL": Database,
-    "Vector DB": Database,
+const TechIcon = ({ tag }: { tag: string }) => {
+  const iconMap: Record<string, { type: 'img' | 'lucide', src?: string, icon?: any }> = {
+    "Java": { type: 'img', src: "https://cdn.simpleicons.org/java" },
+    "Python": { type: 'img', src: "https://cdn.simpleicons.org/python" },
+    "C": { type: 'img', src: "https://cdn.simpleicons.org/c" },
+    "JavaScript": { type: 'img', src: "https://cdn.simpleicons.org/javascript" },
+    "TypeScript": { type: 'img', src: "https://cdn.simpleicons.org/typescript" },
+    "React / Next.js": { type: 'img', src: "https://cdn.simpleicons.org/react" },
+    "React": { type: 'img', src: "https://cdn.simpleicons.org/react" },
+    "Next.js": { type: 'img', src: "https://cdn.simpleicons.org/nextdotjs/white" },
+    "Vue.js": { type: 'img', src: "https://cdn.simpleicons.org/vuedotjs" },
+    "Node.js": { type: 'img', src: "https://cdn.simpleicons.org/nodedotjs" },
+    "PHP / Laravel": { type: 'img', src: "https://cdn.simpleicons.org/laravel" },
+    "PHP": { type: 'img', src: "https://cdn.simpleicons.org/php" },
+    "Docker": { type: 'img', src: "https://cdn.simpleicons.org/docker" },
+    "Traefik": { type: 'img', src: "https://cdn.simpleicons.org/traefikproxy" },
+    "Linux (Debian)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
+    "Gemini AI": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
+    "PostgreSQL": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
+    
+    // Fallbacks
+    "API REST": { type: 'lucide', icon: Globe },
+    "REST APIs": { type: 'lucide', icon: Globe },
+    "IP Networks": { type: 'lucide', icon: Share2 },
+    "Réseaux IP": { type: 'lucide', icon: Share2 },
+    "App Security": { type: 'lucide', icon: Lock },
+    "Sécurité applicative": { type: 'lucide', icon: Lock },
+    "Security": { type: 'lucide', icon: Lock },
+    "SysAdmin": { type: 'lucide', icon: Terminal },
+    "Microservices": { type: 'lucide', icon: Box },
+    "Micro-services": { type: 'lucide', icon: Box },
+    "Design Patterns": { type: 'lucide', icon: Palette },
+    "Clean Code": { type: 'lucide', icon: Sparkles },
+    "TDD (JUnit/Jest)": { type: 'lucide', icon: CheckSquare },
+    "Agile (Scrum)": { type: 'lucide', icon: Rocket },
+    "Architecture MVC": { type: 'lucide', icon: Layout },
+    "MVC Architecture": { type: 'lucide', icon: Layout },
+    "Vector DB": { type: 'lucide', icon: Database },
   };
-  return iconMap[tag] || Code;
+
+  const def = iconMap[tag] || { type: 'lucide', icon: Code };
+
+  if (def.type === 'img') {
+    return <img src={def.src} alt={tag} className="w-3.5 h-3.5 object-contain" />;
+  }
+  
+  const IconCmp = def.icon;
+  return <IconCmp size={14} className="text-[#8E9299]" />;
 };
 
 const translations = {
@@ -159,14 +103,14 @@ const translations = {
     nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", contact: "Contact" },
     hero: {
       role: "Apprenti Ingénieur Logiciel",
-      headline: "Concevoir des systèmes robustes, sécurisés et scalables.",
-      subheadline: "Expertise Fullstack avec une forte culture de l'ingénierie et des infrastructures.",
+      headline: "Concevoir des systèmes robustes, intelligents et scalables.",
+      subheadline: "Expertise Software Engineering avec une spécialisation en Intelligence Artificielle (RAG/LLM).",
       cta: "Me contacter"
     },
     metrics: [
-      { text: "100%", label: "Orienté Qualité & Clean Code" },
-      { text: "3", label: "Projets d'envergure déployés" },
-      { text: "40%", label: "Gain d'efficacité automatisé" }
+      { text: "40%", label: "Gain de productivité métier via l'automatisation" },
+      { text: "25%", label: "Optimisation des temps de réponse API" },
+      { text: "3", label: "Solutions SaaS & IA architecturées de A à Z" }
     ],
     experience: {
       title: "Expérience & Formation",
@@ -175,51 +119,54 @@ const translations = {
           role: "Stagiaire Développeur Full Stack",
           company: "Vala Bleu",
           period: "2024 (2 mois)",
-          desc: "Développement d'une plateforme SaaS de Fitness (React/Laravel). Réduction des temps de réponse API de 25% via optimisation SQL. Conception de modules métiers en environnement Agile (Scrum)."
+          desc: "Développement d'une plateforme SaaS de Fitness (React/Laravel). Optimisation des performances backend et conception de modules métiers complexes en environnement Agile.",
+          logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQYhvkWCBwCYVtlq8wX1PGQfs_dm0ei0-Qw&s"
         },
         {
           role: "Stagiaire Développeur Logiciel",
           company: "Chambre d'Agriculture",
           period: "2023 (1 mois)",
-          desc: "Digitalisation complète de la gestion de flotte automobile (+50 véhicules). Automatisation des rapports via Python/SQLite, gain de temps de 40% pour le service."
+          desc: "Digitalisation et automatisation des processus de gestion de flotte. Conception d'une solution sur mesure (Python/SQLite) améliorant radicalement l'efficacité opérationnelle.",
+          logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
         }
       ],
       education: [
-        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII", detail: "2026-2029 (en cours)" },
-        { degree: "Licence Ingénierie Logicielle", school: "Université Ibnou Zohr", detail: "2024-2025" },
-        { degree: "DUT en Génie Informatique", school: "EST Agadir", detail: "2022-2024" }
+        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "2026-2029 (en cours)", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Licence Ingénierie Logicielle", school: "Université Ibnou Zohr", detail: "2024-2025", logo: "https://iconape.com/wp-content/png_logo_vector/universite-ibn-zohr-agadir-maroc-logo.png" },
+        { degree: "DUT en Génie Informatique", school: "EST Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
     },
     skills: {
       title: "Compétences Techniques",
       categories: [
-        { name: "Ingénierie & Architecture", tags: ["Architecture MVC", "Micro-services", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Terminal },
-        { name: "Langages de Programmation", tags: ["Java", "Python", "C", "JavaScript", "TypeScript"], icon: Code },
+        { name: "Ingénierie & Architecture", tags: ["Architecture MVC", "Micro-services", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
+        { name: "Intelligence Artificielle", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Gemini AI", "Python"], icon: Sparkles },
         { name: "Développement Web", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "API REST"], icon: Globe },
-        { name: "Infra & Cybersécurité", tags: ["Docker", "Traefik", "Linux (Debian)", "Réseaux IP", "Sécurité applicative"], icon: Shield }
+        { name: "Résolution de Problèmes", tags: ["Algorithmique", "Structures de Données", "Optimisation SQL", "Analyse Métier", "UML"], icon: Code }
       ]
     },
     projects: {
-      title: "Génie Logiciel",
+      title: "Génie Logiciel & IA",
       items: [
-        { title: "Traefik Vanguard", desc: "Infrastructure distribuée multi-VM. Orchestration Docker, TLS auto-géré, IAM via Keycloak. Sécurité \"Zero Trust\".", tags: ["Docker", "Traefik", "SysAdmin", "Security"] },
-        { title: "Roadly AI", desc: "SaaS e-learning propulsé par Gemini AI (RAG). Parcours adaptatifs basés sur les données utilisateurs en temps réel.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"] }
+        { title: "Roadly AI", desc: "SaaS e-learning propulsé par Gemini AI (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
+        { title: "Traefik Vanguard", desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.", tags: ["Architecture Logicielle", "Sécurité", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
       ]
     },
-    certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" }
+    certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" },
+    status: "À la recherche d'une alternance de 3 ans pour ma formation d'ingénieur Informatique"
   },
   en: {
     nav: { experience: "Experience", projects: "Projects", skills: "Expertise", contact: "Contact" },
     hero: {
       role: "Software Engineering Apprentice",
-      headline: "Designing robust, secure, and scalable systems.",
-      subheadline: "Fullstack expertise with a strong engineering and infrastructure culture.",
+      headline: "Designing robust, intelligent, and scalable systems.",
+      subheadline: "Software Engineering expertise with a specialization in Artificial Intelligence (RAG/LLM).",
       cta: "Get in touch"
     },
     metrics: [
-      { text: "100%", label: "Quality & Clean Code Oriented" },
-      { text: "3", label: "Major deployed projects" },
-      { text: "40%", label: "Automated efficiency gain" }
+      { text: "40%", label: "Business productivity gained via automation" },
+      { text: "25%", label: "API response time optimization" },
+      { text: "3", label: "SaaS & AI solutions architected from scratch" }
     ],
     experience: {
       title: "Experience & Education",
@@ -228,108 +175,208 @@ const translations = {
           role: "Full Stack Developer (Intern)",
           company: "Vala Bleu",
           period: "2024 (2 months)",
-          desc: "Developed a Fitness SaaS platform (React/Laravel). Reduced API response times by 25% via SQL optimization. Designed business modules in an Agile (Scrum) environment."
+          desc: "Developed a Fitness SaaS platform (React/Laravel). Optimized backend performance and designed complex business modules in an Agile environment.",
+          logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQYhvkWCBwCYVtlq8wX1PGQfs_dm0ei0-Qw&s"
         },
         {
           role: "Software Developer (Intern)",
           company: "Chambre d'Agriculture",
           period: "2023 (1 month)",
-          desc: "Fully digitized the fleet management system (50+ vehicles). Automated reporting via Python/SQLite, saving the department 40% in processing time."
+          desc: "Digitized and automated fleet management processes. Designed a custom solution (Python/SQLite) that significantly improved operational efficiency.",
+          logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
         }
       ],
       education: [
-        { degree: "Computer Engineering Degree", school: "CNAM / ITII", detail: "2026-2029" },
-        { degree: "Bachelor in Software Engineering", school: "Université Ibnou Zohr", detail: "2024-2025" },
-        { degree: "Associate Degree in Computer Science", school: "EST Agadir", detail: "2022-2024" }
+        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "2026-2029", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Bachelor in Software Engineering", school: "Université Ibnou Zohr", detail: "2024-2025", logo: "https://iconape.com/wp-content/png_logo_vector/universite-ibn-zohr-agadir-maroc-logo.png" },
+        { degree: "Associate Degree in Computer Science", school: "EST Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
     },
     skills: {
       title: "Technical Competencies",
       categories: [
-        { name: "Software Engineering", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Terminal },
-        { name: "Programming Languages", tags: ["Java", "Python", "C", "JavaScript", "TypeScript"], icon: Code },
+        { name: "Software Engineering", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
+        { name: "Artificial Intelligence", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Gemini AI", "Python"], icon: Sparkles },
         { name: "Web Development", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "REST APIs"], icon: Globe },
-        { name: "Infra & Cybersecurity", tags: ["Docker", "Traefik", "Linux (Debian)", "IP Networks", "App Security"], icon: Shield }
+        { name: "Problem Solving", tags: ["Algorithms", "Data Structures", "SQL Optimization", "Business Analysis", "UML"], icon: Code }
       ]
     },
     projects: {
-      title: "Selected Engineering",
+      title: "Engineering & AI",
       items: [
-        { title: "Traefik Vanguard", desc: "Multi-VM distributed infrastructure. Docker orchestration, self-managed TLS, IAM via Keycloak. Zero Trust Security.", tags: ["Docker", "Traefik", "SysAdmin", "Security"] },
-        { title: "Roadly AI", desc: "E-learning SaaS powered by Gemini AI (RAG). Adaptive learning paths based on real-time user data.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"] }
+        { title: "Roadly AI", desc: "E-learning SaaS powered by Gemini AI (RAG). Adaptive learning paths based on real-time user data semantic analysis.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
+        { title: "Traefik Vanguard", desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.", tags: ["Software Architecture", "Security Patterns", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
       ]
     },
-    certifications: { title: "Cisco Networking Academy", desc: "Official verifiable badges and certifications" }
+    certifications: { title: "Cisco Networking Academy", desc: "Official verifiable badges and certifications" },
+    status: "Looking for a 3-year apprenticeship for engineering training"
   }
 };
 
 type Lang = 'fr' | 'en';
 
+const Loader = ({ onComplete }: { onComplete: () => void }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 1800);
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+      className="fixed inset-0 z-[100] bg-[#05050A] flex flex-col items-center justify-center"
+    >
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex flex-col items-center gap-6"
+      >
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full border border-[#6366F1]/30 animate-ping" style={{ animationDuration: '2s' }}></div>
+          <div className="w-16 h-16 rounded-full border border-[#6366F1] flex items-center justify-center bg-[#6366F1]/10 backdrop-blur-md">
+            <Cpu className="text-[#6366F1] w-6 h-6" />
+          </div>
+        </div>
+        <div className="font-mono text-white tracking-[0.2em] uppercase text-sm">
+          O. Nasmi <span className="text-[#6366F1] opacity-70">//</span> Engine
+        </div>
+        <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden mt-2">
+          <motion.div 
+            initial={{ x: "-100%" }}
+            animate={{ x: "100%" }}
+            transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity }}
+            className="absolute top-0 bottom-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-[#6366F1] to-transparent"
+          />
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const Announcement = ({ message, isVisible, onClose }: { message: string, isVisible: boolean, onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -40, opacity: 0 }}
+          className="fixed top-0 left-0 right-0 z-[100] h-[36px] px-4 flex items-center justify-center overflow-hidden border-b border-[#6366F1]/20 bg-[#05050A]/80 backdrop-blur-md shadow-2xl"
+        >
+          {/* Shimmer Effect */}
+          <motion.div 
+            animate={{ 
+              x: ["-100%", "100%"],
+              opacity: [0, 0.3, 0] 
+            }}
+            transition={{ 
+              duration: 8, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6366F1]/10 to-transparent w-[200%] pointer-events-none"
+          />
+
+          <div className="flex items-center gap-4 relative z-10">
+            <motion.div 
+              animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+            />
+            <motion.p 
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="text-[0.62rem] md:text-[0.7rem] text-white/90 font-mono uppercase tracking-[0.25em] font-medium text-center"
+            >
+              {message}
+            </motion.p>
+          </div>
+          <button 
+            onClick={onClose} 
+            className="absolute right-3 p-1 hover:text-white transition-colors text-white/30 z-20"
+          >
+            <X size={14} />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [introComplete, setIntroComplete] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [announcementVisible, setAnnouncementVisible] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('omar_lang') as Lang;
     if (saved === 'fr' || saved === 'en') setLang(saved);
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => setAnnouncementVisible(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
   const toggleLang = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      const next = lang === 'fr' ? 'en' : 'fr';
-      setLang(next);
-      localStorage.setItem('omar_lang', next);
-      setIsTransitioning(false);
-    }, 300);
+    const next = lang === 'fr' ? 'en' : 'fr';
+    setLang(next);
+    localStorage.setItem('omar_lang', next);
   };
 
   const t = translations[lang];
 
-  const { scrollY } = useScroll();
-  const backgroundY = useTransform(scrollY, [0, 2000], [0, 200]);
-
   return (
     <>
-      {!introComplete && <TerminalIntro onComplete={() => setIntroComplete(true)} />}
-      
-      <motion.div className="atmosphere-bg bg-[#0A0A0A] fixed inset-0 z-[-1]" style={{ y: backgroundY }} />
+      <AnimatePresence>
+        {loading && <Loader onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
+
+      <div className="atmosphere-bg"></div>
+
+      <Announcement 
+        message={t.status} 
+        isVisible={announcementVisible} 
+        onClose={() => setAnnouncementVisible(false)} 
+      />
+
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: introComplete ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
-        className="min-h-screen text-[#FFFFFF] flex flex-col items-center relative z-10 font-sans">
-      
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="min-h-screen flex flex-col items-center relative z-10"
+      >
         {/* Navbar */}
-        <nav className="fixed top-0 inset-x-0 z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/10">
-          <div className="max-w-[1280px] w-full mx-auto px-6 h-[82px] flex items-center justify-between">
-            <div className="font-bold tracking-[-1px] text-[1.2rem] text-white">
-              O. NASMI // ENGINE
+        <nav 
+          className="fixed inset-x-0 z-50 glass-nav transition-all duration-500 ease-in-out"
+          style={{ top: announcementVisible ? '36px' : '0' }}
+        >
+          <div className="max-w-[1000px] w-full mx-auto px-6 h-[72px] flex items-center justify-between">
+            <div className="font-serif italic font-semibold text-[1.1rem] tracking-tight flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#6366F1] animate-pulse"></span>
+              Omar Nasmi
             </div>
-            <div className="hidden md:flex gap-8 text-[0.85rem] font-medium text-[#8E9299]">
+            <div className="hidden md:flex gap-10 text-[0.75rem] uppercase tracking-widest font-medium text-text-muted">
               <a href="#experience" className="hover:text-white transition-colors duration-300">{t.nav.experience}</a>
               <a href="#skills" className="hover:text-white transition-colors duration-300">{t.nav.skills}</a>
               <a href="#projects" className="hover:text-white transition-colors duration-300">{t.nav.projects}</a>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <button 
                 onClick={toggleLang} 
-                className="font-mono text-[0.75rem] text-[#8E9299] border border-white/10 px-3 py-1.5 rounded hover:border-[#7C3AED] hover:text-white transition-all duration-300 uppercase flex items-center gap-2"
+                className="text-[0.7rem] text-text-muted hover:text-white transition-colors flex items-center gap-2 font-mono uppercase bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-[#6366F1]/50"
               >
-                {lang === 'fr' ? (
-                  <>
-                    <FranceFlag /> FR / <UKFlag /> EN
-                  </>
-                ) : (
-                  <>
-                    <UKFlag /> EN / <FranceFlag /> FR
-                  </>
-                )}
+                {lang === 'fr' ? 'EN' : 'FR'}
               </button>
               <a 
                 href="#contact" 
-                className="hidden md:inline-flex px-4 py-2 bg-white/10 border border-white/10 text-white text-[0.85rem] font-medium rounded hover:border-[#7C3AED] transition-colors duration-300"
+                className="hidden md:inline-flex px-5 py-2 rounded bg-white/5 border border-white/10 text-[0.75rem] uppercase tracking-widest font-medium hover:bg-white hover:text-black transition-all duration-300"
               >
                 {t.nav.contact}
               </a>
@@ -337,231 +384,238 @@ export default function App() {
           </div>
         </nav>
 
-        <main className="w-full max-w-[1280px] px-6 pt-[124px] pb-24 grid lg:grid-cols-[340px_1fr] gap-8 lg:gap-16">
+        <main className="w-full max-w-[900px] px-6 pt-[140px] pb-32 flex flex-col gap-32">
           
-          {/* Identity Column */}
+          {/* Hero Section */}
           <motion.section 
             variants={staggerContainer}
             initial="hidden"
-            animate="visible"
-            key={`identity-${lang}`}
-            className="flex flex-col gap-6 lg:sticky lg:top-[124px] h-fit"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="flex flex-col items-center text-center gap-6 py-12"
           >
-            <motion.div 
-              variants={fadeUpVariants}
-              initial={{ opacity: isTransitioning ? 0 : 1 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="relative w-48 h-48 mb-6 rounded-2xl overflow-hidden border border-white/10 group bg-white/[0.02]">
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#7C3AED]/10 to-transparent z-10 mix-blend-overlay"></div>
-                <img src={profileImage} alt="Omar Nasmi" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <motion.div variants={fadeIn} className="relative w-28 h-28 mb-4 rounded-full overflow-hidden border border-white/10 p-1 bg-gradient-to-br from-[#6366F1]/30 to-transparent backdrop-blur-sm">
+              <div className="w-full h-full rounded-full overflow-hidden">
+                <img src={profileImage} alt="Omar Nasmi" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
               </div>
-              
-              <span className="font-mono text-[#7C3AED] text-[0.85rem] tracking-[1px] uppercase block mb-4">
-                {t.hero.role}
-              </span>
-              <h1 className="text-[2.5rem] leading-[1.1] tracking-[-1.5px] font-bold text-white mb-2">
+            </motion.div>
+            
+            <motion.div variants={fadeIn} className="flex flex-col gap-3">
+              <h1 className="text-[3rem] md:text-[4rem] leading-none font-serif font-bold tracking-tight text-white">
                 Omar Nasmi
               </h1>
-              <p className="text-[#8E9299] leading-[1.5] text-[0.95rem]">
-                {t.hero.headline} <br/> {t.hero.subheadline}
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeUpVariants} className="grid grid-cols-2 gap-4 mt-3">
-              {t.metrics.map((m, i) => (
-                <div key={i} className="bg-white/[0.03] border border-white/10 p-4 rounded-xl">
-                  <span className="text-[1.5rem] font-bold block text-[#7C3AED]">{m.text}</span>
-                  <span className="text-[0.7rem] uppercase text-[#8E9299] mt-1 tracking-wide">{m.label}</span>
-                </div>
-              ))}
-            </motion.div>
-
-            <motion.div variants={fadeUpVariants} className="flex items-center gap-2 text-[0.8rem] text-[#8E9299] mt-4">
-              <div className="w-1.5 h-1.5 bg-[#10B981] rounded-full shadow-[0_0_8px_#10B981]"></div>
-              Reims, France — {lang === 'fr' ? 'Disponible pour opportunités' : 'Available for opportunities'}
-            </motion.div>
-
-            <motion.div variants={fadeUpVariants} className="mt-6 flex gap-3 text-[#8E9299]">
-              <MagneticElement>
-                <a href="https://github.com/omarnasmi" target="_blank" rel="noreferrer" className="block hover:text-white transition-colors border border-white/10 p-2 rounded-lg bg-white/[0.02]">
-                  <Github size={20} />
-                </a>
-              </MagneticElement>
-              <MagneticElement>
-                <a href="https://linkedin.com/in/omar-nasmi" target="_blank" rel="noreferrer" className="block hover:text-white transition-colors border border-white/10 p-2 rounded-lg bg-white/[0.02]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
-                </a>
-              </MagneticElement>
-            </motion.div>
-
-            <motion.div variants={fadeUpVariants} className="mt-8 pt-4">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-[0.75rem] uppercase tracking-[2px] text-[#8E9299] whitespace-nowrap">{t.certifications.title}</h3>
-                <span className="h-[1px] flex-grow bg-white/10"></span>
+              <div className="flex items-center justify-center gap-3">
+                <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#6366F1]"></div>
+                <p className="font-mono text-[0.8rem] uppercase tracking-[0.3em] text-[#6366F1] font-semibold">
+                  {t.hero.role}
+                </p>
+                <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#6366F1]"></div>
               </div>
-              <div className="flex flex-wrap gap-4">
-                {badges.map((badge, i) => (
-                  <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/[0.03] border border-white/10 rounded-lg flex items-center justify-center p-1 hover:border-[#7C3AED] transition-colors">
-                    <img src={badge.img} alt="Credly Badge" className="max-w-full max-h-full object-contain" />
-                  </a>
-                ))}
-              </div>
+            </motion.div>
+
+            <motion.p variants={fadeIn} className="max-w-[650px] text-[1.15rem] md:text-[1.3rem] text-text-muted leading-relaxed font-serif italic mt-4">
+              "{t.hero.headline} {t.hero.subheadline}"
+            </motion.p>
+
+            <motion.div variants={fadeIn} className="mt-6 flex gap-6 text-text-muted">
+              <a href="https://github.com/omarnasmi" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <Github size={18} />
+              </a>
+              <a href="https://linkedin.com/in/omar-nasmi" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <Linkedin size={18} />
+              </a>
+              <a href="mailto:omarnasmiprofessional@gmail.com" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <Mail size={18} />
+              </a>
             </motion.div>
           </motion.section>
 
-          {/* Content Column */}
+          {/* Metrics */}
           <motion.section 
-            className="flex flex-col gap-16"
-            initial={{ opacity: isTransitioning ? 0 : 1 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            key={`content-${lang}`}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
-            
-            {/* Projects */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} id="projects" className="scroll-mt-[124px]">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-[0.75rem] uppercase tracking-[2px] text-[#8E9299] whitespace-nowrap">{t.projects.title}</h3>
-                <span className="h-[1px] flex-grow bg-white/10"></span>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                {t.projects.items.map((proj, i) => (
-                  <TiltCard key={i} className="bg-gradient-to-br from-white/5 to-white/[0.01] border border-white/10 p-6 rounded-2xl relative transition-colors hover:border-[#7C3AED] group">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="text-[1.1rem] font-medium text-white">{proj.title}</h4>
-                      <ExternalLink className="w-4 h-4 text-[#8E9299] group-hover:text-white transition-colors" />
-                    </div>
-                    <p className="text-[0.85rem] text-[#8E9299] leading-[1.5] mb-6">
-                      {proj.desc}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {proj.tags.map((tag, idx) => {
-                        const IconComponent = getTagIcon(tag);
-                        return (
-                          <span key={idx} className="bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-md text-[0.75rem] font-mono text-white flex items-center gap-1.5">
-                            <IconComponent size={14} className="flex-shrink-0" />
-                            {tag}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </TiltCard>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Skills */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} id="skills" className="scroll-mt-[124px]">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-[0.75rem] uppercase tracking-[2px] text-[#8E9299] whitespace-nowrap">{t.skills.title}</h3>
-                <span className="h-[1px] flex-grow bg-white/10"></span>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                {t.skills.categories.map((cat, i) => (
-                  <TiltCard key={i} className="bg-white/[0.02] border border-white/10 p-6 rounded-xl hover:border-[#7C3AED]/50 transition-all group flex flex-col relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#7C3AED]/10 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-[#7C3AED]/20 transition-all"></div>
-                    <div className="flex items-center gap-3 mb-5 relative z-10">
-                      <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-[#8E9299] group-hover:text-[#7C3AED] group-hover:border-[#7C3AED]/30 transition-colors">
-                        <cat.icon className="w-4 h-4" />
-                      </div>
-                      <h4 className="text-[0.95rem] font-medium text-white">{cat.name}</h4>
-                    </div>
-                    <div className="flex flex-wrap gap-2 relative z-10">
-                      {cat.tags.map((tag, idx) => {
-                        const IconComponent = getTagIcon(tag);
-                        return (
-                          <span key={idx} className="bg-white/5 border border-white/10 px-2.5 py-1.5 rounded text-[0.75rem] font-mono text-[#D1D5DB] group-hover:border-white/20 transition-colors flex items-center gap-1.5">
-                            <IconComponent size={14} className="flex-shrink-0" />
-                            {tag}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </TiltCard>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Experience */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} id="experience" className="scroll-mt-[124px]">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-[0.75rem] uppercase tracking-[2px] text-[#8E9299] whitespace-nowrap">{t.experience.title}</h3>
-                <span className="h-[1px] flex-grow bg-white/10"></span>
-              </div>
-              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-6">
-                  <h4 className="font-mono text-[#7C3AED] text-[0.75rem] tracking-[1px] uppercase mb-4 text-opacity-80">
-                    {lang === 'fr' ? 'Expérience' : 'Experience'}
-                  </h4>
-                  {t.experience.jobs.map((job, idx) => (
-                    <div key={idx} className="relative pl-5 border-l border-white/10 hover:border-[#7C3AED] transition-colors">
-                      <div className="absolute -left-[3.5px] top-1.5 w-[6px] h-[6px] rounded-full bg-[#8E9299]"></div>
-                      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-1 gap-2">
-                        <h5 className="text-[0.95rem] font-medium text-white">{job.role}</h5>
-                        <span className="text-[0.75rem] font-mono text-[#8E9299] whitespace-nowrap">{job.period}</span>
-                      </div>
-                      <div className="text-[0.8rem] text-[#7C3AED] mb-2">{job.company}</div>
-                      <p className="text-[0.85rem] text-[#8E9299] leading-[1.5]">
-                        {job.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="space-y-6">
-                  <h4 className="font-mono text-[#7C3AED] text-[0.75rem] tracking-[1px] uppercase mb-4 text-opacity-80">
-                    {lang === 'fr' ? 'Formation' : 'Education'}
-                  </h4>
-                  {t.experience.education.map((edu, idx) => (
-                    <div key={idx} className="relative pl-5 border-l border-white/10 hover:border-[#7C3AED] transition-colors">
-                      <div className="absolute -left-[3.5px] top-1.5 w-[6px] h-[6px] rounded-full bg-[#8E9299]"></div>
-                      <h5 className="text-[0.95rem] font-medium text-white mb-1">{edu.degree}</h5>
-                      <div className="text-[0.8rem] text-[#7C3AED] mb-2">{edu.school}</div>
-                      {edu.detail && <p className="text-[0.8rem] font-mono text-[#8E9299]">{edu.detail}</p>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Contact */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} id="contact" className="mt-8 pt-8 border-t border-white/10">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-[0.75rem] uppercase tracking-[2px] text-[#8E9299] whitespace-nowrap">
-                  {lang === 'fr' ? 'Contact' : 'Contact'}
-                </h3>
-                <span className="h-[1px] flex-grow bg-white/10"></span>
-              </div>
-              <div className="bg-gradient-to-br from-[#7C3AED]/10 to-transparent border border-[#7C3AED]/30 p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <h4 className="text-xl font-medium text-white mb-2">
-                    {lang === 'fr' ? 'Prêt à collaborer ?' : 'Ready to collaborate?'}
-                  </h4>
-                  <p className="text-[#8E9299] text-sm">
-                    {lang === 'fr' ? "Ouvert aux opportunités et aux architectures ambitieuses." : "Open to new opportunities and ambitious architectures."}
-                  </p>
-
-                </div>
-                <MagneticElement>
-                  <a 
-                    href="mailto:omarnasmiprofessional@gmail.com" 
-                    className="flex items-center gap-2 bg-[#7C3AED] text-white px-6 py-3 rounded text-[0.85rem] font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap"
-                  >
-                    <Mail size={16} />
-                    {lang === 'fr' ? 'Démarrer une conversation' : 'Start a conversation'}
-                  </a>
-                </MagneticElement>
-              </div>
-            </motion.div>
-
-            <footer className="w-full text-center text-[#8E9299] text-xs font-mono flex flex-col gap-2 mt-8">
-              <p>O. NASMI // ENGINE © {new Date().getFullYear()}</p>
-              <p>Designed with Intent. Built for Scale.</p>
-            </footer>
-
+            {t.metrics.map((m, i) => (
+              <motion.div key={i} variants={fadeIn} className="premium-card p-8 flex flex-col items-center text-center gap-3">
+                <span className="text-[2.5rem] font-serif font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-white/50">{m.text}</span>
+                <span className="text-[0.75rem] font-mono uppercase tracking-widest text-text-muted">{m.label}</span>
+              </motion.div>
+            ))}
           </motion.section>
+
+          {/* Experience & Education */}
+          <motion.section 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }} 
+            variants={staggerContainer} 
+            id="experience" 
+            className="scroll-mt-[100px] flex flex-col gap-12"
+          >
+            <motion.div variants={fadeIn} className="flex items-center gap-4">
+              <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.experience.title}</h2>
+              <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+            </motion.div>
+            <div className="grid md:grid-cols-2 gap-16">
+              <div className="flex flex-col gap-12">
+                {t.experience.jobs.map((job, idx) => (
+                  <motion.div key={idx} variants={fadeIn} className="flex flex-col gap-3 relative pl-6 border-l border-white/10 hover:border-[#6366F1]/50 transition-colors">
+                    <div className="absolute top-2 -left-[4.5px] w-2 h-2 rounded-full bg-[#6366F1]"></div>
+                    <div className="flex justify-between items-baseline gap-4">
+                      <div className="flex items-center gap-3">
+                        {job.logo && <img src={job.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
+                        <h4 className="text-[1.1rem] font-serif font-medium text-white">{job.role}</h4>
+                      </div>
+                      <span className="font-mono text-[0.65rem] text-text-muted whitespace-nowrap">{job.period}</span>
+                    </div>
+                    <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">{job.company}</div>
+                    <p className="text-[0.85rem] text-text-muted leading-relaxed mt-2">{job.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-12">
+                {t.experience.education.map((edu, idx) => (
+                  <motion.div key={idx} variants={fadeIn} className="flex flex-col gap-3 relative pl-6 border-l border-white/10 hover:border-[#6366F1]/50 transition-colors">
+                    <div className="absolute top-2 -left-[4.5px] w-2 h-2 rounded-full bg-white/20"></div>
+                    <div className="flex items-center gap-3">
+                      {edu.logo && <img src={edu.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
+                      <h4 className="text-[1.1rem] font-serif font-medium text-white">{edu.degree}</h4>
+                    </div>
+                    <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">{edu.school}</div>
+                    <p className="text-[0.75rem] font-mono text-text-muted">{edu.detail}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Skills */}
+          <motion.section 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }} 
+            variants={staggerContainer} 
+            id="skills" 
+            className="scroll-mt-[100px] flex flex-col gap-12"
+          >
+            <motion.div variants={fadeIn} className="flex items-center gap-4">
+              <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.skills.title}</h2>
+              <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {t.skills.categories.map((cat, i) => (
+                <motion.div key={i} variants={fadeIn} className="premium-card p-8 flex flex-col gap-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#6366F1]/10 flex items-center justify-center border border-[#6366F1]/20">
+                      <cat.icon className="w-4 h-4 text-[#6366F1]" />
+                    </div>
+                    <h4 className="text-[0.85rem] font-bold uppercase tracking-widest text-white">{cat.name}</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    {cat.tags.map((tag, idx) => (
+                      <span key={idx} className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg text-[0.75rem] font-mono text-white/80 flex items-center gap-2 hover:bg-white/10 hover:border-white/20 hover:text-white transition-all shadow-sm shadow-black/20">
+                        <TechIcon tag={tag} />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Projects */}
+          <motion.section 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }} 
+            variants={staggerContainer} 
+            id="projects" 
+            className="scroll-mt-[100px] flex flex-col gap-12"
+          >
+            <motion.div variants={fadeIn} className="flex items-center gap-4">
+              <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.projects.title}</h2>
+              <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+            </motion.div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {t.projects.items.map((proj, i) => (
+                <motion.a 
+                  key={i} 
+                  href={proj.link} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  variants={fadeIn} 
+                  className="premium-card p-8 flex flex-col gap-6 group cursor-pointer"
+                >
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-[1.4rem] font-serif font-medium text-white group-hover:text-[#6366F1] transition-colors">{proj.title}</h3>
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-[#6366F1]/10 group-hover:border-[#6366F1]/30 transition-all">
+                      <ExternalLink className="w-3 h-3 text-text-muted group-hover:text-white" />
+                    </div>
+                  </div>
+                  <p className="text-[0.9rem] text-text-muted leading-relaxed">{proj.desc}</p>
+                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                    {proj.tags.map((tag, idx) => (
+                      <span key={idx} className="px-2 py-1 rounded text-[0.65rem] font-mono text-text-muted flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
+                        <TechIcon tag={tag} />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Certifications - Professional Grid */}
+          <motion.section variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-wrap justify-center gap-12 py-16 border-y border-white/5 transition-all duration-700">
+            {badges.map((badge, i) => (
+              <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
+                <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
+                  <img src={badge.img} alt={badge.title} className="w-full h-full object-contain filter drop-shadow-md" />
+                </div>
+                <span className="max-w-[140px] text-center text-[0.6rem] text-white/50 group-hover:text-white transition-colors font-mono uppercase tracking-widest leading-tight">
+                  {badge.title}
+                </span>
+              </a>
+            ))}
+          </motion.section>
+
+          {/* Contact */}
+          <motion.section 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-50px" }} 
+            variants={fadeIn} 
+            id="contact" 
+            className="scroll-mt-[100px] py-16 flex flex-col items-center text-center gap-8 relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-[#6366F1]/5 blur-[100px] rounded-full pointer-events-none"></div>
+            <div className="flex flex-col gap-4 relative z-10">
+              <h2 className="text-[2.5rem] md:text-[3.5rem] font-serif font-medium text-white">
+                {lang === 'fr' ? 'Prêt à collaborer ?' : 'Ready to collaborate?'}
+              </h2>
+              <p className="text-text-muted text-[1.1rem]">
+                {lang === 'fr' ? 'Disponible pour des projets ambitieux et des défis techniques.' : 'Available for ambitious projects and technical challenges.'}
+              </p>
+            </div>
+            <a 
+              href="mailto:omarnasmiprofessional@gmail.com" 
+              className="relative overflow-hidden group px-10 py-4 bg-white text-black text-[0.85rem] uppercase tracking-[0.2em] font-bold rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]"
+            >
+              <span className="relative z-10">{lang === 'fr' ? 'Démarrer une conversation' : 'Start a conversation'}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+            </a>
+          </motion.section>
+
+          <footer className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[0.65rem] font-mono uppercase tracking-[0.2em] text-text-muted">
+            <p>© {new Date().getFullYear()} Omar Nasmi <span className="text-[#6366F1]">//</span> Engineering</p>
+            <p>Designed with intent. Built for scale.</p>
+          </footer>
+
         </main>
       </motion.div>
     </>
