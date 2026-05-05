@@ -42,9 +42,9 @@ const UKFlag = () => (
 
 const badges = [
   { title: "Introduction to Cybersecurity", url: "https://www.credly.com/badges/5445de2e-c511-4a64-a180-cea415ac483f", img: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" },
-  { title: "Networking Basics", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
-  { title: "Networking Devices and Initial Configuration", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
-  { title: "Data Analytics Essentials", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
+  { title: "Introduction to Ai", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
+  { title: "Digital Safety and Security Awareness", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
+  { title: "Network Technician Career Path", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
   { title: "Introduction to IoT", url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" },
   { title: "Cisco Hackaton 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" }
 ];
@@ -259,6 +259,8 @@ const Loader = ({ onComplete }: { onComplete: () => void }) => {
 };
 
 const Announcement = ({ message, isVisible, onClose }: { message: string, isVisible: boolean, onClose: () => void }) => {
+  const characters = message.split("");
+  
   return (
     <AnimatePresence>
       {isVisible && (
@@ -266,35 +268,83 @@ const Announcement = ({ message, isVisible, onClose }: { message: string, isVisi
           initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -40, opacity: 0 }}
-          className="fixed top-0 left-0 right-0 z-[100] h-[36px] px-4 flex items-center justify-center overflow-hidden border-b border-[#6366F1]/20 bg-[#05050A]/80 backdrop-blur-md shadow-2xl"
+          className="fixed top-0 left-0 right-0 z-[100] h-[36px] px-4 flex items-center justify-center overflow-hidden border-b border-[#6366F1]/20 bg-[#05050A] shadow-2xl"
         >
-          {/* Shimmer Effect */}
-          <motion.div 
-            animate={{ 
-              x: ["-100%", "100%"],
-              opacity: [0, 0.3, 0] 
-            }}
-            transition={{ 
-              duration: 8, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6366F1]/10 to-transparent w-[200%] pointer-events-none"
-          />
+          {/* Cosmic Galaxy Background */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {/* Nebula Glows */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-32 h-16 bg-[#6366F1]/10 blur-[30px] rounded-full" />
+            <div className="absolute top-1/2 left-3/4 -translate-y-1/2 w-40 h-20 bg-[#8B5CF6]/5 blur-[40px] rounded-full" />
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6366F1]/5 to-transparent animate-pulse" />
+            
+            {[...Array(40)].map((_, i) => {
+              const size = Math.random() > 0.8 ? 2 : 1;
+              const colors = ['#FFFFFF', '#FFFFFF', '#A5B4FC', '#C4B5FD'];
+              const color = colors[Math.floor(Math.random() * colors.length)];
+              
+              return (
+                <motion.div
+                  key={i}
+                  animate={{ 
+                    opacity: [0.1, Math.random() * 0.7 + 0.3, 0.1],
+                    scale: [1, size === 2 ? 1.2 : 1.5, 1]
+                  }}
+                  transition={{ 
+                    duration: 3 + Math.random() * 5, 
+                    repeat: Infinity, 
+                    delay: Math.random() * 10 
+                  }}
+                  className="absolute rounded-full"
+                  style={{
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    backgroundColor: color,
+                    boxShadow: size === 2 ? `0 0 4px ${color}` : 'none',
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                  }}
+                />
+              );
+            })}
+          </div>
 
           <div className="flex items-center gap-4 relative z-10">
             <motion.div 
-              animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+              animate={{ 
+                scale: [1, 1.3, 1], 
+                opacity: [0.4, 1, 0.4],
+                boxShadow: ["0 0 5px #6366F1", "0 0 15px #6366F1", "0 0 5px #6366F1"]
+              }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+              className="w-1.5 h-1.5 rounded-full bg-[#6366F1]"
             />
-            <motion.p 
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="text-[0.62rem] md:text-[0.7rem] text-white/90 font-mono uppercase tracking-[0.25em] font-medium text-center"
-            >
-              {message}
-            </motion.p>
+            <div className="flex">
+              {characters.map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0.7, color: "rgba(255,255,255,0.7)" }}
+                  animate={{ 
+                    opacity: [0.7, 1, 0.7],
+                    color: ["rgba(255,255,255,0.7)", "#ffffff", "rgba(255,255,255,0.7)"],
+                    textShadow: [
+                      "0 0 0px transparent",
+                      "0 0 8px rgba(99,102,241,0.8), 0 0 12px rgba(99,102,241,0.4)",
+                      "0 0 0px transparent"
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatDelay: 5,
+                    delay: i * 0.04
+                  }}
+                  className="text-[0.62rem] md:text-[0.7rem] font-mono uppercase tracking-[0.25em] font-medium whitespace-pre"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </div>
           </div>
           <button 
             onClick={onClose} 
