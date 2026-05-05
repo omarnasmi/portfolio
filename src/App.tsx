@@ -374,7 +374,17 @@ export default function App() {
                 onClick={toggleLang} 
                 className="text-[0.7rem] text-text-muted hover:text-white transition-colors flex items-center gap-2 font-mono uppercase bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-[#6366F1]/50"
               >
-                {lang === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR'}
+                {lang === 'fr' ? (
+                  <>
+                    <img src="https://flagcdn.com/w20/gb.png" className="w-4 h-auto rounded-sm" alt="EN" />
+                    <span>EN</span>
+                  </>
+                ) : (
+                  <>
+                    <img src="https://flagcdn.com/w20/fr.png" className="w-4 h-auto rounded-sm" alt="FR" />
+                    <span>FR</span>
+                  </>
+                )}
               </button>
               <a 
                 href="#contact" 
