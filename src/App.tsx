@@ -45,7 +45,8 @@ const badges = [
   { title: "Networking Basics", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
   { title: "Networking Devices and Initial Configuration", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
   { title: "Data Analytics Essentials", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
-  { title: "Introduction to IoT", url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" }
+  { title: "Introduction to IoT", url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" },
+  { title: "Cisco Hackaton 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" }
 ];
 
 const TechIcon = ({ tag }: { tag: string }) => {
@@ -100,7 +101,7 @@ const TechIcon = ({ tag }: { tag: string }) => {
 
 const translations = {
   fr: {
-    nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", contact: "Contact" },
+    nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     hero: {
       role: "Apprenti Ingénieur Logiciel",
       headline: "Concevoir des systèmes robustes, intelligents et scalables.",
@@ -156,7 +157,7 @@ const translations = {
     status: "À la recherche d'une alternance de 3 ans pour ma formation d'ingénieur Informatique"
   },
   en: {
-    nav: { experience: "Experience", projects: "Projects", skills: "Expertise", contact: "Contact" },
+    nav: { experience: "Experience", projects: "Projects", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     hero: {
       role: "Software Engineering Apprentice",
       headline: "Designing robust, intelligent, and scalable systems.",
@@ -366,13 +367,14 @@ export default function App() {
               <a href="#experience" className="hover:text-white transition-colors duration-300">{t.nav.experience}</a>
               <a href="#skills" className="hover:text-white transition-colors duration-300">{t.nav.skills}</a>
               <a href="#projects" className="hover:text-white transition-colors duration-300">{t.nav.projects}</a>
+              <a href="#certifications" className="hover:text-white transition-colors duration-300">{t.nav.certifications}</a>
             </div>
             <div className="flex items-center gap-6">
               <button 
                 onClick={toggleLang} 
                 className="text-[0.7rem] text-text-muted hover:text-white transition-colors flex items-center gap-2 font-mono uppercase bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-[#6366F1]/50"
               >
-                {lang === 'fr' ? 'EN' : 'FR'}
+                {lang === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR'}
               </button>
               <a 
                 href="#contact" 
@@ -571,17 +573,30 @@ export default function App() {
           </motion.section>
 
           {/* Certifications - Professional Grid */}
-          <motion.section variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-wrap justify-center gap-12 py-16 border-y border-white/5 transition-all duration-700">
-            {badges.map((badge, i) => (
-              <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
-                <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
-                  <img src={badge.img} alt={badge.title} className="w-full h-full object-contain filter drop-shadow-md" />
-                </div>
-                <span className="max-w-[140px] text-center text-[0.6rem] text-white/50 group-hover:text-white transition-colors font-mono uppercase tracking-widest leading-tight">
-                  {badge.title}
-                </span>
-              </a>
-            ))}
+          <motion.section 
+            id="certifications"
+            variants={fadeIn} 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            className="scroll-mt-[100px] flex flex-col gap-12 py-16 border-y border-white/5 transition-all duration-700"
+          >
+            <motion.div variants={fadeIn} className="flex items-center gap-4">
+              <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">Badges & Certifications</h2>
+              <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+            </motion.div>
+            <div className="flex flex-wrap justify-center gap-12">
+              {badges.map((badge, i) => (
+                <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
+                  <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
+                    <img src={badge.img} alt={badge.title} className="w-full h-full object-contain filter drop-shadow-md" />
+                  </div>
+                  <span className="max-w-[140px] text-center text-[0.6rem] text-white/50 group-hover:text-white transition-colors font-mono uppercase tracking-widest leading-tight">
+                    {badge.title}
+                  </span>
+                </a>
+              ))}
+            </div>
           </motion.section>
 
           {/* Contact */}
