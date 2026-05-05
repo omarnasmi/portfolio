@@ -133,8 +133,8 @@ const translations = {
       ],
       education: [
         { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "2026-2029 (en cours)", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
-        { degree: "Licence Ingénierie Logicielle", school: "Université Ibnou Zohr", detail: "2024-2025", logo: "https://iconape.com/wp-content/png_logo_vector/universite-ibn-zohr-agadir-maroc-logo.png" },
-        { degree: "DUT en Génie Informatique", school: "EST Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
+        { degree: "Licence Ingénierie Logicielle", school: "Centre d'Excellence - Université Ibnou Zohr", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
+        { degree: "DUT en Génie Informatique", school: "Ecole Supérieure de Technologie Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
     },
     skills: {
@@ -147,7 +147,7 @@ const translations = {
       ]
     },
     projects: {
-      title: "Génie Logiciel & IA",
+      title: "Projets Personnels",
       items: [
         { title: "Roadly AI", desc: "SaaS e-learning propulsé par Gemini AI (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
         { title: "Traefik Vanguard", desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.", tags: ["Architecture Logicielle", "Sécurité", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
@@ -189,8 +189,8 @@ const translations = {
       ],
       education: [
         { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "2026-2029", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
-        { degree: "Bachelor in Software Engineering", school: "Université Ibnou Zohr", detail: "2024-2025", logo: "https://iconape.com/wp-content/png_logo_vector/universite-ibn-zohr-agadir-maroc-logo.png" },
-        { degree: "Associate Degree in Computer Science", school: "EST Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
+        { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
+        { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
     },
     skills: {
@@ -203,7 +203,7 @@ const translations = {
       ]
     },
     projects: {
-      title: "Engineering & AI",
+      title: "Projects",
       items: [
         { title: "Roadly AI", desc: "E-learning SaaS powered by Gemini AI (RAG). Adaptive learning paths based on real-time user data semantic analysis.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
         { title: "Traefik Vanguard", desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.", tags: ["Software Architecture", "Security Patterns", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
@@ -396,7 +396,15 @@ export default function App() {
           </div>
         </nav>
 
-        <main className="w-full max-w-[900px] px-6 pt-[140px] pb-32 flex flex-col gap-32">
+        <AnimatePresence mode="wait">
+          <motion.main 
+            key={lang}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="w-full max-w-[900px] px-6 pt-[140px] pb-32 flex flex-col gap-32"
+          >
           
           {/* Hero Section */}
           <motion.section 
@@ -641,7 +649,8 @@ export default function App() {
             <p>Designed with intent. Built for scale.</p>
           </footer>
 
-        </main>
+        </motion.main>
+      </AnimatePresence>
       </motion.div>
     </>
   );
