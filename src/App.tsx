@@ -181,6 +181,7 @@ const translations = {
           role: "Développeur Logiciel (Freelance)",
           company: "Fiverr",
           period: "2023 - 2025",
+          link: "https://www.fiverr.com/omarnasmi",
           desc: [
             "Développement d'applications desktop sur mesure adaptées aux besoins clients.",
             "Livraison de solutions robustes et maintenables avec une qualité de service notée 4.7/5 sur Fiverr.",
@@ -192,6 +193,7 @@ const translations = {
           role: "Stagiaire Développeur Full Stack",
           company: "Vala Bleu",
           period: "2024 (2 mois)",
+          link: "https://www.vala.ma/",
           desc: [
             "Conception et développement de l'architecture d'une plateforme SaaS de Fitness de A à Z (React/Laravel).",
             "Optimisation des bases de données relationnelles (MySQL) réduisant les temps de réponse de l'API de 25%.",
@@ -203,6 +205,7 @@ const translations = {
           role: "Stagiaire Développeur Logiciel",
           company: "Chambre d'Agriculture",
           period: "2023 (1 month)",
+          link: "https://chambreagriculturesm.com/",
           desc: [
             "Développement d'une application desktop sur mesure (Python, Tkinter) pour l'automatisation de la gestion d'une flotte de 50 véhicules.",
             "Digitalisation complète des processus de saisie manuelle, garantissant la traçabilité et l'intégrité des données via SQLite.",
@@ -212,10 +215,10 @@ const translations = {
         }
       ],
       education: [
-        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "Admis pour la rentrée 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
-        { degree: "Mastère 1 Ingénierie Web", school: "ESGI Reims", detail: "2025 - 2026 (En cours)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg" },
-        { degree: "Licence Ingénierie Logicielle", school: "Centre d'Excellence - Université Ibnou Zohr", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
-        { degree: "DUT en Génie Informatique", school: "Ecole Supérieure de Technologie Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
+        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "Admis pour la rentrée 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s", link: "https://www.itii-picardie.fr/filieres/informatique-numerique-cybersecurite/" },
+        { degree: "Mastère 1 Ingénierie Web", school: "ESGI Reims", detail: "2025 - 2026 (En cours)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
+        { degree: "Licence Ingénierie Logicielle", school: "Centre d'Excellence - Université Ibnou Zohr", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s", link: "https://ma.linkedin.com/company/tamyouz-fsa" },
+        { degree: "DUT en Génie Informatique", school: "Ecole Supérieure de Technologie Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s", link: "https://www.esta.ac.ma/?page_id=117" }
       ]
     },
     skills: {
@@ -235,28 +238,49 @@ const translations = {
           desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
-          media: projectMedia.traefikVanguard
+          media: projectMedia.traefikVanguard,
+          details: [
+            "Infrastructure distribuée à haute disponibilité déployée sur de multiples machines virtuelles (Debian).",
+            "Orchestration via Docker et sécurisation des flux par Traefik en reverse proxy (renouvellement automatique TLS).",
+            "Implémentation d'une architecture Zero Trust avec gestion centralisée des accès et des identités (SSO) via Keycloak."
+          ]
         },
         {
           title: "Roadly AI",
           desc: "SaaS e-learning propulsé par Gemini API (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.",
           tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
           link: "https://github.com/omarnasmi/roadly-ai",
-          media: projectMedia.roadlyAi
+          media: projectMedia.roadlyAi,
+          details: [
+            "Plateforme SaaS éducative innovante exploitant l'IA générative (API Gemini) couplée à une base de données vectorielle (Pinecone).",
+            "Mise en place d'une architecture RAG (Retrieval-Augmented Generation) pour analyser sémantiquement les requêtes.",
+            "Génération de parcours d'apprentissage 100% adaptatifs basés sur les données utilisateurs en temps réel."
+          ]
         },
         {
           title: "Sport Empire",
           desc: "Projet de fin d'études (DUT). Plateforme e-commerce et e-learning de fitness avec backoffice complet pour la gestion des ventes de suppléments et tutoriels vidéo.",
           tags: ["Laravel", "React", "TailwindCSS", "MySQL"],
           link: "https://github.com/omarnasmi/sport-empire",
-          media: projectMedia.sportEmpire
+          media: projectMedia.sportEmpire,
+          details: [
+            "Plateforme web globale intégrant une boutique e-commerce de produits sportifs, des tutoriels d'exercices et des articles spécialisés (sport/nutrition).",
+            "Développement d'outils interactifs de calculs de performances et métriques de santé.",
+            "Création d'un backoffice complet permettant aux administrateurs de gérer le contenu, le catalogue, les utilisateurs et la newsletter.",
+            "Système d'authentification sécurisé et gestion différenciée des rôles (Utilisateurs / Admins)."
+          ]
         },
         {
           title: "Health Bridge",
           desc: "Application web de gestion de rendez-vous en ligne pour cabinets médicaux. Interface patient et tableau de bord praticien.",
           tags: ["PHP", "CodeIgniter", "Bootstrap", "MySQL"],
           link: "https://github.com/omarnasmi/health-bridge",
-          media: projectMedia.healthBridge
+          media: projectMedia.healthBridge,
+          details: [
+            "Application web intuitive de gestion de rendez-vous médicaux centralisant les opérations de planification de consultations.",
+            "Interface de gestion avancée des profils utilisateurs : patients, praticiens et administrateurs cliniques.",
+            "Intégration d'un système de messagerie interne et d'outils de personnalisation pour optimiser l'interaction et le suivi médical."
+          ]
         }
       ]
     },
@@ -278,6 +302,7 @@ const translations = {
           role: "Software Developer (Freelance)",
           company: "Fiverr",
           period: "2023 - 2025",
+          link: "https://www.fiverr.com/omarnasmi",
           desc: [
             "Developed custom desktop applications tailored to client requirements.",
             "Delivered robust and maintainable solutions with a 4.7/5 Fiverr service rating.",
@@ -289,6 +314,7 @@ const translations = {
           role: "Full Stack Developer (Intern)",
           company: "Vala Bleu",
           period: "2024 (2 months)",
+          link: "https://www.vala.ma/",
           desc: [
             "Designed and developed the architecture of a Fitness SaaS platform from scratch (React/Laravel).",
             "Optimized relational databases (MySQL), reducing API response times by 25%.",
@@ -300,6 +326,7 @@ const translations = {
           role: "Software Developer (Intern)",
           company: "Chambre d'Agriculture",
           period: "2023 (1 month)",
+          link: "https://chambreagriculturesm.com/",
           desc: [
             "Developed a custom desktop application (Python, Tkinter) to automate the management of a 50-vehicle fleet.",
             "Fully digitized manual entry processes, ensuring data traceability and integrity via SQLite.",
@@ -309,10 +336,10 @@ const translations = {
         }
       ],
       education: [
-        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "Admitted for Fall 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
-        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://www.esgi.fr/wp-content/uploads/2022/02/logo-esgi.png" },
-        { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
-        { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
+        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "Admitted for Fall 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s", link: "https://www.itii-picardie.fr/filieres/informatique-numerique-cybersecurite/" },
+        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://www.esgi.fr/wp-content/uploads/2022/02/logo-esgi.png", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
+        { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s", link: "https://ma.linkedin.com/company/tamyouz-fsa" },
+        { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s", link: "https://www.esta.ac.ma/?page_id=117" }
       ]
     },
     skills: {
@@ -332,28 +359,49 @@ const translations = {
           desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
-          media: projectMedia.traefikVanguard
+          media: projectMedia.traefikVanguard,
+          details: [
+            "High-availability distributed infrastructure deployed across multiple virtual machines (Debian).",
+            "Orchestration via Docker and traffic security through Traefik as a reverse proxy (automatic TLS renewal).",
+            "Implementation of a Zero Trust architecture with centralized access and identity management (SSO) via Keycloak."
+          ]
         },
         {
           title: "Roadly AI",
           desc: "E-learning SaaS powered by Gemini API (RAG). Adaptive learning paths based on real-time user data semantic analysis.",
           tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
           link: "https://github.com/omarnasmi/roadly-ai",
-          media: projectMedia.roadlyAi
+          media: projectMedia.roadlyAi,
+          details: [
+            "Innovative educational SaaS platform leveraging generative AI (Gemini API) coupled with a vector database (Pinecone).",
+            "Implementation of a RAG (Retrieval-Augmented Generation) architecture to semantically analyze requests.",
+            "Generation of 100% adaptive learning paths based on real-time user data."
+          ]
         },
         {
           title: "Sport Empire",
           desc: "End-of-studies project (Associate Degree). Fitness e-commerce and e-learning platform featuring a full backoffice for supplement sales and video tutorials.",
           tags: ["Laravel", "React", "TailwindCSS", "MySQL"],
           link: "https://github.com/omarnasmi/sport-empire",
-          media: projectMedia.sportEmpire
+          media: projectMedia.sportEmpire,
+          details: [
+            "Comprehensive web platform integrating an e-commerce store for sports products, exercise tutorials, and specialized articles (sport/nutrition).",
+            "Development of interactive tools for performance calculations and health metrics.",
+            "Creation of a complete backoffice enabling administrators to manage content, catalog, users, and the newsletter.",
+            "Secure authentication system and role-based access management (Users / Admins)."
+          ]
         },
         {
           title: "Health Bridge",
           desc: "Online appointment management web application for medical clinics. Features a patient interface and a practitioner dashboard.",
           tags: ["PHP", "CodeIgniter", "Bootstrap", "MySQL"],
           link: "https://github.com/omarnasmi/health-bridge",
-          media: projectMedia.healthBridge
+          media: projectMedia.healthBridge,
+          details: [
+            "Intuitive medical appointment management web application centralizing consultation scheduling operations.",
+            "Advanced profile management interface for users: patients, practitioners, and clinic administrators.",
+            "Integration of an internal messaging system and personalization tools to optimize interaction and medical follow-up."
+          ]
         }
       ]
     },
@@ -512,61 +560,25 @@ type ProjectItem = {
   tags: string[];
   link: string;
   media: string[];
+  details: string[];
 };
 
 const ProjectCard = ({ project }: { project: ProjectItem }) => {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const hasMultipleMedia = project.media.length > 1;
-
-  const goToPrevImage = () => {
-    setActiveImageIndex((current) => (current === 0 ? project.media.length - 1 : current - 1));
-  };
-
-  const goToNextImage = () => {
-    setActiveImageIndex((current) => (current + 1) % project.media.length);
-  };
+  const previewImage = project.media[0];
 
   return (
     <article className="premium-card p-8 flex flex-col gap-6 group h-full">
       <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
-        <img
-          src={project.media[activeImageIndex]}
-          alt={`${project.title} preview ${activeImageIndex + 1}`}
-          className="w-full h-full object-cover"
-        />
-
-        {hasMultipleMedia && (
-          <>
-            <button
-              type="button"
-              onClick={goToPrevImage}
-              aria-label={`Previous ${project.title} image`}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={goToNextImage}
-              aria-label={`Next ${project.title} image`}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-              {project.media.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveImageIndex(idx)}
-                  aria-label={`Go to image ${idx + 1}`}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    activeImageIndex === idx ? 'bg-[#6366F1] scale-110' : 'bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-          </>
+        {previewImage ? (
+          <img
+            src={previewImage}
+            alt={`${project.title} preview`}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
+            No preview
+          </div>
         )}
       </div>
 
@@ -577,6 +589,7 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
           target="_blank"
           rel="noreferrer"
           aria-label={`Open ${project.title} repository`}
+          onClick={(event) => event.stopPropagation()}
           className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-[#6366F1]/10 group-hover:border-[#6366F1]/30 transition-all"
         >
           <ExternalLink className="w-3 h-3 text-text-muted group-hover:text-white" />
@@ -597,10 +610,143 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
   );
 };
 
+const ProjectModal = ({
+  project,
+  onClose,
+  sourceLabel,
+}: {
+  project: ProjectItem;
+  onClose: () => void;
+  sourceLabel: string;
+}) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const hasMultipleMedia = project.media.length > 1;
+
+  const goToPrevImage = () => {
+    setActiveImageIndex((current) => (current === 0 ? project.media.length - 1 : current - 1));
+  };
+
+  const goToNextImage = () => {
+    setActiveImageIndex((current) => (current + 1) % project.media.length);
+  };
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [project]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[120] bg-black/80 backdrop-blur-sm px-4 py-8 md:px-8 flex items-center justify-center"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.98 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        onClick={(event) => event.stopPropagation()}
+        className="bg-[#0a0a0f] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 flex flex-col gap-6"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-2xl md:text-3xl font-serif text-white">{project.title}</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close project details"
+            className="w-9 h-9 rounded-full border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
+          {project.media[activeImageIndex] ? (
+            <img
+              src={project.media[activeImageIndex]}
+              alt={`${project.title} preview ${activeImageIndex + 1}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
+              No preview
+            </div>
+          )}
+
+          {hasMultipleMedia && (
+            <>
+              <button
+                type="button"
+                onClick={goToPrevImage}
+                aria-label={`Previous ${project.title} image`}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={goToNextImage}
+                aria-label={`Next ${project.title} image`}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                {project.media.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveImageIndex(idx)}
+                    aria-label={`Go to image ${idx + 1}`}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      activeImageIndex === idx ? 'bg-[#6366F1] scale-110' : 'bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag, idx) => (
+            <span key={idx} className="px-2.5 py-1 rounded text-[0.7rem] font-mono text-text-muted bg-white/5 border border-white/10 flex items-center gap-1.5">
+              <TechIcon tag={tag} />
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <ul className="flex flex-col gap-3 text-text-muted text-[0.95rem] leading-relaxed">
+          {project.details.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-3">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#6366F1] shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-2 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#6366F1]/20 border border-[#6366F1]/40 text-white hover:bg-[#6366F1]/30 transition-colors"
+        >
+          <Github className="w-4 h-4" />
+          {sourceLabel}
+        </a>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
   const [loading, setLoading] = useState(true);
   const [announcementVisible, setAnnouncementVisible] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const projectsCarouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -615,10 +761,27 @@ export default function App() {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const onEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onEsc);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onEsc);
+    };
+  }, [selectedProject]);
+
   const toggleLang = () => {
     const next = lang === 'fr' ? 'en' : 'fr';
     setLang(next);
     localStorage.setItem('omar_lang', next);
+    setSelectedProject(null);
   };
 
   const t = translations[lang];
@@ -781,6 +944,17 @@ export default function App() {
                       <div className="flex items-center gap-3">
                         {job.logo && <img src={job.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
                         <h4 className="text-[1.1rem] font-serif font-medium text-white">{job.role}</h4>
+                        {job.link && (
+                          <a
+                            href={job.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Visit ${job.company}`}
+                            className="w-6 h-6 rounded-full border border-white/10 text-text-muted hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
                       </div>
                       <span className="font-mono text-[0.65rem] text-text-muted whitespace-nowrap">{job.period}</span>
                     </div>
@@ -803,6 +977,17 @@ export default function App() {
                     <div className="flex items-center gap-3">
                       {edu.logo && <img src={edu.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
                       <h4 className="text-[1.1rem] font-serif font-medium text-white">{edu.degree}</h4>
+                      {edu.link && (
+                        <a
+                          href={edu.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Visit ${edu.school}`}
+                          className="w-6 h-6 rounded-full border border-white/10 text-text-muted hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                     <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">{edu.school}</div>
                     <p className="text-[0.75rem] font-mono text-text-muted">{edu.detail}</p>
@@ -889,13 +1074,15 @@ export default function App() {
                 className="flex items-stretch gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
               >
                 {t.projects.items.map((proj, i) => (
-                  <div
+                  <motion.div
                     key={`${proj.title}-${i}`}
                     data-project-slide
-                    className="h-full shrink-0 basis-[88%] sm:basis-[72%] md:basis-[52%] lg:basis-[40%] xl:basis-[34%] snap-start"
+                    variants={fadeIn}
+                    onClick={() => setSelectedProject(proj)}
+                    className="h-full shrink-0 basis-[88%] sm:basis-[72%] md:basis-[52%] lg:basis-[40%] xl:basis-[34%] snap-start cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
                   >
                     <ProjectCard project={proj} />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -961,6 +1148,16 @@ export default function App() {
           </footer>
 
         </motion.main>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            sourceLabel={lang === 'fr' ? 'Voir le code source' : 'View Source Code'}
+          />
+        )}
       </AnimatePresence>
       </motion.div>
     </>
