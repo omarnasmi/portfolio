@@ -180,6 +180,7 @@ const translations = {
         {
           role: "Développeur Logiciel (Freelance)",
           company: "Fiverr",
+          domain: "Freelance",
           period: "2023 - 2025",
           link: "https://www.fiverr.com/omarnasmi",
           desc: [
@@ -192,6 +193,7 @@ const translations = {
         {
           role: "Stagiaire Développeur Full Stack",
           company: "Vala Bleu",
+          domain: "Hébergement de sites web",
           period: "2024 (2 mois)",
           link: "https://www.vala.ma/",
           desc: [
@@ -204,6 +206,7 @@ const translations = {
         {
           role: "Stagiaire Développeur Logiciel",
           company: "Chambre d'Agriculture",
+          domain: "Administration publique",
           period: "2023 (1 month)",
           link: "https://chambreagriculturesm.com/",
           desc: [
@@ -301,6 +304,7 @@ const translations = {
         {
           role: "Software Developer (Freelance)",
           company: "Fiverr",
+          domain: "Freelance",
           period: "2023 - 2025",
           link: "https://www.fiverr.com/omarnasmi",
           desc: [
@@ -313,6 +317,7 @@ const translations = {
         {
           role: "Full Stack Developer (Intern)",
           company: "Vala Bleu",
+          domain: "Web hosting",
           period: "2024 (2 months)",
           link: "https://www.vala.ma/",
           desc: [
@@ -325,6 +330,7 @@ const translations = {
         {
           role: "Software Developer (Intern)",
           company: "Chambre d'Agriculture",
+          domain: "Public administration",
           period: "2023 (1 month)",
           link: "https://chambreagriculturesm.com/",
           desc: [
@@ -337,7 +343,7 @@ const translations = {
       ],
       education: [
         { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "Admitted for Fall 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s", link: "https://www.itii-picardie.fr/filieres/informatique-numerique-cybersecurite/" },
-        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://www.esgi.fr/wp-content/uploads/2022/02/logo-esgi.png", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
+        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
         { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s", link: "https://ma.linkedin.com/company/tamyouz-fsa" },
         { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s", link: "https://www.esta.ac.ma/?page_id=117" }
       ]
@@ -345,14 +351,14 @@ const translations = {
     skills: {
       title: "Technical Competencies",
       categories: [
-        { name: "Software Engineering", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
-        { name: "Artificial Intelligence", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Generative AI", "Python"], icon: Sparkles },
+        { name: "Engineering & Architecture", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
+        { name: "Artificial Intelligence", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Generative AI"], icon: Sparkles },
         { name: "Web Development", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "REST APIs"], icon: Globe },
         { name: "Problem Solving", tags: ["Algorithms", "Data Structures", "SQL Optimization", "Business Analysis", "UML"], icon: Code }
       ]
     },
     projects: {
-      title: "Projects",
+      title: "Personal Projects",
       items: [
         {
           title: "Traefik Vanguard",
@@ -958,7 +964,9 @@ export default function App() {
                       </div>
                       <span className="font-mono text-[0.65rem] text-text-muted whitespace-nowrap">{job.period}</span>
                     </div>
-                    <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">{job.company}</div>
+                    <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">
+                      {job.company}{job.domain ? ` • ${job.domain}` : ""}
+                    </div>
                     <ul className="mt-2 flex flex-col gap-2">
                       {job.desc.map((item, itemIdx) => (
                         <li key={itemIdx} className="text-[0.85rem] text-text-muted leading-relaxed flex items-start gap-2">
