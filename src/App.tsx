@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import profileImage from '../assets/image.png';
@@ -65,6 +65,14 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "PHP": { type: 'img', src: "https://cdn.simpleicons.org/php" },
     "Docker": { type: 'img', src: "https://cdn.simpleicons.org/docker" },
     "Traefik": { type: 'img', src: "https://cdn.simpleicons.org/traefikproxy" },
+    "WordPress": { type: 'img', src: "https://cdn.simpleicons.org/wordpress" },
+    "phpMyAdmin": { type: 'img', src: "https://cdn.simpleicons.org/phpmyadmin" },
+    "Keycloak": { type: 'img', src: "https://cdn.simpleicons.org/keycloak" },
+    "Filebeat": { type: 'img', src: "https://cdn.simpleicons.org/beats" },
+    "Elasticsearch": { type: 'img', src: "https://cdn.simpleicons.org/elasticsearch" },
+    "Logstash": { type: 'img', src: "https://cdn.simpleicons.org/logstash" },
+    "Kibana": { type: 'img', src: "https://cdn.simpleicons.org/kibana" },
+    "Uptime Kuma": { type: 'img', src: "https://cdn.simpleicons.org/uptimekuma" },
     "Linux (Debian)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
     "Laravel": { type: 'img', src: "https://cdn.simpleicons.org/laravel" },
     "TailwindCSS": { type: 'img', src: "https://cdn.simpleicons.org/tailwindcss" },
@@ -225,7 +233,7 @@ const translations = {
         {
           title: "Traefik Vanguard",
           desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.",
-          tags: ["Architecture Logicielle", "Sécurité", "Identity Management", "Distributed Systems"],
+          tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
           media: projectMedia.traefikVanguard
         },
@@ -322,7 +330,7 @@ const translations = {
         {
           title: "Traefik Vanguard",
           desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.",
-          tags: ["Software Architecture", "Security Patterns", "Identity Management", "Distributed Systems"],
+          tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
           media: projectMedia.traefikVanguard
         },
@@ -519,7 +527,7 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
   };
 
   return (
-    <article className="premium-card p-8 flex flex-col gap-6 group">
+    <article className="premium-card p-8 flex flex-col gap-6 group h-full">
       <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
         <img
           src={project.media[activeImageIndex]}
@@ -593,6 +601,7 @@ export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
   const [loading, setLoading] = useState(true);
   const [announcementVisible, setAnnouncementVisible] = useState(false);
+  const projectsCarouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('omar_lang') as Lang;
@@ -613,6 +622,25 @@ export default function App() {
   };
 
   const t = translations[lang];
+  const projectCount = t.projects.items.length;
+  const hasMultipleProjects = projectCount > 1;
+
+  const scrollProjects = (direction: 'prev' | 'next') => {
+    const container = projectsCarouselRef.current;
+    if (!container) return;
+
+    const firstCard = container.querySelector<HTMLElement>('[data-project-slide]');
+    if (!firstCard) return;
+
+    const styles = getComputedStyle(container);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
+    const amount = firstCard.getBoundingClientRect().width + gap;
+
+    container.scrollBy({
+      left: direction === 'next' ? amount : -amount,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <>
@@ -832,13 +860,45 @@ export default function App() {
               <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.projects.title}</h2>
               <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
             </motion.div>
-            <div className="grid md:grid-cols-2 gap-6">
-              {t.projects.items.map((proj, i) => (
-                <motion.div key={`${proj.title}-${i}`} variants={fadeIn}>
-                  <ProjectCard project={proj} />
-                </motion.div>
-              ))}
-            </div>
+            <motion.div variants={fadeIn} className="relative left-1/2 w-screen -translate-x-1/2 px-6 md:px-10 lg:px-12">
+              {hasMultipleProjects && (
+                <>
+                  <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#05050A] to-transparent" />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#05050A] to-transparent" />
+                  <button
+                    type="button"
+                    onClick={() => scrollProjects('prev')}
+                    aria-label="Previous project"
+                    className="absolute left-3 top-1/2 z-20 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollProjects('next')}
+                    aria-label="Next project"
+                    className="absolute right-3 top-1/2 z-20 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
+              <div
+                ref={projectsCarouselRef}
+                className="flex items-stretch gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {t.projects.items.map((proj, i) => (
+                  <div
+                    key={`${proj.title}-${i}`}
+                    data-project-slide
+                    className="h-full shrink-0 basis-[88%] sm:basis-[72%] md:basis-[52%] lg:basis-[40%] xl:basis-[34%] snap-start"
+                  >
+                    <ProjectCard project={proj} />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.section>
 
           {/* Certifications - Professional Grid */}
