@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import profileImage from '../assets/image.png';
 
 const fadeIn = {
@@ -66,10 +66,36 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Docker": { type: 'img', src: "https://cdn.simpleicons.org/docker" },
     "Traefik": { type: 'img', src: "https://cdn.simpleicons.org/traefikproxy" },
     "Linux (Debian)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
+    "Laravel": { type: 'img', src: "https://cdn.simpleicons.org/laravel" },
+    "TailwindCSS": { type: 'img', src: "https://cdn.simpleicons.org/tailwindcss" },
+    "MySQL": { type: 'img', src: "https://cdn.simpleicons.org/mysql" },
+    "CodeIgniter": { type: 'img', src: "https://cdn.simpleicons.org/codeigniter" },
+    "Bootstrap": { type: 'img', src: "https://cdn.simpleicons.org/bootstrap" },
+    "Gemini API": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "Gemini AI": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "PostgreSQL": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
     
     // Fallbacks
+    "Architecture Logicielle": { type: 'lucide', icon: Layout },
+    "Software Architecture": { type: 'lucide', icon: Layout },
+    "Sécurité": { type: 'lucide', icon: Lock },
+    "Security Patterns": { type: 'lucide', icon: Lock },
+    "Identity Management": { type: 'lucide', icon: Shield },
+    "Distributed Systems": { type: 'lucide', icon: Layers },
+    "LLM Integration": { type: 'lucide', icon: Cpu },
+    "RAG Systems": { type: 'lucide', icon: Database },
+    "Prompt Engineering": { type: 'lucide', icon: Feather },
+    "IA Générative": { type: 'lucide', icon: Sparkles },
+    "Generative AI": { type: 'lucide', icon: Sparkles },
+    "Algorithmique": { type: 'lucide', icon: Code },
+    "Algorithms": { type: 'lucide', icon: Code },
+    "Structures de Données": { type: 'lucide', icon: Container },
+    "Data Structures": { type: 'lucide', icon: Container },
+    "Optimisation SQL": { type: 'lucide', icon: Database },
+    "SQL Optimization": { type: 'lucide', icon: Database },
+    "Analyse Métier": { type: 'lucide', icon: CheckSquare },
+    "Business Analysis": { type: 'lucide', icon: CheckSquare },
+    "UML": { type: 'lucide', icon: Share2 },
     "API REST": { type: 'lucide', icon: Globe },
     "REST APIs": { type: 'lucide', icon: Globe },
     "IP Networks": { type: 'lucide', icon: Share2 },
@@ -99,40 +125,87 @@ const TechIcon = ({ tag }: { tag: string }) => {
   return <IconCmp size={14} className="text-[#8E9299]" />;
 };
 
+const sortProjectMedia = (mediaModules: Record<string, string>) =>
+  Object.entries(mediaModules)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, src]) => src);
+
+const projectMedia = {
+  traefikVanguard: sortProjectMedia(
+    import.meta.glob('../assets/traefik-vanguard/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
+  roadlyAi: sortProjectMedia(
+    import.meta.glob('../assets/roadly/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
+  sportEmpire: sortProjectMedia(
+    import.meta.glob('../assets/sport-empire/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
+  healthBridge: sortProjectMedia(
+    import.meta.glob('../assets/health-bridge/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
+};
+
 const translations = {
   fr: {
     nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     hero: {
       role: "Apprenti Ingénieur Logiciel",
-      headline: "Concevoir des systèmes robustes, intelligents et scalables.",
-      subheadline: "Expertise Software Engineering avec une spécialisation en Intelligence Artificielle (RAG/LLM).",
+      headline: "Passionné par l'ingénierie logicielle et le développement web.",
+      subheadline: "Étudiant en cycle ingénieur, motivé par la conception d'applications modernes et la résolution de défis techniques.",
       cta: "Me contacter"
     },
-    metrics: [
-      { text: "40%", label: "Gain de productivité métier via l'automatisation" },
-      { text: "25%", label: "Optimisation des temps de réponse API" },
-      { text: "3", label: "Solutions SaaS & IA architecturées de A à Z" }
-    ],
     experience: {
       title: "Expérience & Formation",
       jobs: [
         {
+          role: "Développeur Logiciel (Freelance)",
+          company: "Fiverr",
+          period: "2023 - 2025",
+          desc: [
+            "Développement d'applications desktop sur mesure adaptées aux besoins clients.",
+            "Livraison de solutions robustes et maintenables avec une qualité de service notée 4.7/5 sur Fiverr.",
+            "Collaboration proactive avec les clients pour cadrer les besoins et garantir la fiabilité des livrables."
+          ],
+          logo: "https://cdn.simpleicons.org/fiverr"
+        },
+        {
           role: "Stagiaire Développeur Full Stack",
           company: "Vala Bleu",
           period: "2024 (2 mois)",
-          desc: "Développement d'une plateforme SaaS de Fitness (React/Laravel). Optimisation des performances backend et conception de modules métiers complexes en environnement Agile.",
+          desc: [
+            "Conception et développement de l'architecture d'une plateforme SaaS de Fitness de A à Z (React/Laravel).",
+            "Optimisation des bases de données relationnelles (MySQL) réduisant les temps de réponse de l'API de 25%.",
+            "Gestion des livrables en méthode Agile (Scrum) avec respect strict des jalons métiers."
+          ],
           logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQYhvkWCBwCYVtlq8wX1PGQfs_dm0ei0-Qw&s"
         },
         {
           role: "Stagiaire Développeur Logiciel",
           company: "Chambre d'Agriculture",
-          period: "2023 (1 mois)",
-          desc: "Digitalisation et automatisation des processus de gestion de flotte. Conception d'une solution sur mesure (Python/SQLite) améliorant radicalement l'efficacité opérationnelle.",
+          period: "2023 (1 month)",
+          desc: [
+            "Développement d'une application desktop sur mesure (Python, Tkinter) pour l'automatisation de la gestion d'une flotte de 50 véhicules.",
+            "Digitalisation complète des processus de saisie manuelle, garantissant la traçabilité et l'intégrité des données via SQLite.",
+            "Déploiement et sécurisation de nouveaux équipements informatiques pour le service."
+          ],
           logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
         }
       ],
       education: [
-        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "2026-2029 (en cours)", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "Admis pour la rentrée 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Mastère 1 Ingénierie Web", school: "ESGI Reims", detail: "2025 - 2026 (En cours)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg" },
         { degree: "Licence Ingénierie Logicielle", school: "Centre d'Excellence - Université Ibnou Zohr", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
         { degree: "DUT en Génie Informatique", school: "Ecole Supérieure de Technologie Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
@@ -141,7 +214,7 @@ const translations = {
       title: "Compétences Techniques",
       categories: [
         { name: "Ingénierie & Architecture", tags: ["Architecture MVC", "Micro-services", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
-        { name: "Intelligence Artificielle", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Gemini AI", "Python"], icon: Sparkles },
+        { name: "Intelligence Artificielle", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "IA Générative"], icon: Sparkles },
         { name: "Développement Web", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "API REST"], icon: Globe },
         { name: "Résolution de Problèmes", tags: ["Algorithmique", "Structures de Données", "Optimisation SQL", "Analyse Métier", "UML"], icon: Code }
       ]
@@ -149,8 +222,34 @@ const translations = {
     projects: {
       title: "Projets Personnels",
       items: [
-        { title: "Roadly AI", desc: "SaaS e-learning propulsé par Gemini AI (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
-        { title: "Traefik Vanguard", desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.", tags: ["Architecture Logicielle", "Sécurité", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
+        {
+          title: "Traefik Vanguard",
+          desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.",
+          tags: ["Architecture Logicielle", "Sécurité", "Identity Management", "Distributed Systems"],
+          link: "https://github.com/omarnasmi/traefik-vanguard",
+          media: projectMedia.traefikVanguard
+        },
+        {
+          title: "Roadly AI",
+          desc: "SaaS e-learning propulsé par Gemini API (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.",
+          tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
+          link: "https://github.com/omarnasmi/roadly-ai",
+          media: projectMedia.roadlyAi
+        },
+        {
+          title: "Sport Empire",
+          desc: "Projet de fin d'études (DUT). Plateforme e-commerce et e-learning de fitness avec backoffice complet pour la gestion des ventes de suppléments et tutoriels vidéo.",
+          tags: ["Laravel", "React", "TailwindCSS", "MySQL"],
+          link: "https://github.com/omarnasmi/sport-empire",
+          media: projectMedia.sportEmpire
+        },
+        {
+          title: "Health Bridge",
+          desc: "Application web de gestion de rendez-vous en ligne pour cabinets médicaux. Interface patient et tableau de bord praticien.",
+          tags: ["PHP", "CodeIgniter", "Bootstrap", "MySQL"],
+          link: "https://github.com/omarnasmi/health-bridge",
+          media: projectMedia.healthBridge
+        }
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" },
@@ -160,35 +259,50 @@ const translations = {
     nav: { experience: "Experience", projects: "Projects", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     hero: {
       role: "Software Engineering Apprentice",
-      headline: "Designing robust, intelligent, and scalable systems.",
-      subheadline: "Software Engineering expertise with a specialization in Artificial Intelligence (RAG/LLM).",
+      headline: "Passionate about software engineering and web development.",
+      subheadline: "Engineering student driven by building modern applications and solving technical challenges.",
       cta: "Get in touch"
     },
-    metrics: [
-      { text: "40%", label: "Business productivity gained via automation" },
-      { text: "25%", label: "API response time optimization" },
-      { text: "3", label: "SaaS & AI solutions architected from scratch" }
-    ],
     experience: {
       title: "Experience & Education",
       jobs: [
         {
+          role: "Software Developer (Freelance)",
+          company: "Fiverr",
+          period: "2023 - 2025",
+          desc: [
+            "Developed custom desktop applications tailored to client requirements.",
+            "Delivered robust and maintainable solutions with a 4.7/5 Fiverr service rating.",
+            "Collaborated proactively with clients to scope requirements and ensure reliable deliverables."
+          ],
+          logo: "https://cdn.simpleicons.org/fiverr"
+        },
+        {
           role: "Full Stack Developer (Intern)",
           company: "Vala Bleu",
           period: "2024 (2 months)",
-          desc: "Developed a Fitness SaaS platform (React/Laravel). Optimized backend performance and designed complex business modules in an Agile environment.",
+          desc: [
+            "Designed and developed the architecture of a Fitness SaaS platform from scratch (React/Laravel).",
+            "Optimized relational databases (MySQL), reducing API response times by 25%.",
+            "Managed deliverables using Agile (Scrum) methodologies, strictly meeting business milestones."
+          ],
           logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQYhvkWCBwCYVtlq8wX1PGQfs_dm0ei0-Qw&s"
         },
         {
           role: "Software Developer (Intern)",
           company: "Chambre d'Agriculture",
           period: "2023 (1 month)",
-          desc: "Digitized and automated fleet management processes. Designed a custom solution (Python/SQLite) that significantly improved operational efficiency.",
+          desc: [
+            "Developed a custom desktop application (Python, Tkinter) to automate the management of a 50-vehicle fleet.",
+            "Fully digitized manual entry processes, ensuring data traceability and integrity via SQLite.",
+            "Deployed and secured new IT equipment for the department."
+          ],
           logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
         }
       ],
       education: [
-        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "2026-2029", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "Admitted for Fall 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s" },
+        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://www.esgi.fr/wp-content/uploads/2022/02/logo-esgi.png" },
         { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s" },
         { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s" }
       ]
@@ -197,7 +311,7 @@ const translations = {
       title: "Technical Competencies",
       categories: [
         { name: "Software Engineering", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
-        { name: "Artificial Intelligence", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Gemini AI", "Python"], icon: Sparkles },
+        { name: "Artificial Intelligence", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Vector DB", "Generative AI", "Python"], icon: Sparkles },
         { name: "Web Development", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "REST APIs"], icon: Globe },
         { name: "Problem Solving", tags: ["Algorithms", "Data Structures", "SQL Optimization", "Business Analysis", "UML"], icon: Code }
       ]
@@ -205,8 +319,34 @@ const translations = {
     projects: {
       title: "Projects",
       items: [
-        { title: "Roadly AI", desc: "E-learning SaaS powered by Gemini AI (RAG). Adaptive learning paths based on real-time user data semantic analysis.", tags: ["Next.js", "React", "Gemini AI", "PostgreSQL", "Vector DB"], link: "https://github.com/omarnasmi/roadly-ai" },
-        { title: "Traefik Vanguard", desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.", tags: ["Software Architecture", "Security Patterns", "Identity Management", "Distributed Systems"], link: "https://github.com/omarnasmi/traefik-vanguard" }
+        {
+          title: "Traefik Vanguard",
+          desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.",
+          tags: ["Software Architecture", "Security Patterns", "Identity Management", "Distributed Systems"],
+          link: "https://github.com/omarnasmi/traefik-vanguard",
+          media: projectMedia.traefikVanguard
+        },
+        {
+          title: "Roadly AI",
+          desc: "E-learning SaaS powered by Gemini API (RAG). Adaptive learning paths based on real-time user data semantic analysis.",
+          tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
+          link: "https://github.com/omarnasmi/roadly-ai",
+          media: projectMedia.roadlyAi
+        },
+        {
+          title: "Sport Empire",
+          desc: "End-of-studies project (Associate Degree). Fitness e-commerce and e-learning platform featuring a full backoffice for supplement sales and video tutorials.",
+          tags: ["Laravel", "React", "TailwindCSS", "MySQL"],
+          link: "https://github.com/omarnasmi/sport-empire",
+          media: projectMedia.sportEmpire
+        },
+        {
+          title: "Health Bridge",
+          desc: "Online appointment management web application for medical clinics. Features a patient interface and a practitioner dashboard.",
+          tags: ["PHP", "CodeIgniter", "Bootstrap", "MySQL"],
+          link: "https://github.com/omarnasmi/health-bridge",
+          media: projectMedia.healthBridge
+        }
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Official verifiable badges and certifications" },
@@ -358,6 +498,97 @@ const Announcement = ({ message, isVisible, onClose }: { message: string, isVisi
   );
 };
 
+type ProjectItem = {
+  title: string;
+  desc: string;
+  tags: string[];
+  link: string;
+  media: string[];
+};
+
+const ProjectCard = ({ project }: { project: ProjectItem }) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const hasMultipleMedia = project.media.length > 1;
+
+  const goToPrevImage = () => {
+    setActiveImageIndex((current) => (current === 0 ? project.media.length - 1 : current - 1));
+  };
+
+  const goToNextImage = () => {
+    setActiveImageIndex((current) => (current + 1) % project.media.length);
+  };
+
+  return (
+    <article className="premium-card p-8 flex flex-col gap-6 group">
+      <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
+        <img
+          src={project.media[activeImageIndex]}
+          alt={`${project.title} preview ${activeImageIndex + 1}`}
+          className="w-full h-full object-cover"
+        />
+
+        {hasMultipleMedia && (
+          <>
+            <button
+              type="button"
+              onClick={goToPrevImage}
+              aria-label={`Previous ${project.title} image`}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goToNextImage}
+              aria-label={`Next ${project.title} image`}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+              {project.media.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveImageIndex(idx)}
+                  aria-label={`Go to image ${idx + 1}`}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    activeImageIndex === idx ? 'bg-[#6366F1] scale-110' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="flex justify-between items-start">
+        <h3 className="text-[1.4rem] font-serif font-medium text-white group-hover:text-[#6366F1] transition-colors">{project.title}</h3>
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Open ${project.title} repository`}
+          className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-[#6366F1]/10 group-hover:border-[#6366F1]/30 transition-all"
+        >
+          <ExternalLink className="w-3 h-3 text-text-muted group-hover:text-white" />
+        </a>
+      </div>
+
+      <p className="text-[0.9rem] text-text-muted leading-relaxed">{project.desc}</p>
+
+      <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+        {project.tags.map((tag, idx) => (
+          <span key={idx} className="px-2 py-1 rounded text-[0.65rem] font-mono text-text-muted flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
+            <TechIcon tag={tag} />
+            {tag}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+};
+
 export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
   const [loading, setLoading] = useState(true);
@@ -500,22 +731,6 @@ export default function App() {
             </motion.div>
           </motion.section>
 
-          {/* Metrics */}
-          <motion.section 
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {t.metrics.map((m, i) => (
-              <motion.div key={i} variants={fadeIn} className="premium-card p-8 flex flex-col items-center text-center gap-3">
-                <span className="text-[2.5rem] font-serif font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-white/50">{m.text}</span>
-                <span className="text-[0.75rem] font-mono uppercase tracking-widest text-text-muted">{m.label}</span>
-              </motion.div>
-            ))}
-          </motion.section>
-
           {/* Experience & Education */}
           <motion.section 
             initial="hidden" 
@@ -542,7 +757,14 @@ export default function App() {
                       <span className="font-mono text-[0.65rem] text-text-muted whitespace-nowrap">{job.period}</span>
                     </div>
                     <div className="text-[0.8rem] text-white/60 uppercase tracking-widest font-semibold">{job.company}</div>
-                    <p className="text-[0.85rem] text-text-muted leading-relaxed mt-2">{job.desc}</p>
+                    <ul className="mt-2 flex flex-col gap-2">
+                      {job.desc.map((item, itemIdx) => (
+                        <li key={itemIdx} className="text-[0.85rem] text-text-muted leading-relaxed flex items-start gap-2">
+                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#6366F1]/80 shrink-0"></span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </motion.div>
                 ))}
               </div>
@@ -612,30 +834,9 @@ export default function App() {
             </motion.div>
             <div className="grid md:grid-cols-2 gap-6">
               {t.projects.items.map((proj, i) => (
-                <motion.a 
-                  key={i} 
-                  href={proj.link} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  variants={fadeIn} 
-                  className="premium-card p-8 flex flex-col gap-6 group cursor-pointer"
-                >
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-[1.4rem] font-serif font-medium text-white group-hover:text-[#6366F1] transition-colors">{proj.title}</h3>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-[#6366F1]/10 group-hover:border-[#6366F1]/30 transition-all">
-                      <ExternalLink className="w-3 h-3 text-text-muted group-hover:text-white" />
-                    </div>
-                  </div>
-                  <p className="text-[0.9rem] text-text-muted leading-relaxed">{proj.desc}</p>
-                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
-                    {proj.tags.map((tag, idx) => (
-                      <span key={idx} className="px-2 py-1 rounded text-[0.65rem] font-mono text-text-muted flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
-                        <TechIcon tag={tag} />
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </motion.a>
+                <motion.div key={`${proj.title}-${i}`} variants={fadeIn}>
+                  <ProjectCard project={proj} />
+                </motion.div>
               ))}
             </div>
           </motion.section>
