@@ -172,7 +172,7 @@ const translations = {
     hero: {
       role: "Développeur Full Stack · Alternant",
       headline: "Je construis des choses rapides, solides, et qui fonctionnent vraiment.",
-      subheadline: "4 ans de freelance, 2 stages, un master en cours — et un diplôme d'ingénieur en vue. Disponible en alternance de 3 ans dès Sept. 2026."
+      subheadline: "2 ans de freelance, 2 stages, un mastère en cours — et un diplôme d'ingénieur en vue. Disponible en alternance de 3 ans dès Sept. 2026."
     },
     about: {
       title: "Un peu plus sur moi",
@@ -306,7 +306,7 @@ const translations = {
     hero: {
       role: "Full Stack Developer · Apprentice",
       headline: "I build things that are fast, secure, and actually work.",
-      subheadline: "4 years of freelance, 2 internships, a Master's in progress — and an engineering degree ahead. Looking for a 3-year apprenticeship from Sept. 2026."
+      subheadline: "2 years of freelance, 2 internships, a Master's in progress — and an engineering degree ahead. Looking for a 3-year apprenticeship from Sept. 2026."
     },
     about: {
       title: "A bit more about me",
