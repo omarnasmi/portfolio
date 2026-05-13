@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity } from 'lucide-react';
 import profileImage from '../assets/image.png';
+import cvFile from '../assets/cv/ITII - Omar NASMI - CV Ingénieur Informatique _.pdf';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -830,6 +831,19 @@ export default function App() {
     });
   };
 
+  const handleCvDownload = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    window.open(cvFile, '_blank', 'noopener,noreferrer');
+
+    const link = document.createElement('a');
+    link.href = cvFile;
+    link.download = 'Omar_Nasmi_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -957,8 +971,10 @@ export default function App() {
 
               <motion.div variants={fadeIn} className="mt-4 flex flex-wrap items-center justify-center gap-4">
                 <a
-                  href="/Omar_Nasmi_CV.pdf"
-                  download
+                  href={cvFile}
+                  onClick={handleCvDownload}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-black text-[0.72rem] uppercase tracking-[0.18em] font-bold hover:bg-white/90 transition-colors"
                 >
                   {t.cta.downloadCV}
