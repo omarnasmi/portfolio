@@ -171,13 +171,13 @@ const translations = {
     nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     cta: { contact: "Me contacter", downloadCV: "Télécharger mon CV", viewProjects: "Voir mes projets" },
     hero: {
-      role: "Développeur Full Stack · Alternant",
-      headline: "Je construis des choses rapides, solides, et qui fonctionnent vraiment.",
-      subheadline: "2 ans de freelance, 2 stages, un mastère en cours — et un diplôme d'ingénieur en vue. Disponible en alternance de 3 ans dès Sept. 2026."
+      role: "Futur Ingénieur Informatique · Alternant",
+      headline: "Je comprends les systèmes de bout en bout — du code au déploiement.",
+      subheadline: "2 ans de freelance, 2 stages, un mastère en cours et un diplôme d'ingénieur à venir. Je cherche une alternance de 3 ans dès Sept. 2026 dans une équipe qui construit des choses sérieuses."
     },
     about: {
       title: "Un peu plus sur moi",
-      description: "Je n'ai pas commencé par une formation. J'ai commencé par un client qui avait besoin de quelque chose, et je l'ai construit. Après 4 ans à livrer de vrais projets à de vrais clients sur Fiverr, j'ai réalisé que je voulais aller plus loin — pas juste livrer des features, mais comprendre les systèmes. C'est pour ça que je suis aujourd'hui en Mastère à l'ESGI et que je rejoindrai le CNAM pour mon diplôme d'ingénieur. Je cherche une équipe où les problèmes difficiles sont la norme, pas l'exception.",
+      description: "J'ai commencé par le terrain : 2 ans à livrer des projets en freelance, à cadrer des besoins clients, à automatiser des process. Puis 2 stages pour structurer tout ça. Aujourd'hui en mastère à l'ESGI, j'intègre le CNAM en septembre pour un diplôme d'ingénieur informatique. Ce qui me plaît, c'est voir un projet de bout en bout — comprendre le besoin, choisir l'architecture, construire, déployer, et livrer dans les temps.",
       hobbiesTitle: "Ce qui me définit en dehors du code",
       hobbies: [
         { label: "Histoire (1870s-1920s)", desc: "L'époque où le monde a basculé. Ingénieurs, révolutions, premiers systèmes industriels — ça ressemble beaucoup à ce qui se passe avec l'IA aujourd'hui.", icon: "BookOpen" },
@@ -196,9 +196,9 @@ const translations = {
           period: "2023 - 2025",
           link: "https://www.fiverr.com/omarnasmi",
           desc: [
-            "Développement d'applications desktop sur mesure adaptées aux besoins clients.",
-            "Livraison de solutions robustes et maintenables avec une qualité de service notée 4.7/5 sur Fiverr.",
-            "Collaboration proactive avec les clients pour cadrer les besoins et garantir la fiabilité des livrables."
+            "Analyse des besoins clients, cadrage fonctionnel et livraison de solutions sur mesure (desktop & automatisation).",
+            "Gestion autonome de projets de bout en bout : de la capture du besoin à la livraison, noté 4.7/5 sur Fiverr.",
+            "Développement de scripts d'automatisation (Python, Java) réduisant les tâches manuelles répétitives."
           ],
           logo: "https://cdn.simpleicons.org/fiverr"
         },
@@ -222,8 +222,8 @@ const translations = {
           period: "2023 (1 month)",
           link: "https://chambreagriculturesm.com/",
           desc: [
-            "Développement d'une application desktop sur mesure (Python, Tkinter) pour l'automatisation de la gestion d'une flotte de 50 véhicules.",
-            "Digitalisation complète des processus de saisie manuelle, garantissant la traçabilité et l'intégrité des données via SQLite.",
+            "Automatisation de la gestion d'une flotte de 50+ véhicules via une application Python/Tkinter sur mesure.",
+            "Suppression des saisies manuelles : gain de 40% sur les temps de traitement, traçabilité complète via SQLite.",
             "Déploiement et sécurisation de nouveaux équipements informatiques pour le service."
           ],
           logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
@@ -239,9 +239,9 @@ const translations = {
     skills: {
       title: "Compétences Techniques",
       categories: [
-        { name: "Je construis avec", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "API REST", "Docker"], icon: Globe },
-        { name: "J'architecture avec", tags: ["Architecture MVC", "Micro-services", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
-        { name: "Je réfléchis en", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "IA Générative", "Algorithmique", "Optimisation SQL"], icon: Sparkles }
+        { name: "Développement & APIs", tags: ["React / Next.js", "Node.js", "PHP / Laravel", "Python", "API REST", "Architecture MVC"], icon: Code },
+        { name: "Infrastructure & Déploiement", tags: ["Docker", "Linux (Debian)", "Traefik", "Keycloak", "Elasticsearch", "Uptime Kuma"], icon: Layers },
+        { name: "Automatisation & IA", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "IA Générative", "Agile (Scrum)", "UML"], icon: Sparkles }
       ]
     },
     projects: {
@@ -249,7 +249,7 @@ const translations = {
       items: [
         {
           title: "Traefik Vanguard",
-          desc: "Conception architecturale d'une passerelle sécurisée distribuée. Implémentation de patterns Zero Trust et gestion centralisée des identités via Keycloak.",
+          desc: "Infrastructure distribuée haute disponibilité : reverse proxy sécurisé, automatisation TLS, Zero Trust SSO et monitoring complet via ELK Stack.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
           media: projectMedia.traefikVanguard,
@@ -261,7 +261,7 @@ const translations = {
         },
         {
           title: "Roadly AI",
-          desc: "SaaS e-learning propulsé par Gemini API (RAG). Parcours adaptatifs basés sur l'analyse sémantique des données utilisateurs en temps réel.",
+          desc: "SaaS éducatif exploitant l'IA pour générer des parcours d'apprentissage adaptatifs. Pipeline sémantique (RAG) avec Gemini API et bases vectorielles.",
           tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
           link: "https://github.com/omarnasmi/roadly-ai",
           media: projectMedia.roadlyAi,
@@ -299,19 +299,19 @@ const translations = {
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" },
-    status: "Alternance 3 ans · Disponible Sept. 2026"
+    status: "Alternance 3 ans · Ingénieur Informatique · Sept. 2026"
   },
   en: {
     nav: { experience: "Experience", projects: "Projects", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     cta: { contact: "Get in touch", downloadCV: "Download Resume", viewProjects: "View Projects" },
     hero: {
-      role: "Full Stack Developer · Apprentice",
-      headline: "I build things that are fast, secure, and actually work.",
-      subheadline: "2 years of freelance, 2 internships, a Master's in progress — and an engineering degree ahead. Looking for a 3-year apprenticeship from Sept. 2026."
+      role: "Computer Engineering Student · Apprentice",
+      headline: "I understand systems end-to-end — from code to deployment.",
+      subheadline: "2 years of freelance, 2 internships, a Master's in progress and an engineering degree ahead. Looking for a 3-year apprenticeship from Sept. 2026 with a team that builds serious things."
     },
     about: {
       title: "A bit more about me",
-      description: "I didn't start with a bootcamp. I started with a client who needed something built, and I figured it out. After 4 years of building real things for real clients on Fiverr, I realized I wanted to go deeper — not just ship features, but understand systems. That's why I'm at ESGI now and heading to CNAM for an engineering degree. I want to be in a team where hard problems are the norm, not the exception.",
+      description: "I started with the real thing: 2 years delivering projects as a freelancer, scoping client needs, automating processes. Then 2 internships to structure it all. Now pursuing a Master's at ESGI, I'm joining CNAM in September for a computer engineering degree. What I enjoy most is seeing a project end-to-end — understanding the need, choosing the architecture, building, deploying, and delivering on time.",
       hobbiesTitle: "What defines me outside of code",
       hobbies: [
         { label: "History (1870s-1920s)", desc: "The era when everything shifted. Engineers, revolutions, early industrial systems — sounds a lot like what's happening with AI today.", icon: "BookOpen" },
@@ -330,9 +330,9 @@ const translations = {
           period: "2023 - 2025",
           link: "https://www.fiverr.com/omarnasmi",
           desc: [
-            "Developed custom desktop applications tailored to client requirements.",
-            "Delivered robust and maintainable solutions with a 4.7/5 Fiverr service rating.",
-            "Collaborated proactively with clients to scope requirements and ensure reliable deliverables."
+            "Client needs scoping, functional architecture, and delivery of custom automation software solutions.",
+            "Managed full project lifecycle autonomously: from requirement capture to delivery, rated 4.7/5 on Fiverr.",
+            "Built automation scripts (Python, Java, Bash) to eliminate repetitive manual processes for clients."
           ],
           logo: "https://cdn.simpleicons.org/fiverr"
         },
@@ -356,8 +356,8 @@ const translations = {
           period: "2023 (1 month)",
           link: "https://chambreagriculturesm.com/",
           desc: [
-            "Developed a custom desktop application (Python, Tkinter) to automate the management of a 50-vehicle fleet.",
-            "Fully digitized manual entry processes, ensuring data traceability and integrity via SQLite.",
+            "Automated management of a 50+ vehicle fleet via a custom Python/Tkinter desktop application.",
+            "Eliminated manual data entry: 40% efficiency gain, full data traceability enforced via SQLite.",
             "Deployed and secured new IT equipment for the department."
           ],
           logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
@@ -373,9 +373,9 @@ const translations = {
     skills: {
       title: "Technical Skills",
       categories: [
-        { name: "I build with", tags: ["React / Next.js", "Vue.js", "Node.js", "PHP / Laravel", "REST APIs", "Docker"], icon: Globe },
-        { name: "I architect with", tags: ["MVC Architecture", "Microservices", "Design Patterns", "Clean Code", "TDD (JUnit/Jest)", "Agile (Scrum)"], icon: Layout },
-        { name: "I think in", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Generative AI", "Algorithms", "SQL Optimization"], icon: Sparkles }
+        { name: "Development & APIs", tags: ["React / Next.js", "Node.js", "PHP / Laravel", "Python", "REST APIs", "MVC Architecture"], icon: Code },
+        { name: "Infrastructure & Deployment", tags: ["Docker", "Linux (Debian)", "Traefik", "Keycloak", "Elasticsearch", "Uptime Kuma"], icon: Layers },
+        { name: "Automation & AI", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Generative AI", "Agile (Scrum)", "UML"], icon: Sparkles }
       ]
     },
     projects: {
@@ -383,7 +383,7 @@ const translations = {
       items: [
         {
           title: "Traefik Vanguard",
-          desc: "Architectural design of a secure distributed gateway. Implementation of Zero Trust patterns and centralized identity management via Keycloak.",
+          desc: "High-availability distributed infrastructure: secure reverse proxy, automated TLS, Zero Trust SSO, and full-stack monitoring via ELK Stack.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
           link: "https://github.com/omarnasmi/traefik-vanguard",
           media: projectMedia.traefikVanguard,
@@ -395,7 +395,7 @@ const translations = {
         },
         {
           title: "Roadly AI",
-          desc: "E-learning SaaS powered by Gemini API (RAG). Adaptive learning paths based on real-time user data semantic analysis.",
+          desc: "AI-powered educational SaaS for adaptive learning paths. Semantic pipeline (RAG) using Gemini API and vector databases.",
           tags: ["Next.js", "React", "Gemini API", "PostgreSQL", "Vector DB"],
           link: "https://github.com/omarnasmi/roadly-ai",
           media: projectMedia.roadlyAi,
@@ -433,7 +433,7 @@ const translations = {
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Official verifiable badges and certifications" },
-    status: "Open to a 3-year apprenticeship · Sept. 2026"
+    status: "Open to a 3-year apprenticeship · Computer Engineering · Sept. 2026"
   }
 };
 
@@ -1232,12 +1232,12 @@ export default function App() {
               <div className="absolute inset-0 bg-[#6366F1]/5 blur-[100px] rounded-full pointer-events-none"></div>
               <div className="flex flex-col gap-3 relative z-10">
                 <h2 className="text-[2.5rem] md:text-[3.5rem] font-serif font-medium text-white">
-                  {lang === 'fr' ? 'Travaillons ensemble.' : "Let's build something."}
+                  {lang === 'fr' ? 'Une alternance, pas juste un stage.' : "An apprenticeship, not just an internship."}
                 </h2>
                 <p className="text-text-muted text-[1.05rem]">
                   {lang === 'fr'
-                    ? 'Je revois quelques opportunités pour Sept. 2026 — si votre équipe est sérieuse, discutons.'
-                    : "I'm reviewing a few opportunities for Sept. 2026 — if your team is serious, let's talk."}
+                    ? 'Je cherche une alternance de 3 ans dès septembre 2026 — si vous avez une place pour quelqu\'un de sérieux, discutons.'
+                    : "I'm looking for a 3-year apprenticeship starting September 2026 — if you have a spot for someone serious, let's talk."}
                 </p>
                 <p className="text-[0.72rem] font-mono text-white/30 uppercase tracking-widest mt-1">
                   {lang === 'fr' ? '↳ Réponse sous 24h garantie' : '↳ Response within 24h guaranteed'}
