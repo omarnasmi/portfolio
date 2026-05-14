@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote } from 'lucide-react';
 import profileImage from '../assets/image.png';
 import cvFile from '../assets/cv/ITII - Omar NASMI - CV Ingénieur Informatique _.pdf';
 
@@ -298,6 +298,30 @@ const translations = {
         }
       ]
     },
+    testimonials: {
+      title: "Ce qu'ils disent de mon travail",
+      subtitle: "Sélection d'avis issus de mes collaborations en freelance",
+      items: [
+        {
+          text: "Il communique de manière proactive et comprend exactement ce que le client recherche. Un véritable effort pour satisfaire les exigences complexes du projet.",
+          author: "Client régulier",
+          country: "DE",
+          repeat: true
+        },
+        {
+          text: "C'est le deuxième projet qu'Omar réalise pour moi. Comme toujours, il livre un résultat de grande qualité qui dépasse mes attentes initiales.",
+          author: "Client régulier",
+          country: "US",
+          repeat: true
+        },
+        {
+          text: "Excellente collaboration. Il a parfaitement compris le besoin technique et a livré la solution rapidement avec un grand professionnalisme.",
+          author: "Client",
+          country: "TH",
+          repeat: false
+        }
+      ]
+    },
     certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" },
     status: "Alternance 3 ans · Ingénieur Informatique · Sept. 2026"
   },
@@ -429,6 +453,30 @@ const translations = {
             "Advanced profile management interface for users: patients, practitioners, and clinic administrators.",
             "Integration of an internal messaging system and personalization tools to optimize interaction and medical follow-up."
           ]
+        }
+      ]
+    },
+    testimonials: {
+      title: "What they say about my work",
+      subtitle: "Selected reviews from my freelance collaborations",
+      items: [
+        {
+          text: "He communicates proactively and understands exactly what the client is looking for. A real effort to satisfy complex project requirements.",
+          author: "Repeat client",
+          country: "DE",
+          repeat: true
+        },
+        {
+          text: "This is the second project Omar has completed for me. As always, he delivers a high-quality result that exceeds my initial expectations.",
+          author: "Repeat client",
+          country: "US",
+          repeat: true
+        },
+        {
+          text: "Excellent collaboration. He perfectly understood the technical need and delivered the solution quickly with great professionalism.",
+          author: "Client",
+          country: "TH",
+          repeat: false
         }
       ]
     },
@@ -1044,6 +1092,53 @@ export default function App() {
               </motion.div>
             </motion.section>
 
+            {/* Testimonials - Social proof through collaboration */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+              className="flex flex-col gap-8"
+            >
+              <motion.div variants={fadeIn} className="flex flex-col gap-2">
+                <div className="flex items-center gap-4">
+                  <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.testimonials.title}</h2>
+                  <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+                </div>
+                <p className="text-[0.72rem] font-mono text-white/30 uppercase tracking-widest">
+                  {t.testimonials.subtitle}{' '}
+                  <a href="https://www.fiverr.com/omarnasmi" target="_blank" rel="noreferrer" className="text-[#6366F1]/60 hover:text-[#6366F1] transition-colors underline underline-offset-2">Fiverr</a>
+                </p>
+              </motion.div>
+              <div className="grid md:grid-cols-3 gap-5">
+                {t.testimonials.items.map((review, idx) => (
+                  <motion.blockquote
+                    key={idx}
+                    variants={fadeIn}
+                    className="relative rounded-xl border border-white/5 bg-white/[0.02] p-6 flex flex-col gap-4 group hover:border-white/10 transition-colors"
+                  >
+                    <Quote className="w-4 h-4 text-white/10 absolute top-5 right-5" />
+                    <p className="text-[0.88rem] text-text-muted leading-relaxed italic font-serif">
+                      "{review.text}"
+                    </p>
+                    <div className="mt-auto flex items-center gap-3 pt-3 border-t border-white/5">
+                      <img
+                        src={`https://flagcdn.com/w20/${review.country.toLowerCase()}.png`}
+                        alt={review.country}
+                        className="w-4 h-auto rounded-sm opacity-60"
+                      />
+                      <span className="text-[0.72rem] font-mono text-white/40 uppercase tracking-widest">{review.author}</span>
+                      {review.repeat && (
+                        <span className="ml-auto text-[0.6rem] font-mono uppercase tracking-widest text-emerald-400/50 border border-emerald-400/20 px-2 py-0.5 rounded-full">
+                          {lang === 'fr' ? 'Fidèle' : 'Repeat'}
+                        </span>
+                      )}
+                    </div>
+                  </motion.blockquote>
+                ))}
+              </div>
+            </motion.section>
+
             {/* Experience & Education */}
             <motion.section
               initial="hidden"
@@ -1236,8 +1331,8 @@ export default function App() {
                 </h2>
                 <p className="text-text-muted text-[1.05rem]">
                   {lang === 'fr'
-                    ? 'Je cherche une alternance de 3 ans dès septembre 2026 — si vous avez une place pour quelqu\'un de sérieux, discutons.'
-                    : "I'm looking for a 3-year apprenticeship starting September 2026 — if you have a spot for someone serious, let's talk."}
+                    ? 'Je recherche une alternance de 3 ans dès septembre 2026 — Je cherche une équipe où je pourrai apprendre vite, contribuer concrètement, et évoluer pendant 3 ans sur des projets réels.'
+                    : "I'm looking for a 3-year apprenticeship starting September 2026 — I'm looking for a team where I can learn fast, contribute meaningfully, and grow over 3 years on real projects."}
                 </p>
                 <p className="text-[0.72rem] font-mono text-white/30 uppercase tracking-widest mt-1">
                   {lang === 'fr' ? '↳ Réponse sous 24h garantie' : '↳ Response within 24h guaranteed'}
