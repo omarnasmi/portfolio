@@ -1,0 +1,19 @@
+{
+  "name": "Omar Nasmi Portfolio",
+  "short_name": "Omar Portfolio",
+  "description": "Full-stack developer portfolio featuring projects, skills, and experience.",
+  "start_url": "/portfolio/",
+  "scope": "/portfolio/",
+  "display": "standalone",
+  "background_color": "#05050A",
+  "theme_color": "#05050A",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/portfolio/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

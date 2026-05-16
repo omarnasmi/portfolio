@@ -1,20 +1,89 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Omar Nasmi — Portfolio
 
-# Run and deploy your AI Studio app
+A premium, minimalist one-page portfolio built with **React + TypeScript + Vite**.  
+The app showcases projects, experience, skills, certifications, and contact details with a polished animated UI.
 
-This contains everything you need to run your app locally.
+## Highlights
 
-View your app in AI Studio: https://ai.studio/apps/ea96e6c5-8e20-4470-98ea-04bb62a5f33f
+- **Bilingual UI**: French/English toggle with language preference persisted in `localStorage`.
+- **Animated experience**: entry loader, motion-driven sections, and smooth transitions.
+- **Projects carousel + modal**: horizontally scrollable project cards with media gallery and source links.
+- **CV download flow**: opens resume in a new tab and triggers direct file download.
+- **Responsive design**: optimized for desktop and mobile.
 
-## Run Locally
+## Tech Stack
 
-**Prerequisites:**  Node.js
+- **Frontend**: React 19, TypeScript, Vite
+- **Styling**: Tailwind CSS v4 + custom CSS utilities
+- **Animation**: Motion (`motion/react`)
+- **Icons**: Lucide React
 
+## Project Structure
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```text
+.
+├─ src/
+│  ├─ App.tsx        # Main portfolio page (sections, translations, interactions)
+│  ├─ main.tsx       # React entrypoint
+│  └─ index.css      # Theme tokens + global styles
+├─ assets/           # CV, profile image, and project media
+├─ index.html
+└─ package.json
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ (recommended)
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Run in development
+
+```bash
+npm run dev
+```
+
+The dev server runs on: `http://localhost:3000`
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+### Type check
+
+```bash
+npm run lint
+```
+
+## Customization
+
+Main content lives in `src/App.tsx`:
+
+- Profile, navigation labels, and section copy
+- FR/EN translations (`translations` object)
+- Projects list and metadata
+- Certifications badges
+- Contact links
+
+Media is loaded from the `assets/` folders and project galleries are resolved automatically.
+
+## Contact
+
+- GitHub: [@omarnasmi](https://github.com/omarnasmi)
+- LinkedIn: [omar-nasmi](https://linkedin.com/in/omar-nasmi)
+- Email: <omarnasmiprofessional@gmail.com>

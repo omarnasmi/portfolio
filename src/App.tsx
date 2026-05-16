@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote } from 'lucide-react';
-import profileImage from '../assets/image.png';
+import profileImage from '../assets/others/image.png';
 import cvFile from '../assets/cv/ITII - Omar NASMI - CV Ingénieur Informatique _.pdf';
 
 const fadeIn = {
@@ -655,6 +655,8 @@ const ProjectCard = ({ project }: { project: ProjectItem }) => {
           <img
             src={previewImage}
             alt={`${project.title} preview`}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         ) : (
@@ -749,6 +751,7 @@ const ProjectModal = ({
             <img
               src={project.media[activeImageIndex]}
               alt={`${project.title} preview ${activeImageIndex + 1}`}
+              decoding="async"
               className="w-full h-full object-cover"
             />
           ) : (
@@ -850,6 +853,33 @@ export default function App() {
       window.removeEventListener('keydown', onEsc);
     };
   }, [selectedProject]);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+
+    const title =
+      lang === 'fr'
+        ? 'Omar Nasmi | Développeur Full-Stack & Futur Ingénieur'
+        : 'Omar Nasmi | Full-Stack Developer & Engineering Apprentice';
+    const description =
+      lang === 'fr'
+        ? "Portfolio d'Omar Nasmi : projets full-stack, architecture logicielle, DevOps, automatisation et IA."
+        : 'Portfolio of Omar Nasmi: full-stack projects, software architecture, DevOps, automation, and AI.';
+
+    document.title = title;
+
+    const setMetaContent = (selector: string, content: string) => {
+      const meta = document.querySelector<HTMLMetaElement>(selector);
+      if (meta) meta.content = content;
+    };
+
+    setMetaContent('meta[name="description"]', description);
+    setMetaContent('meta[property="og:title"]', title);
+    setMetaContent('meta[property="og:description"]', description);
+    setMetaContent('meta[name="twitter:title"]', title);
+    setMetaContent('meta[name="twitter:description"]', description);
+    setMetaContent('meta[property="og:locale"]', lang === 'fr' ? 'fr_FR' : 'en_US');
+  }, [lang]);
 
   const toggleLang = () => {
     const next = lang === 'fr' ? 'en' : 'fr';
@@ -977,9 +1007,18 @@ export default function App() {
               viewport={{ once: true, margin: "-100px" }}
               className="flex flex-col items-center text-center gap-6 py-12"
             >
-              <motion.div variants={fadeIn} className="relative w-28 h-28 mb-4 rounded-full overflow-hidden border border-white/10 p-1 bg-gradient-to-br from-[#6366F1]/30 to-transparent backdrop-blur-sm">
+              <motion.div variants={fadeIn} className="relative w-36 h-36 mb-4 rounded-full overflow-hidden border border-white/10 p-1 bg-gradient-to-br from-[#6366F1]/30 to-transparent backdrop-blur-sm">
                 <div className="w-full h-full rounded-full overflow-hidden">
-                  <img src={profileImage} alt="Omar Nasmi" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                  <img
+                    src={profileImage}
+                    alt="Omar Nasmi"
+                    width="144"
+                    height="144"
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
                 </div>
               </motion.div>
 
@@ -1125,6 +1164,10 @@ export default function App() {
                       <img
                         src={`https://flagcdn.com/w20/${review.country.toLowerCase()}.png`}
                         alt={review.country}
+                        width="20"
+                        height="15"
+                        loading="lazy"
+                        decoding="async"
                         className="w-4 h-auto rounded-sm opacity-60"
                       />
                       <span className="text-[0.72rem] font-mono text-white/40 uppercase tracking-widest">{review.author}</span>
@@ -1159,7 +1202,17 @@ export default function App() {
                       <div className="absolute top-2 -left-[4.5px] w-2 h-2 rounded-full bg-[#6366F1]"></div>
                       <div className="flex justify-between items-baseline gap-4">
                         <div className="flex items-center gap-3">
-                          {job.logo && <img src={job.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
+                          {job.logo && (
+                            <img
+                              src={job.logo}
+                              alt=""
+                              width="32"
+                              height="32"
+                              loading="lazy"
+                              decoding="async"
+                              className="w-8 h-8 object-contain rounded-md"
+                            />
+                          )}
                           <h4 className="text-[1.1rem] font-serif font-medium text-white">{job.role}</h4>
                           {job.link && (
                             <a
@@ -1194,7 +1247,17 @@ export default function App() {
                     <motion.div key={idx} variants={fadeIn} className="flex flex-col gap-3 relative pl-6 border-l border-white/10 hover:border-[#6366F1]/50 transition-colors">
                       <div className="absolute top-2 -left-[4.5px] w-2 h-2 rounded-full bg-white/20"></div>
                       <div className="flex items-center gap-3">
-                        {edu.logo && <img src={edu.logo} alt="" className="w-8 h-8 object-contain rounded-md" />}
+                        {edu.logo && (
+                          <img
+                            src={edu.logo}
+                            alt=""
+                            width="32"
+                            height="32"
+                            loading="lazy"
+                            decoding="async"
+                            className="w-8 h-8 object-contain rounded-md"
+                          />
+                        )}
                         <h4 className="text-[1.1rem] font-serif font-medium text-white">{edu.degree}</h4>
                         {edu.link && (
                           <a
@@ -1305,7 +1368,15 @@ export default function App() {
                 {badges.map((badge, i) => (
                   <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
                     <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
-                      <img src={badge.img} alt={badge.title} className="w-full h-full object-contain filter drop-shadow-md" />
+                      <img
+                        src={badge.img}
+                        alt={badge.title}
+                        width="64"
+                        height="64"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-contain filter drop-shadow-md"
+                      />
                     </div>
                     <span className="max-w-[140px] text-center text-[0.6rem] text-white/50 group-hover:text-white transition-colors font-mono uppercase tracking-widest leading-tight">
                       {badge.title}

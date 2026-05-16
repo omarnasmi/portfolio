@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://omarnasmi.github.io/portfolio/sitemap.xml
+Host: omarnasmi.github.io
