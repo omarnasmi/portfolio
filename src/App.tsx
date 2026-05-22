@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube } from 'lucide-react';
 import profileImage from '../assets/others/image.png';
-import cvFile from '../assets/cv/ITII - Omar NASMI - CV Ingénieur Informatique _.pdf';
+import cvFile from '../assets/cv/ITII - NASMI OMAR - CV Ingénieur Informatique.pdf';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -83,6 +83,15 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Gemini API": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "Gemini AI": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "PostgreSQL": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
+    "MongoDB": { type: 'img', src: "https://cdn.simpleicons.org/mongodb" },
+    "Figma": { type: 'img', src: "https://cdn.simpleicons.org/figma" },
+    "n8n": { type: 'img', src: "https://cdn.simpleicons.org/n8n" },
+    "NestJS": { type: 'img', src: "https://cdn.simpleicons.org/nestjs" },
+    "Express": { type: 'img', src: "https://cdn.simpleicons.org/express/white" },
+    "Node.js (Express/Nest)": { type: 'img', src: "https://cdn.simpleicons.org/nodedotjs" },
+    "Grafana": { type: 'img', src: "https://cdn.simpleicons.org/grafana" },
+    "Jest": { type: 'img', src: "https://cdn.simpleicons.org/jest" },
+    "Linux": { type: 'img', src: "https://cdn.simpleicons.org/linux/white" },
 
     // Fallbacks
     "Architecture Logicielle": { type: 'lucide', icon: Layout },
@@ -93,6 +102,21 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Distributed Systems": { type: 'lucide', icon: Layers },
     "LLM Integration": { type: 'lucide', icon: Cpu },
     "RAG Systems": { type: 'lucide', icon: Database },
+    "Architectures RAG": { type: 'lucide', icon: Database },
+    "RAG Architectures": { type: 'lucide', icon: Database },
+    "Automatisation n8n": { type: 'lucide', icon: Zap },
+    "n8n Automation": { type: 'lucide', icon: Zap },
+    "Prompt Engineering & Copilot": { type: 'lucide', icon: Feather },
+    "UI/UX (Figma)": { type: 'lucide', icon: Palette },
+    "UI/UX Design (Figma)": { type: 'lucide', icon: Palette },
+    "Power BI": { type: 'lucide', icon: BarChart3 },
+    "Monitoring (Grafana / Power BI)": { type: 'lucide', icon: BarChart3 },
+    "Tests (Jest / TDD)": { type: 'lucide', icon: TestTube },
+    "Traefik (Reverse Proxy)": { type: 'lucide', icon: Shield },
+    "Docker & Conteneurisation": { type: 'lucide', icon: Container },
+    "Docker & Containerization": { type: 'lucide', icon: Container },
+    "Environnement Linux": { type: 'lucide', icon: Terminal },
+    "Linux Environment": { type: 'lucide', icon: Terminal },
     "Prompt Engineering": { type: 'lucide', icon: Feather },
     "IA Générative": { type: 'lucide', icon: Sparkles },
     "Generative AI": { type: 'lucide', icon: Sparkles },
@@ -218,7 +242,7 @@ const translations = {
         {
           role: "Stagiaire Développeur Logiciel",
           company: "Chambre d'Agriculture",
-          domain: "Administration publique",
+          domain: "Secteur public",
           period: "2023 (1 month)",
           link: "https://chambreagriculturesm.com/",
           desc: [
@@ -226,7 +250,7 @@ const translations = {
             "Suppression des saisies manuelles : gain de 40% sur les temps de traitement, traçabilité complète via SQLite.",
             "Déploiement et sécurisation de nouveaux équipements informatiques pour le service."
           ],
-          logo: "https://www.soussmassa.ma/sites/default/files/partner_visual/logos%20partenaires-13.jpg"
+          logo: "https://images.seeklogo.com/logo-png/39/2/chambre-dagriculture-de-la-region-sous-massa-logo-png_seeklogo-394654.png"
         }
       ],
       education: [
@@ -238,10 +262,50 @@ const translations = {
     },
     skills: {
       title: "Compétences Techniques",
+      levels: { 3: "Avancé", 2: "Intermédiaire", 1: "Notions" } as Record<number, string>,
       categories: [
-        { name: "Développement & APIs", tags: ["React / Next.js", "Node.js", "PHP / Laravel", "Python", "API REST", "Architecture MVC"], icon: Code },
-        { name: "Infrastructure & Déploiement", tags: ["Docker", "Linux (Debian)", "Traefik", "Keycloak", "Elasticsearch", "Uptime Kuma"], icon: Layers },
-        { name: "Automatisation & IA", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "IA Générative", "Agile (Scrum)", "UML"], icon: Sparkles }
+        {
+          name: "Développement Frontend & UI",
+          icon: Code,
+          skills: [
+            { name: "React & Next.js", level: 3 },
+            { name: "TailwindCSS", level: 2 },
+            { name: "Vue.js", level: 1 },
+            { name: "UI/UX (Figma)", level: 2 }
+          ]
+        },
+        {
+          name: "Backend & Bases de Données",
+          icon: Server,
+          skills: [
+            { name: "Node.js (Express/Nest)", level: 3 },
+            { name: "Java", level: 2 },
+            { name: "Python", level: 2 },
+            { name: "PHP / Laravel", level: 2 },
+            { name: "PostgreSQL / MySQL", level: 3 },
+            { name: "MongoDB", level: 2 }
+          ]
+        },
+        {
+          name: "IA & Automatisation",
+          icon: Zap,
+          skills: [
+            { name: "Architectures RAG", level: 2 },
+            { name: "Automatisation n8n", level: 3 },
+            { name: "Prompt Engineering & Copilot", level: 3 }
+          ]
+        },
+        {
+          name: "DevOps & Architecture",
+          icon: Layers,
+          skills: [
+            { name: "Docker & Conteneurisation", level: 2 },
+            { name: "Traefik (Reverse Proxy)", level: 1 },
+            { name: "Environnement Linux", level: 3 },
+            { name: "Monitoring (Grafana / Power BI)", level: 1 },
+            { name: "Tests (Jest / TDD)", level: 1 }
+          ]
+        }
       ]
     },
     projects: {
@@ -396,10 +460,50 @@ const translations = {
     },
     skills: {
       title: "Technical Skills",
+      levels: { 3: "Advanced", 2: "Intermediate", 1: "Foundations" } as Record<number, string>,
       categories: [
-        { name: "Development & APIs", tags: ["React / Next.js", "Node.js", "PHP / Laravel", "Python", "REST APIs", "MVC Architecture"], icon: Code },
-        { name: "Infrastructure & Deployment", tags: ["Docker", "Linux (Debian)", "Traefik", "Keycloak", "Elasticsearch", "Uptime Kuma"], icon: Layers },
-        { name: "Automation & AI", tags: ["LLM Integration", "RAG Systems", "Prompt Engineering", "Generative AI", "Agile (Scrum)", "UML"], icon: Sparkles }
+        {
+          name: "Frontend Development & UI",
+          icon: Code,
+          skills: [
+            { name: "React & Next.js", level: 3 },
+            { name: "TailwindCSS", level: 2 },
+            { name: "Vue.js", level: 1 },
+            { name: "UI/UX Design (Figma)", level: 2 }
+          ]
+        },
+        {
+          name: "Backend & Databases",
+          icon: Server,
+          skills: [
+            { name: "Node.js (Express/Nest)", level: 3 },
+            { name: "Java", level: 2 },
+            { name: "Python", level: 2 },
+            { name: "PHP / Laravel", level: 2 },
+            { name: "PostgreSQL / MySQL", level: 3 },
+            { name: "MongoDB", level: 2 }
+          ]
+        },
+        {
+          name: "AI & Automation",
+          icon: Zap,
+          skills: [
+            { name: "RAG Architectures", level: 2 },
+            { name: "n8n Automation", level: 3 },
+            { name: "Prompt Engineering & Copilot", level: 3 }
+          ]
+        },
+        {
+          name: "DevOps & Architecture",
+          icon: Layers,
+          skills: [
+            { name: "Docker & Containerization", level: 2 },
+            { name: "Traefik (Reverse Proxy)", level: 1 },
+            { name: "Linux Environment", level: 3 },
+            { name: "Monitoring (Grafana / Power BI)", level: 1 },
+            { name: "Tests (Jest / TDD)", level: 1 }
+          ]
+        }
       ]
     },
     projects: {
@@ -1293,24 +1397,67 @@ export default function App() {
                 <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
               </motion.div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {t.skills.categories.map((cat, i) => (
-                  <motion.div key={i} variants={fadeIn} className="premium-card p-8 flex flex-col gap-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-[#6366F1]/10 flex items-center justify-center border border-[#6366F1]/20">
-                        <cat.icon className="w-4 h-4 text-[#6366F1]" />
+                {t.skills.categories.map((cat, i) => {
+                  const isAI = i === 2;
+                  const sortedSkills = [...cat.skills].sort((a, b) => b.level - a.level);
+
+                  return (
+                    <motion.div
+                      key={i}
+                      variants={fadeIn}
+                      className="premium-card p-8 flex flex-col gap-6"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center border bg-[#6366F1]/10 border-[#6366F1]/20">
+                          <cat.icon className="w-4 h-4 text-[#6366F1]" />
+                        </div>
+                        <h4 className="text-[0.85rem] font-bold uppercase tracking-widest text-white">
+                          {cat.name}
+                          {isAI && <span className="ml-2">⚡</span>}
+                        </h4>
                       </div>
-                      <h4 className="text-[0.85rem] font-bold uppercase tracking-widest text-white">{cat.name}</h4>
-                    </div>
-                    <div className="flex flex-wrap gap-3">
-                      {cat.tags.map((tag, idx) => (
-                        <span key={idx} className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg text-[0.75rem] font-mono text-white/80 flex items-center gap-2 hover:bg-white/10 hover:border-white/20 hover:text-white transition-all shadow-sm shadow-black/20">
-                          <TechIcon tag={tag} />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
+                      <div className="flex flex-col gap-4">
+                        {sortedSkills.map((skill, idx) => {
+                          const levelLabel = t.skills.levels[skill.level];
+                          const levelColors = {
+                            3: { segment: 'bg-emerald-400', glow: 'shadow-emerald-400/40', text: 'text-emerald-400', border: 'border-emerald-400/20' },
+                            2: { segment: 'bg-[#818CF8]', glow: 'shadow-[#818CF8]/30', text: 'text-[#818CF8]', border: 'border-[#818CF8]/20' },
+                            1: { segment: 'bg-white/50', glow: '', text: 'text-white/50', border: 'border-white/10' }
+                          };
+                          const colors = levelColors[skill.level as keyof typeof levelColors];
+                          return (
+                            <div
+                              key={idx}
+                              className="flex items-center justify-between gap-4 py-3 border-b border-white/[0.04] last:border-0 group"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <TechIcon tag={skill.name} />
+                                <span className="text-[0.82rem] text-white/90 font-medium truncate">{skill.name}</span>
+                              </div>
+                              <div className="flex items-center gap-3 shrink-0">
+                                <div className="flex items-center gap-1">
+                                  {[1, 2, 3].map((seg) => (
+                                    <div
+                                      key={seg}
+                                      className={`h-[6px] rounded-full transition-all duration-500 ${
+                                        seg <= skill.level
+                                          ? `${colors.segment} ${seg === skill.level ? colors.glow : ''} ${seg === 3 ? 'w-5' : seg === 2 ? 'w-4' : 'w-3'} shadow-sm`
+                                          : 'w-3 bg-white/[0.06]'
+                                      }`}
+                                    />
+                                  ))}
+                                </div>
+                                <span className={`text-[0.65rem] font-mono uppercase tracking-wider ${colors.text} w-[5.5rem] text-right`}>
+                                  {levelLabel}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.section>
 
