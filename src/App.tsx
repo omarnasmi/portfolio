@@ -58,6 +58,7 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "JavaScript": { type: 'img', src: "https://cdn.simpleicons.org/javascript" },
     "TypeScript": { type: 'img', src: "https://cdn.simpleicons.org/typescript" },
     "React / Next.js": { type: 'img', src: "https://cdn.simpleicons.org/react" },
+    "React & Next.js": { type: 'img', src: "https://cdn.simpleicons.org/react" },
     "React": { type: 'img', src: "https://cdn.simpleicons.org/react" },
     "Next.js": { type: 'img', src: "https://cdn.simpleicons.org/nextdotjs/white" },
     "Vue.js": { type: 'img', src: "https://cdn.simpleicons.org/vuedotjs" },
@@ -89,9 +90,26 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "NestJS": { type: 'img', src: "https://cdn.simpleicons.org/nestjs" },
     "Express": { type: 'img', src: "https://cdn.simpleicons.org/express/white" },
     "Node.js (Express/Nest)": { type: 'img', src: "https://cdn.simpleicons.org/nodedotjs" },
+    "Node.js (Express / Nest)": { type: 'img', src: "https://cdn.simpleicons.org/nodedotjs" },
     "Grafana": { type: 'img', src: "https://cdn.simpleicons.org/grafana" },
     "Jest": { type: 'img', src: "https://cdn.simpleicons.org/jest" },
     "Linux": { type: 'img', src: "https://cdn.simpleicons.org/linux/white" },
+    "SQL (PostgreSQL, MySQL, SQL Server)": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
+    "Metabase & Dashboards de KPIs": { type: 'img', src: "https://cdn.simpleicons.org/metabase" },
+    "Metabase & KPI Dashboards": { type: 'img', src: "https://cdn.simpleicons.org/metabase" },
+    "Modélisation de Données & BI": { type: 'img', src: "https://cdn.simpleicons.org/powerbi" },
+    "Data Modeling & BI": { type: 'img', src: "https://cdn.simpleicons.org/powerbi" },
+    "Python (Scripting & Data)": { type: 'img', src: "https://cdn.simpleicons.org/python" },
+    "Conception de Workflows (n8n)": { type: 'img', src: "https://cdn.simpleicons.org/n8n" },
+    "Workflow Design (n8n)": { type: 'img', src: "https://cdn.simpleicons.org/n8n" },
+    "Java & PHP": { type: 'img', src: "https://cdn.simpleicons.org/java" },
+    "Tests unitaires (Jest, TDD)": { type: 'img', src: "https://cdn.simpleicons.org/jest" },
+    "Unit Testing (Jest, TDD)": { type: 'img', src: "https://cdn.simpleicons.org/jest" },
+    "Environnement Linux (Serveurs Debian)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
+    "Linux Environment (Debian Servers)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
+    "Traefik & Reverse Proxy": { type: 'img', src: "https://cdn.simpleicons.org/traefikproxy" },
+    "Prototypage UI/UX (Figma)": { type: 'img', src: "https://cdn.simpleicons.org/figma" },
+    "UI/UX Prototyping (Figma)": { type: 'img', src: "https://cdn.simpleicons.org/figma" },
 
     // Fallbacks
     "Architecture Logicielle": { type: 'lucide', icon: Layout },
@@ -101,9 +119,13 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Identity Management": { type: 'lucide', icon: Shield },
     "Distributed Systems": { type: 'lucide', icon: Layers },
     "LLM Integration": { type: 'lucide', icon: Cpu },
+    "Intégration API LLM & Prompt Engineering": { type: 'lucide', icon: Cpu },
+    "LLM API Integration & Prompt Engineering": { type: 'lucide', icon: Cpu },
     "RAG Systems": { type: 'lucide', icon: Database },
     "Architectures RAG": { type: 'lucide', icon: Database },
     "RAG Architectures": { type: 'lucide', icon: Database },
+    "Architectures RAG & Bases Vectorielles": { type: 'lucide', icon: Database },
+    "RAG Architectures & Vector Databases": { type: 'lucide', icon: Database },
     "Automatisation n8n": { type: 'lucide', icon: Zap },
     "n8n Automation": { type: 'lucide', icon: Zap },
     "Prompt Engineering & Copilot": { type: 'lucide', icon: Feather },
@@ -113,8 +135,8 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Monitoring (Grafana / Power BI)": { type: 'lucide', icon: BarChart3 },
     "Tests (Jest / TDD)": { type: 'lucide', icon: TestTube },
     "Traefik (Reverse Proxy)": { type: 'lucide', icon: Shield },
-    "Docker & Conteneurisation": { type: 'lucide', icon: Container },
-    "Docker & Containerization": { type: 'lucide', icon: Container },
+    "Docker & Conteneurisation": { type: 'img', src: "https://cdn.simpleicons.org/docker" },
+    "Docker & Containerization": { type: 'img', src: "https://cdn.simpleicons.org/docker" },
     "Environnement Linux": { type: 'lucide', icon: Terminal },
     "Linux Environment": { type: 'lucide', icon: Terminal },
     "Prompt Engineering": { type: 'lucide', icon: Feather },
@@ -139,6 +161,8 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "SysAdmin": { type: 'lucide', icon: Terminal },
     "Microservices": { type: 'lucide', icon: Box },
     "Micro-services": { type: 'lucide', icon: Box },
+    "Architecture Logicielle (MVC, Micro-services)": { type: 'lucide', icon: Layout },
+    "Software Architecture (MVC, Microservices)": { type: 'lucide', icon: Layout },
     "Design Patterns": { type: 'lucide', icon: Palette },
     "Clean Code": { type: 'lucide', icon: Sparkles },
     "TDD (JUnit/Jest)": { type: 'lucide', icon: CheckSquare },
@@ -265,45 +289,50 @@ const translations = {
       levels: { 3: "Avancé", 2: "Intermédiaire", 1: "Notions" } as Record<number, string>,
       categories: [
         {
-          name: "Développement Frontend & UI",
-          icon: Code,
-          skills: [
-            { name: "React & Next.js", level: 3 },
-            { name: "TailwindCSS", level: 2 },
-            { name: "Vue.js", level: 1 },
-            { name: "UI/UX (Figma)", level: 2 }
-          ]
-        },
-        {
-          name: "Backend & Bases de Données",
+          name: "Data & Observabilité",
           icon: Server,
           skills: [
-            { name: "Node.js (Express/Nest)", level: 3 },
-            { name: "Java", level: 2 },
-            { name: "Python", level: 2 },
-            { name: "PHP / Laravel", level: 2 },
-            { name: "PostgreSQL / MySQL", level: 3 },
-            { name: "MongoDB", level: 2 }
+            { name: "SQL (PostgreSQL, MySQL, SQL Server)", level: 3 },
+            { name: "Metabase & Dashboards de KPIs", level: 3 },
+            { name: "Modélisation de Données & BI", level: 2 },
+            { name: "Python (Scripting & Data)", level: 2 }
           ]
         },
         {
           name: "IA & Automatisation",
           icon: Zap,
           skills: [
-            { name: "Architectures RAG", level: 2 },
-            { name: "Automatisation n8n", level: 3 },
-            { name: "Prompt Engineering & Copilot", level: 3 }
+            { name: "Conception de Workflows (n8n)", level: 3 },
+            { name: "Intégration API LLM & Prompt Engineering", level: 3 },
+            { name: "Architectures RAG & Bases Vectorielles", level: 2 }
           ]
         },
         {
-          name: "DevOps & Architecture",
+          name: "Architecture & Backend",
           icon: Layers,
           skills: [
+            { name: "Node.js (Express / Nest)", level: 3 },
+            { name: "Architecture Logicielle (MVC, Micro-services)", level: 2 },
+            { name: "Java & PHP", level: 2 },
+            { name: "Tests unitaires (Jest, TDD)", level: 1 }
+          ]
+        },
+        {
+          name: "DevOps & Infrastructure",
+          icon: Layers,
+          skills: [
+            { name: "Environnement Linux (Serveurs Debian)", level: 3 },
             { name: "Docker & Conteneurisation", level: 2 },
-            { name: "Traefik (Reverse Proxy)", level: 1 },
-            { name: "Environnement Linux", level: 3 },
-            { name: "Monitoring (Grafana / Power BI)", level: 1 },
-            { name: "Tests (Jest / TDD)", level: 1 }
+            { name: "Traefik & Reverse Proxy", level: 2 }
+          ]
+        },
+        {
+          name: "Développement Frontend",
+          icon: Code,
+          skills: [
+            { name: "React & Next.js", level: 3 },
+            { name: "TailwindCSS", level: 2 },
+            { name: "Prototypage UI/UX (Figma)", level: 2 }
           ]
         }
       ]
@@ -463,45 +492,50 @@ const translations = {
       levels: { 3: "Advanced", 2: "Intermediate", 1: "Foundations" } as Record<number, string>,
       categories: [
         {
-          name: "Frontend Development & UI",
-          icon: Code,
-          skills: [
-            { name: "React & Next.js", level: 3 },
-            { name: "TailwindCSS", level: 2 },
-            { name: "Vue.js", level: 1 },
-            { name: "UI/UX Design (Figma)", level: 2 }
-          ]
-        },
-        {
-          name: "Backend & Databases",
+          name: "Data & Observability",
           icon: Server,
           skills: [
-            { name: "Node.js (Express/Nest)", level: 3 },
-            { name: "Java", level: 2 },
-            { name: "Python", level: 2 },
-            { name: "PHP / Laravel", level: 2 },
-            { name: "PostgreSQL / MySQL", level: 3 },
-            { name: "MongoDB", level: 2 }
+            { name: "SQL (PostgreSQL, MySQL, SQL Server)", level: 3 },
+            { name: "Metabase & KPI Dashboards", level: 3 },
+            { name: "Data Modeling & BI", level: 2 },
+            { name: "Python (Scripting & Data)", level: 2 }
           ]
         },
         {
           name: "AI & Automation",
           icon: Zap,
           skills: [
-            { name: "RAG Architectures", level: 2 },
-            { name: "n8n Automation", level: 3 },
-            { name: "Prompt Engineering & Copilot", level: 3 }
+            { name: "Workflow Design (n8n)", level: 3 },
+            { name: "LLM API Integration & Prompt Engineering", level: 3 },
+            { name: "RAG Architectures & Vector Databases", level: 2 }
           ]
         },
         {
-          name: "DevOps & Architecture",
+          name: "Architecture & Backend",
           icon: Layers,
           skills: [
+            { name: "Node.js (Express / Nest)", level: 3 },
+            { name: "Software Architecture (MVC, Microservices)", level: 2 },
+            { name: "Java & PHP", level: 2 },
+            { name: "Unit Testing (Jest, TDD)", level: 1 }
+          ]
+        },
+        {
+          name: "DevOps & Infrastructure",
+          icon: Layers,
+          skills: [
+            { name: "Linux Environment (Debian Servers)", level: 3 },
             { name: "Docker & Containerization", level: 2 },
-            { name: "Traefik (Reverse Proxy)", level: 1 },
-            { name: "Linux Environment", level: 3 },
-            { name: "Monitoring (Grafana / Power BI)", level: 1 },
-            { name: "Tests (Jest / TDD)", level: 1 }
+            { name: "Traefik & Reverse Proxy", level: 2 }
+          ]
+        },
+        {
+          name: "Frontend Development",
+          icon: Code,
+          skills: [
+            { name: "React & Next.js", level: 3 },
+            { name: "TailwindCSS", level: 2 },
+            { name: "UI/UX Prototyping (Figma)", level: 2 }
           ]
         }
       ]
