@@ -21,6 +21,18 @@ export default defineConfig(({ mode }) => {
       },
     },
 
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-motion': ['motion/react'],
+            'vendor-icons': ['lucide-react'],
+          },
+        },
+      },
+    },
+
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
     },

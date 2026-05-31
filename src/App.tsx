@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, type MouseEvent } from 'react';
+import { useState, useEffect, lazy, Suspense, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube, Target, Lightbulb, TrendingUp } from 'lucide-react';
 import profileImage from '../assets/others/image.png';
 import cvFile from '../assets/cv/ITII - NASMI OMAR - CV Ingénieur Informatique.pdf';
 
@@ -78,15 +78,23 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Linux (Debian)": { type: 'img', src: "https://cdn.simpleicons.org/debian" },
     "Laravel": { type: 'img', src: "https://cdn.simpleicons.org/laravel" },
     "TailwindCSS": { type: 'img', src: "https://cdn.simpleicons.org/tailwindcss" },
+    "Tailwind CSS": { type: 'img', src: "https://cdn.simpleicons.org/tailwindcss" },
+    "Framer Motion": { type: 'img', src: "https://cdn.simpleicons.org/framer" },
+    "Vite": { type: 'img', src: "https://cdn.simpleicons.org/vite" },
     "MySQL": { type: 'img', src: "https://cdn.simpleicons.org/mysql" },
     "CodeIgniter": { type: 'img', src: "https://cdn.simpleicons.org/codeigniter" },
     "Bootstrap": { type: 'img', src: "https://cdn.simpleicons.org/bootstrap" },
     "Gemini API": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "Gemini AI": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
+    "Gemini 2.5 Pro": { type: 'img', src: "https://cdn.simpleicons.org/googlegemini" },
     "PostgreSQL": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
     "MongoDB": { type: 'img', src: "https://cdn.simpleicons.org/mongodb" },
     "Figma": { type: 'img', src: "https://cdn.simpleicons.org/figma" },
     "n8n": { type: 'img', src: "https://cdn.simpleicons.org/n8n" },
+    "Firecrawl": { type: 'img', src: "https://www.firecrawl.dev/favicon.png" },
+    "Tavily": { type: 'img', src: "https://tavily.com/favicon.ico" },
+    "Telegram API": { type: 'img', src: "https://cdn.simpleicons.org/telegram" },
+    "LaTeX": { type: 'img', src: "https://cdn.simpleicons.org/latex" },
     "NestJS": { type: 'img', src: "https://cdn.simpleicons.org/nestjs" },
     "Express": { type: 'img', src: "https://cdn.simpleicons.org/express/white" },
     "Node.js (Express/Nest)": { type: 'img', src: "https://cdn.simpleicons.org/nodedotjs" },
@@ -95,6 +103,7 @@ const TechIcon = ({ tag }: { tag: string }) => {
     "Jest": { type: 'img', src: "https://cdn.simpleicons.org/jest" },
     "Linux": { type: 'img', src: "https://cdn.simpleicons.org/linux/white" },
     "SQL (PostgreSQL, MySQL, SQL Server)": { type: 'img', src: "https://cdn.simpleicons.org/postgresql" },
+    "Metabase": { type: 'img', src: "https://cdn.simpleicons.org/metabase" },
     "Metabase & Dashboards de KPIs": { type: 'img', src: "https://cdn.simpleicons.org/metabase" },
     "Metabase & KPI Dashboards": { type: 'img', src: "https://cdn.simpleicons.org/metabase" },
     "Modélisation de Données & BI": { type: 'img', src: "https://cdn.simpleicons.org/powerbi" },
@@ -175,7 +184,7 @@ const TechIcon = ({ tag }: { tag: string }) => {
   const def = iconMap[tag] || { type: 'lucide', icon: Code };
 
   if (def.type === 'img') {
-    return <img src={def.src} alt={tag} className="w-3.5 h-3.5 object-contain" />;
+    return <img src={def.src} alt={tag} width="14" height="14" loading="lazy" decoding="async" className="w-3.5 h-3.5 object-contain" />;
   }
 
   const IconCmp = def.icon;
@@ -188,6 +197,18 @@ const sortProjectMedia = (mediaModules: Record<string, string>) =>
     .map(([, src]) => src);
 
 const projectMedia = {
+  crousti51: sortProjectMedia(
+    import.meta.glob('../assets/crousti51/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
+  aiJobScout: sortProjectMedia(
+    import.meta.glob('../assets/ai-job-scout/*.{png,jpg,jpeg,webp,gif,avif}', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, string>
+  ),
   traefikVanguard: sortProjectMedia(
     import.meta.glob('../assets/traefik-vanguard/*.{png,jpg,jpeg,webp,gif,avif}', {
       eager: true,
@@ -341,6 +362,106 @@ const translations = {
       title: "Projets Personnels",
       items: [
         {
+          title: "Alternance Hunter",
+          desc: "Pipeline d'automatisation intelligent de recherche d'emploi : scraping, évaluation IA des offres, génération automatisée de CV/Lettre en LaTeX et dashboard BI.",
+          tags: ["n8n", "PostgreSQL", "Metabase", "Gemini 2.5 Pro", "Docker", "Firecrawl", "Tavily", "Telegram API", "LaTeX"],
+          media: projectMedia.aiJobScout, // À adapter
+          details: [
+            "Orchestration de workflows n8n complexes pour le sourcing quotidien et la génération de candidatures sur-mesure.",
+            "Évaluation sémantique et scoring des offres d'alternance via l'API Gemini pour éliminer instantanément les annonces non pertinentes.",
+            "Cockpit de pilotage analytique sous Metabase pour visualiser l'entonnoir de prospection en temps réel."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Problématique",
+              items: [
+                "Automatiser la recherche fastidieuse d'offres d'alternance et filtrer le bruit (annonces d'écoles, formats de contrats incompatibles, pages de recherche).",
+                "Générer des candidatures (CV et lettres de motivation) hautement personnalisées pour chaque entreprise ciblée sans y consacrer des heures.",
+                "Suivre efficacement les métriques de conversion des candidatures."
+              ]
+            },
+            {
+              icon: "Layers",
+              title: "Architecture & Solution",
+              items: [
+                "Workflow 'Scout' : Recherche web automatisée via Tavily, scraping ciblé avec Firecrawl, analyse et scoring strict par l'IA Gemini, puis stockage dans une base PostgreSQL.",
+                "Workflow 'Generator' : Déclenché via des Webhooks Telegram, l'IA génère le contenu en LaTeX, le compile en PDF via un microservice Docker dédié et prépare le brouillon dans Gmail.",
+                "Dashboard BI : Interface Metabase connectée à PostgreSQL pour le suivi des KPIs (entonnoir de conversion, volume quotidien, score de pertinence IA)."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Résultats clés",
+              items: [
+                "Filtrage automatique de plus de 80% du bruit (déchets, fausses annonces, pages de résultats) avant même l'intervention humaine.",
+                "Temps de candidature drastiquement réduit : génération d'un dossier PDF complet et du mail d'accompagnement en quelques secondes via un clic sur Telegram.",
+                "Visibilité totale sur les performances de recherche grâce à l'entonnoir analytique (Scouted → Generated → Applied)."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Futures fonctionnalités",
+              items: [
+                "Recherche automatisée des recruteurs (scraping LinkedIn/Apollo) pour récupérer le contact direct du Hiring Manager.",
+                "Automatisation de l'envoi des e-mails et implémentation d'un système de relance automatique (Follow-up) intégré au workflow.",
+                "Mise en place d'un modèle d'IA local (via Ollama) pour réduire la dépendance aux API externes et optimiser les coûts."
+              ]
+            }
+          ]
+        },{
+  title: "Crousti 51 - Web App & Vitrine",
+  desc: "Application web mobile-first pour un restaurant rapide local : UI/UX premium 'app-like', animations fluides et optimisation de la conversion vers les plateformes de livraison.",
+  tags: ["React", "Tailwind CSS", "Framer Motion", "Mobile-First", "UI/UX", "Vite"],
+  link: "https://crousti51.vercel.app",
+  linkLabel: "Voir le site",
+  linkIcon: "external",
+  media: projectMedia.crousti51, // À adapter selon ta structure de variables
+  details: [
+    "Conception et développement d'une interface frontend réactive avec un design sombre immersif et des accents visuels dynamiques.",
+    "Architecture orientée 'App-like' pour mobile avec barre de navigation fixée et carrousels horizontaux pour une ergonomie optimale.",
+    "Mise en conformité juridique complète (mentions légales strictes, SIRET) pour un déploiement et un hébergement sereins en France."
+  ],
+  sections: [
+    {
+      icon: "Target",
+      title: "Problématique",
+      items: [
+        "Moderniser l'image numérique du restaurant pour attirer et fidéliser une clientèle locale exigeante.",
+        "Remplacer les sites vitrines classiques par une expérience utilisateur fluide sur mobile, similaire à une application native, pour réduire le taux de rebond.",
+        "Canaliser efficacement le trafic web directement vers la plateforme de commande (Deliveroo) pour augmenter le volume de ventes."
+      ]
+    },
+    {
+      icon: "Layers",
+      title: "Architecture & Solution",
+      items: [
+        "Frontend Mobile-First : Utilisation de React et Tailwind CSS pour une conception 100% responsive, avec un focus drastique sur les zones de cibles tactiles (Touch Targets).",
+        "Composants UI/UX Avancés : Implémentation d'une BottomNav collante et de carrousels 'swipeables' pour naviguer dans le menu sans fatigue de défilement vertical.",
+        "Animations Stratégiques : Intégration de Framer Motion pour des micro-interactions et des transitions douces (fade-in, slide-up) sans impacter les performances sur smartphone."
+      ]
+    },
+    {
+      icon: "TrendingUp",
+      title: "Résultats clés",
+      items: [
+        "Expérience de navigation mobile hautement optimisée, offrant un rendu professionnel qui démarque le restaurant de la concurrence locale.",
+        "Mise en valeur premium du catalogue (menus familiaux, accompagnements) avec une hiérarchie visuelle claire et incitative.",
+        "Parcours utilisateur sans friction depuis la découverte de la carte jusqu'au clic sur le Call-to-Action de commande."
+      ]
+    },
+    {
+      icon: "Rocket",
+      title: "Futures fonctionnalités",
+      items: [
+        "Intégration d'un module de Click & Collect natif pour réduire la dépendance aux plateformes tierces et leurs commissions.",
+        "Connexion à un CMS Headless (ex: Strapi) pour permettre au gérant de mettre à jour les prix et les nouveaux plats en toute autonomie.",
+        "Déploiement d'un tracker d'événements et d'un dashboard analytique pour monitorer le taux de conversion de la landing page vers Deliveroo."
+      ]
+    }
+  ]
+},
+        {
           title: "Traefik Vanguard",
           desc: "Infrastructure distribuée haute disponibilité : reverse proxy sécurisé, automatisation TLS, Zero Trust SSO et monitoring complet via ELK Stack.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
@@ -350,6 +471,44 @@ const translations = {
             "Infrastructure distribuée à haute disponibilité déployée sur de multiples machines virtuelles (Debian).",
             "Orchestration via Docker et sécurisation des flux par Traefik en reverse proxy (renouvellement automatique TLS).",
             "Implémentation d'une architecture Zero Trust avec gestion centralisée des accès et des identités (SSO) via Keycloak."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Problématique",
+              items: [
+                "Déployer et maintenir une infrastructure multi-services sur des serveurs distribués sans point de défaillance unique.",
+                "Assurer la sécurité des communications inter-services et centraliser la gestion des identités dans un contexte Zero Trust."
+              ]
+            },
+            {
+              icon: "Layers",
+              title: "Architecture & Solution",
+              items: [
+                "Infrastructure distribuée à haute disponibilité déployée sur de multiples machines virtuelles (Debian).",
+                "Orchestration via Docker et sécurisation des flux par Traefik en reverse proxy avec renouvellement automatique TLS.",
+                "Implémentation d'une architecture Zero Trust avec gestion centralisée des accès et des identités (SSO) via Keycloak.",
+                "Pipeline d'observabilité complète : Filebeat → Logstash → Elasticsearch → Kibana pour le monitoring en temps réel."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Résultats clés",
+              items: [
+                "Infrastructure opérationnelle avec zero downtime grâce à la haute disponibilité et au monitoring proactif (Uptime Kuma).",
+                "Certificats TLS renouvelés automatiquement — zéro intervention manuelle sur la sécurité des flux.",
+                "Authentification centralisée SSO couvrant l'ensemble des services déployés."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Futures fonctionnalités",
+              items: [
+                "Mise en place d'un cluster Kubernetes pour remplacer Docker Compose et scaler horizontalement.",
+                "Ajout de Prometheus + Grafana pour des dashboards de métriques avancés.",
+                "Automatisation CI/CD complète avec GitLab Runner ou GitHub Actions."
+              ]
+            }
           ]
         },
         {
@@ -362,6 +521,43 @@ const translations = {
             "Plateforme SaaS éducative innovante exploitant l'IA générative (API Gemini) couplée à une base de données vectorielle (Pinecone).",
             "Mise en place d'une architecture RAG (Retrieval-Augmented Generation) pour analyser sémantiquement les requêtes.",
             "Génération de parcours d'apprentissage 100% adaptatifs basés sur les données utilisateurs en temps réel."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Problématique",
+              items: [
+                "Les parcours d'apprentissage existants sont statiques et non personnalisés — chaque apprenant suit le même chemin indépendamment de son niveau ou de ses objectifs.",
+                "L'accès à un tuteur intelligent et adaptatif reste coûteux et peu scalable."
+              ]
+            },
+            {
+              icon: "Cpu",
+              title: "Pipeline IA & Architecture",
+              items: [
+                "Plateforme SaaS éducative exploitant l'IA générative (API Gemini) couplée à une base de données vectorielle (Pinecone).",
+                "Architecture RAG (Retrieval-Augmented Generation) pour analyser sémantiquement les requêtes et enrichir les réponses avec du contexte pertinent.",
+                "Génération de parcours d'apprentissage 100% adaptatifs basés sur les données utilisateurs en temps réel."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Résultats clés",
+              items: [
+                "Parcours générés dynamiquement et adaptés au profil de chaque apprenant.",
+                "Pipeline sémantique fonctionnel avec recherche vectorielle et augmentation contextuelle.",
+                "Interface intuitive permettant de visualiser et suivre sa progression en temps réel."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Futures fonctionnalités",
+              items: [
+                "Système de quiz adaptatifs générés par IA pour valider chaque étape du parcours.",
+                "Intégration de sources éducatives externes (YouTube, documentation officielle) dans le pipeline RAG.",
+                "Mode collaboratif permettant aux apprenants de partager et comparer leurs parcours."
+              ]
+            }
           ]
         },
         {
@@ -375,6 +571,45 @@ const translations = {
             "Développement d'outils interactifs de calculs de performances et métriques de santé.",
             "Création d'un backoffice complet permettant aux administrateurs de gérer le contenu, le catalogue, les utilisateurs et la newsletter.",
             "Système d'authentification sécurisé et gestion différenciée des rôles (Utilisateurs / Admins)."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Contexte",
+              items: [
+                "Projet de fin d'études (DUT) — concevoir une plateforme web complète répondant à un besoin réel dans le domaine du fitness et de la nutrition.",
+                "Objectif : centraliser e-commerce, contenu éducatif et outils interactifs dans une seule plateforme."
+              ]
+            },
+            {
+              icon: "Layout",
+              title: "Fonctionnalités principales",
+              items: [
+                "Boutique e-commerce complète pour produits sportifs avec gestion du catalogue, panier et commandes.",
+                "Tutoriels d'exercices vidéo et articles spécialisés en sport et nutrition.",
+                "Outils interactifs de calculs de performances et métriques de santé (IMC, calories, etc.).",
+                "Backoffice complet : gestion du contenu, catalogue, utilisateurs et newsletter.",
+                "Système d'authentification sécurisé avec gestion différenciée des rôles (Utilisateurs / Admins)."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Résultats clés",
+              items: [
+                "Plateforme livrée et fonctionnelle — validée comme projet de fin d'études avec mention.",
+                "Architecture MVC propre et maintenable avec séparation claire des responsabilités.",
+                "Interface responsive et intuitive testée sur mobile et desktop."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Futures fonctionnalités",
+              items: [
+                "Système de recommandation personnalisé basé sur les habitudes d'achat et d'entraînement.",
+                "Intégration de paiement en ligne (Stripe) et gestion des abonnements premium.",
+                "Programme de fidélité avec système de points et récompenses."
+              ]
+            }
           ]
         },
         {
@@ -387,6 +622,43 @@ const translations = {
             "Application web intuitive de gestion de rendez-vous médicaux centralisant les opérations de planification de consultations.",
             "Interface de gestion avancée des profils utilisateurs : patients, praticiens et administrateurs cliniques.",
             "Intégration d'un système de messagerie interne et d'outils de personnalisation pour optimiser l'interaction et le suivi médical."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Problématique",
+              items: [
+                "La prise de rendez-vous médicaux reste souvent manuelle et désorganisée — appels téléphoniques, carnets papier, et double-réservations fréquentes.",
+                "Manque de communication fluide entre patients et praticiens en dehors des consultations."
+              ]
+            },
+            {
+              icon: "Lightbulb",
+              title: "Solution",
+              items: [
+                "Application web intuitive centralisant la planification de consultations et la gestion des profils (patients, praticiens, administrateurs).",
+                "Système de messagerie interne pour maintenir le lien patient-praticien entre les rendez-vous.",
+                "Outils de personnalisation et de suivi médical intégrés pour optimiser l'expérience utilisateur."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Résultats clés",
+              items: [
+                "Interface complète et fonctionnelle couvrant l'ensemble du parcours patient (inscription → rendez-vous → suivi).",
+                "Gestion avancée des profils avec trois niveaux d'accès distincts.",
+                "Architecture MVC robuste et facilement extensible grâce à CodeIgniter."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Futures fonctionnalités",
+              items: [
+                "Notifications par email et SMS pour les rappels de rendez-vous.",
+                "Intégration d'un système de téléconsultation vidéo.",
+                "Tableau de bord analytique pour les praticiens (statistiques de consultation, taux de fréquentation)."
+              ]
+            }
           ]
         }
       ]
@@ -553,6 +825,44 @@ const translations = {
             "High-availability distributed infrastructure deployed across multiple virtual machines (Debian).",
             "Orchestration via Docker and traffic security through Traefik as a reverse proxy (automatic TLS renewal).",
             "Implementation of a Zero Trust architecture with centralized access and identity management (SSO) via Keycloak."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "The Problem",
+              items: [
+                "Deploying and maintaining a multi-service infrastructure across distributed servers without a single point of failure.",
+                "Ensuring secure inter-service communication and centralizing identity management in a Zero Trust context."
+              ]
+            },
+            {
+              icon: "Layers",
+              title: "Architecture & Solution",
+              items: [
+                "High-availability distributed infrastructure deployed across multiple virtual machines (Debian).",
+                "Orchestration via Docker and traffic security through Traefik as a reverse proxy with automatic TLS renewal.",
+                "Implementation of a Zero Trust architecture with centralized access and identity management (SSO) via Keycloak.",
+                "Complete observability pipeline: Filebeat → Logstash → Elasticsearch → Kibana for real-time monitoring."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Operational infrastructure with zero downtime thanks to high availability and proactive monitoring (Uptime Kuma).",
+                "TLS certificates automatically renewed — zero manual intervention on traffic security.",
+                "Centralized SSO authentication covering all deployed services."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "Setting up a Kubernetes cluster to replace Docker Compose and scale horizontally.",
+                "Adding Prometheus + Grafana for advanced metrics dashboards.",
+                "Complete CI/CD automation with GitLab Runner or GitHub Actions."
+              ]
+            }
           ]
         },
         {
@@ -565,6 +875,43 @@ const translations = {
             "Innovative educational SaaS platform leveraging generative AI (Gemini API) coupled with a vector database (Pinecone).",
             "Implementation of a RAG (Retrieval-Augmented Generation) architecture to semantically analyze requests.",
             "Generation of 100% adaptive learning paths based on real-time user data."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "The Problem",
+              items: [
+                "Existing learning paths are static and non-personalized — every learner follows the same path regardless of their level or goals.",
+                "Access to an intelligent, adaptive tutor remains expensive and hard to scale."
+              ]
+            },
+            {
+              icon: "Cpu",
+              title: "AI Pipeline & Architecture",
+              items: [
+                "Innovative educational SaaS platform leveraging generative AI (Gemini API) coupled with a vector database (Pinecone).",
+                "RAG (Retrieval-Augmented Generation) architecture to semantically analyze requests and enrich responses with relevant context.",
+                "Generation of 100% adaptive learning paths based on real-time user data."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Dynamically generated learning paths adapted to each learner's profile.",
+                "Functional semantic pipeline with vector search and contextual augmentation.",
+                "Intuitive interface for visualizing and tracking progress in real time."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "AI-generated adaptive quizzes to validate each step of the learning path.",
+                "Integration of external educational sources (YouTube, official documentation) into the RAG pipeline.",
+                "Collaborative mode allowing learners to share and compare their learning paths."
+              ]
+            }
           ]
         },
         {
@@ -578,6 +925,45 @@ const translations = {
             "Development of interactive tools for performance calculations and health metrics.",
             "Creation of a complete backoffice enabling administrators to manage content, catalog, users, and the newsletter.",
             "Secure authentication system and role-based access management (Users / Admins)."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "Context",
+              items: [
+                "End-of-studies project (Associate Degree) — designing a complete web platform addressing a real need in the fitness and nutrition space.",
+                "Goal: centralize e-commerce, educational content, and interactive tools into a single platform."
+              ]
+            },
+            {
+              icon: "Layout",
+              title: "Core Features",
+              items: [
+                "Full e-commerce store for sports products with catalog management, cart, and orders.",
+                "Video exercise tutorials and specialized articles on sports and nutrition.",
+                "Interactive performance calculators and health metrics tools (BMI, calories, etc.).",
+                "Complete backoffice: content, catalog, user, and newsletter management.",
+                "Secure authentication system with role-based access management (Users / Admins)."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Platform delivered and fully functional — validated as end-of-studies project with honors.",
+                "Clean and maintainable MVC architecture with clear separation of concerns.",
+                "Responsive and intuitive interface tested on both mobile and desktop."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "Personalized recommendation system based on purchase and training habits.",
+                "Online payment integration (Stripe) and premium subscription management.",
+                "Loyalty program with points and rewards system."
+              ]
+            }
           ]
         },
         {
@@ -590,6 +976,43 @@ const translations = {
             "Intuitive medical appointment management web application centralizing consultation scheduling operations.",
             "Advanced profile management interface for users: patients, practitioners, and clinic administrators.",
             "Integration of an internal messaging system and personalization tools to optimize interaction and medical follow-up."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "The Problem",
+              items: [
+                "Medical appointment scheduling often remains manual and disorganized — phone calls, paper notebooks, and frequent double-bookings.",
+                "Lack of seamless communication between patients and practitioners outside of consultations."
+              ]
+            },
+            {
+              icon: "Lightbulb",
+              title: "Solution",
+              items: [
+                "Intuitive web application centralizing consultation scheduling and profile management (patients, practitioners, administrators).",
+                "Internal messaging system to maintain the patient-practitioner connection between appointments.",
+                "Integrated personalization and medical tracking tools to optimize the user experience."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Complete and functional interface covering the entire patient journey (registration → appointment → follow-up).",
+                "Advanced profile management with three distinct access levels.",
+                "Robust and easily extensible MVC architecture powered by CodeIgniter."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "Email and SMS notifications for appointment reminders.",
+                "Integration of a video teleconsultation system.",
+                "Analytics dashboard for practitioners (consultation statistics, attendance rates)."
+              ]
+            }
           ]
         }
       ]
@@ -630,53 +1053,31 @@ const hobbyIconMap = {
   Activity,
 } as const;
 
-type Lang = 'fr' | 'en';
-
-const Loader = ({ onComplete }: { onComplete: () => void }) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 1800);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-      className="fixed inset-0 z-[100] bg-[#05050A] flex flex-col items-center justify-center"
-    >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="flex flex-col items-center gap-6"
-      >
-        <div className="relative flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full border border-[#6366F1]/30 animate-ping" style={{ animationDuration: '2s' }}></div>
-          <div className="w-16 h-16 rounded-full border border-[#6366F1] flex items-center justify-center bg-[#6366F1]/10 backdrop-blur-md">
-            <Cpu className="text-[#6366F1] w-6 h-6" />
-          </div>
-        </div>
-        <div className="font-mono text-white tracking-[0.2em] uppercase text-sm">
-          O. Nasmi <span className="text-[#6366F1] opacity-70">//</span> Engine
-        </div>
-        <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden mt-2">
-          <motion.div
-            initial={{ x: "-100%" }}
-            animate={{ x: "100%" }}
-            transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity }}
-            className="absolute top-0 bottom-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-[#6366F1] to-transparent"
-          />
-        </div>
-      </motion.div>
-    </motion.div>
-  );
+const sectionIconMap: Record<string, any> = {
+  Target,
+  Lightbulb,
+  TrendingUp,
+  Rocket,
+  Layers,
+  Cpu,
+  Layout,
+  Code,
+  Zap,
 };
 
-const Announcement = ({ message, isVisible, onClose }: { message: string, isVisible: boolean, onClose: () => void }) => {
-  const characters = message.split("");
+type Lang = 'fr' | 'en';
 
+// Loader removed for performance — was adding 1.8s artificial delay to FCP/LCP
+
+const STAR_POSITIONS = Array.from({ length: 8 }, () => ({
+  size: Math.random() > 0.5 ? 2 : 1,
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 5}s`,
+  duration: `${3 + Math.random() * 4}s`,
+}));
+
+const Announcement = ({ message, isVisible, onClose }: { message: string, isVisible: boolean, onClose: () => void }) => {
   return (
     <AnimatePresence>
       {isVisible && (
@@ -686,81 +1087,35 @@ const Announcement = ({ message, isVisible, onClose }: { message: string, isVisi
           exit={{ y: -40, opacity: 0 }}
           className="fixed top-0 left-0 right-0 z-[100] h-[36px] px-4 flex items-center justify-center overflow-hidden border-b border-[#6366F1]/20 bg-[#05050A] shadow-2xl"
         >
-          {/* Cosmic Galaxy Background */}
+          {/* Cosmic Galaxy Background — reduced to 8 CSS-animated stars */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Nebula Glows */}
             <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-32 h-16 bg-[#6366F1]/10 blur-[30px] rounded-full" />
             <div className="absolute top-1/2 left-3/4 -translate-y-1/2 w-40 h-20 bg-[#8B5CF6]/5 blur-[40px] rounded-full" />
-
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6366F1]/5 to-transparent animate-pulse" />
 
-            {[...Array(40)].map((_, i) => {
-              const size = Math.random() > 0.8 ? 2 : 1;
-              const colors = ['#FFFFFF', '#FFFFFF', '#A5B4FC', '#C4B5FD'];
-              const color = colors[Math.floor(Math.random() * colors.length)];
-
-              return (
-                <motion.div
-                  key={i}
-                  animate={{
-                    opacity: [0.1, Math.random() * 0.7 + 0.3, 0.1],
-                    scale: [1, size === 2 ? 1.2 : 1.5, 1]
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 5,
-                    repeat: Infinity,
-                    delay: Math.random() * 10
-                  }}
-                  className="absolute rounded-full"
-                  style={{
-                    width: `${size}px`,
-                    height: `${size}px`,
-                    backgroundColor: color,
-                    boxShadow: size === 2 ? `0 0 4px ${color}` : 'none',
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                  }}
-                />
-              );
-            })}
+            {STAR_POSITIONS.map((star, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full announcement-star"
+                style={{
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                  backgroundColor: star.size === 2 ? '#A5B4FC' : '#FFFFFF',
+                  boxShadow: star.size === 2 ? '0 0 4px #A5B4FC' : 'none',
+                  top: star.top,
+                  left: star.left,
+                  animationDelay: star.delay,
+                  animationDuration: star.duration,
+                }}
+              />
+            ))}
           </div>
 
           <div className="flex items-center gap-4 relative z-10">
-            <motion.div
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.4, 1, 0.4],
-                boxShadow: ["0 0 5px #6366F1", "0 0 15px #6366F1", "0 0 5px #6366F1"]
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1.5 h-1.5 rounded-full bg-[#6366F1]"
-            />
-            <div className="flex">
-              {characters.map((char, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0.7, color: "rgba(255,255,255,0.7)" }}
-                  animate={{
-                    opacity: [0.7, 1, 0.7],
-                    color: ["rgba(255,255,255,0.7)", "#ffffff", "rgba(255,255,255,0.7)"],
-                    textShadow: [
-                      "0 0 0px transparent",
-                      "0 0 8px rgba(99,102,241,0.8), 0 0 12px rgba(99,102,241,0.4)",
-                      "0 0 0px transparent"
-                    ]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatDelay: 5,
-                    delay: i * 0.04
-                  }}
-                  className="text-[0.62rem] md:text-[0.7rem] font-mono uppercase tracking-[0.25em] font-medium whitespace-pre"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#6366F1] announcement-dot" />
+            <span className="announcement-shimmer text-[0.62rem] md:text-[0.7rem] font-mono uppercase tracking-[0.25em] font-medium whitespace-pre">
+              {message}
+            </span>
           </div>
           <button
             onClick={onClose}
@@ -774,59 +1129,128 @@ const Announcement = ({ message, isVisible, onClose }: { message: string, isVisi
   );
 };
 
+type ProjectSection = {
+  icon: string;
+  title: string;
+  items: string[];
+};
+
 type ProjectItem = {
   title: string;
   desc: string;
   tags: string[];
-  link: string;
+  link?: string;
+  linkLabel?: string;
+  linkIcon?: 'github' | 'external';
   media: string[];
   details: string[];
+  sections: ProjectSection[];
 };
 
-const ProjectCard = ({ project }: { project: ProjectItem }) => {
+const ProjectCard = ({ project, featured = false }: { project: ProjectItem; featured?: boolean }) => {
   const previewImage = project.media[0];
 
+  if (featured) {
+    return (
+      <article className="premium-card group h-full overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-0 h-full">
+          {/* Image Side */}
+          <div className="relative overflow-hidden bg-[#0d0d12] min-h-[280px] md:min-h-[420px]">
+            {previewImage ? (
+              <img
+                src={previewImage}
+                alt={`${project.title} preview`}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
+                No preview
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#0a0a0f]/60" />
+          </div>
+
+          {/* Content Side */}
+          <div className="p-8 md:p-10 flex flex-col justify-center gap-5">
+            <div className="flex items-center gap-3">
+              <span className="px-3 py-1 rounded-full text-[0.6rem] font-mono uppercase tracking-[0.2em] text-[#6366F1] bg-[#6366F1]/10 border border-[#6366F1]/20">
+                Featured
+              </span>
+            </div>
+            <h3 className="text-[1.8rem] md:text-[2.2rem] font-serif font-bold text-white leading-tight group-hover:text-[#6366F1] transition-colors">
+              {project.title}
+            </h3>
+            <p className="text-[0.95rem] text-text-muted leading-relaxed">{project.desc}</p>
+
+            <div className="flex flex-wrap gap-2 pt-2">
+              {project.tags.slice(0, 6).map((tag, idx) => (
+                <span key={idx} className="px-2.5 py-1 rounded-md text-[0.65rem] font-mono text-text-muted bg-white/5 border border-white/5 flex items-center gap-1.5">
+                  <TechIcon tag={tag} />
+                  {tag}
+                </span>
+              ))}
+              {project.tags.length > 6 && (
+                <span className="px-2.5 py-1 rounded-md text-[0.65rem] font-mono text-white/30">
+                  +{project.tags.length - 6}
+                </span>
+              )}
+            </div>
+
+            <div className="mt-auto pt-4 flex items-center gap-3">
+              <span className="text-[0.7rem] font-mono text-[#6366F1] uppercase tracking-[0.15em] group-hover:tracking-[0.25em] transition-all">
+                Explore project →
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
   return (
-    <article className="premium-card p-8 flex flex-col gap-6 group h-full">
-      <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
+    <article className="premium-card group h-full flex flex-col overflow-hidden">
+      {/* Image */}
+      <div className="relative overflow-hidden bg-[#0d0d12] aspect-[16/10]">
         {previewImage ? (
           <img
             src={previewImage}
             alt={`${project.title} preview`}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
             No preview
           </div>
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/20 to-transparent" />
+        <div className="absolute bottom-4 left-5 right-5">
+          <h3 className="text-[1.3rem] font-serif font-semibold text-white drop-shadow-lg">
+            {project.title}
+          </h3>
+        </div>
       </div>
 
-      <div className="flex justify-between items-start">
-        <h3 className="text-[1.4rem] font-serif font-medium text-white group-hover:text-[#6366F1] transition-colors">{project.title}</h3>
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Open ${project.title} repository`}
-          onClick={(event) => event.stopPropagation()}
-          className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-[#6366F1]/10 group-hover:border-[#6366F1]/30 transition-all"
-        >
-          <ExternalLink className="w-3 h-3 text-text-muted group-hover:text-white" />
-        </a>
-      </div>
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-3 flex-1">
+        <p className="text-[0.82rem] text-text-muted leading-relaxed line-clamp-2">{project.desc}</p>
 
-      <p className="text-[0.9rem] text-text-muted leading-relaxed">{project.desc}</p>
-
-      <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
-        {project.tags.map((tag, idx) => (
-          <span key={idx} className="px-2 py-1 rounded text-[0.65rem] font-mono text-text-muted flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
-            <TechIcon tag={tag} />
-            {tag}
-          </span>
-        ))}
+        <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/5">
+          {project.tags.slice(0, 4).map((tag, idx) => (
+            <span key={idx} className="px-2 py-0.5 rounded text-[0.6rem] font-mono text-text-muted flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+              <TechIcon tag={tag} />
+              {tag}
+            </span>
+          ))}
+          {project.tags.length > 4 && (
+            <span className="px-2 py-0.5 rounded text-[0.6rem] font-mono text-white/25">
+              +{project.tags.length - 4}
+            </span>
+          )}
+        </div>
       </div>
     </article>
   );
@@ -843,6 +1267,9 @@ const ProjectModal = ({
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const hasMultipleMedia = project.media.length > 1;
+  const linkLabel = project.linkLabel ?? sourceLabel;
+  const LinkIcon = project.linkIcon === 'external' ? ExternalLink : Github;
+  const hasLink = Boolean(project.link);
 
   const goToPrevImage = () => {
     setActiveImageIndex((current) => (current === 0 ? project.media.length - 1 : current - 1));
@@ -862,103 +1289,193 @@ const ProjectModal = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[120] bg-black/80 backdrop-blur-sm px-4 py-8 md:px-8 flex items-center justify-center"
+      className="fixed inset-0 z-[120] bg-black/85 backdrop-blur-md px-4 py-4 md:px-6 md:py-6 flex items-center justify-center"
     >
       <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        initial={{ opacity: 0, y: 30, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 20, scale: 0.98 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+        exit={{ opacity: 0, y: 30, scale: 0.96 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         onClick={(event) => event.stopPropagation()}
-        className="bg-[#0a0a0f] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 flex flex-col gap-6"
+        className="bg-[#0a0a0f] border border-white/10 rounded-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden flex flex-col"
       >
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-2xl md:text-3xl font-serif text-white">{project.title}</h3>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 md:px-8 pt-6 pb-4 border-b border-white/5 shrink-0">
+          <div className="flex items-center gap-4">
+            <h3 className="text-xl md:text-2xl font-serif font-bold text-white">{project.title}</h3>
+            {hasLink && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="w-8 h-8 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
+              >
+                <LinkIcon className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close project details"
-            className="w-9 h-9 rounded-full border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
+            className="w-9 h-9 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20 aspect-video">
-          {project.media[activeImageIndex] ? (
-            <img
-              src={project.media[activeImageIndex]}
-              alt={`${project.title} preview ${activeImageIndex + 1}`}
-              decoding="async"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
-              No preview
-            </div>
-          )}
-
-          {hasMultipleMedia && (
-            <>
-              <button
-                type="button"
-                onClick={goToPrevImage}
-                aria-label={`Previous ${project.title} image`}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={goToNextImage}
-                aria-label={`Next ${project.title} image`}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 border border-white/20 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-                {project.media.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveImageIndex(idx)}
-                    aria-label={`Go to image ${idx + 1}`}
-                    className={`w-2 h-2 rounded-full transition-all ${activeImageIndex === idx ? 'bg-[#6366F1] scale-110' : 'bg-white/50'
-                      }`}
+        {/* Body — two columns on desktop */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="grid md:grid-cols-[45%_55%] gap-0 min-h-0">
+            {/* Left: Image gallery */}
+            <div className="md:sticky md:top-0 md:self-start p-5 md:p-6 flex flex-col gap-4">
+              {/* Main image */}
+              <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#0d0d12] h-[220px] md:h-[350px]">
+                {project.media[activeImageIndex] ? (
+                  <img
+                    src={project.media[activeImageIndex]}
+                    alt={`${project.title} preview ${activeImageIndex + 1}`}
+                    decoding="async"
+                    className="w-full h-full object-contain"
                   />
-                ))}
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-text-muted text-sm font-mono">
+                    No preview
+                  </div>
+                )}
+
+                {hasMultipleMedia && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goToPrevImage}
+                      aria-label={`Previous ${project.title} image`}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goToNextImage}
+                      aria-label={`Next ${project.title} image`}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    {/* Image counter */}
+                    <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-md bg-black/60 text-[0.6rem] font-mono text-white/70 border border-white/10">
+                      {activeImageIndex + 1} / {project.media.length}
+                    </div>
+                  </>
+                )}
               </div>
-            </>
-          )}
+
+              {/* Thumbnail strip */}
+              {hasMultipleMedia && (
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                  {project.media.map((src, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      aria-label={`Go to image ${idx + 1}`}
+                      className={`shrink-0 w-16 h-11 rounded-lg overflow-hidden border-2 transition-all ${
+                        activeImageIndex === idx
+                          ? 'border-[#6366F1] opacity-100 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
+                          : 'border-white/10 opacity-50 hover:opacity-80'
+                      }`}
+                    >
+                      <img
+                        src={src}
+                        alt={`Thumbnail ${idx + 1}`}
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Tech Stack (below thumbnails on desktop) */}
+              <div className="hidden md:block pt-2 border-t border-white/5">
+                <h4 className="text-[0.6rem] font-mono uppercase tracking-[0.3em] text-white/30 mb-3">Tech Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, idx) => (
+                    <span key={idx} className="px-2.5 py-1 rounded-md text-[0.65rem] font-mono text-text-muted bg-white/5 border border-white/8 flex items-center gap-1.5">
+                      <TechIcon tag={tag} />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Content sections */}
+            <div className="p-5 md:p-6 md:pl-2 md:border-l border-white/5 flex flex-col gap-1">
+              {/* Description */}
+              <p className="text-[0.9rem] text-text-muted leading-relaxed mb-4 pb-4 border-b border-white/5">
+                {project.desc}
+              </p>
+
+              {/* Structured sections */}
+              {project.sections.map((section, sIdx) => {
+                const SectionIcon = sectionIconMap[section.icon] || Code;
+                return (
+                  <div key={sIdx} className="py-4 first:pt-0 last:pb-0">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#6366F1]/10 border border-[#6366F1]/15">
+                        <SectionIcon className="w-3.5 h-3.5 text-[#6366F1]" />
+                      </div>
+                      <h4 className="text-[0.8rem] font-bold uppercase tracking-[0.15em] text-white">
+                        {section.title}
+                      </h4>
+                    </div>
+                    <ul className="flex flex-col gap-2.5 pl-10">
+                      {section.items.map((item, iIdx) => (
+                        <li key={iIdx} className="flex items-start gap-2.5 text-[0.85rem] text-text-muted leading-relaxed">
+                          <span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-[#6366F1]/60 shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {sIdx < project.sections.length - 1 && (
+                      <div className="mt-4 h-[1px] bg-gradient-to-r from-white/5 via-white/8 to-transparent" />
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Mobile tech stack */}
+              <div className="md:hidden pt-4 mt-4 border-t border-white/5">
+                <h4 className="text-[0.6rem] font-mono uppercase tracking-[0.3em] text-white/30 mb-3">Tech Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, idx) => (
+                    <span key={idx} className="px-2.5 py-1 rounded-md text-[0.65rem] font-mono text-text-muted bg-white/5 border border-white/8 flex items-center gap-1.5">
+                      <TechIcon tag={tag} />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA */}
+              {hasLink && (
+                <div className="mt-6 pt-4 border-t border-white/5">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#6366F1]/15 border border-[#6366F1]/30 text-white hover:bg-[#6366F1]/25 hover:border-[#6366F1]/50 transition-all text-[0.82rem] font-medium"
+                  >
+                    <LinkIcon className="w-4 h-4" />
+                    {linkLabel}
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag, idx) => (
-            <span key={idx} className="px-2.5 py-1 rounded text-[0.7rem] font-mono text-text-muted bg-white/5 border border-white/10 flex items-center gap-1.5">
-              <TechIcon tag={tag} />
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <ul className="flex flex-col gap-3 text-text-muted text-[0.95rem] leading-relaxed">
-          {project.details.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-3">
-              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#6366F1] shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-2 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#6366F1]/20 border border-[#6366F1]/40 text-white hover:bg-[#6366F1]/30 transition-colors"
-        >
-          <Github className="w-4 h-4" />
-          {sourceLabel}
-        </a>
       </motion.div>
     </motion.div>
   );
@@ -966,10 +1483,8 @@ const ProjectModal = ({
 
 export default function App() {
   const [lang, setLang] = useState<Lang>('fr');
-  const [loading, setLoading] = useState(true);
   const [announcementVisible, setAnnouncementVisible] = useState(true);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
-  const projectsCarouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('omar_lang') as Lang;
@@ -1027,25 +1542,6 @@ export default function App() {
   };
 
   const t = translations[lang];
-  const projectCount = t.projects.items.length;
-  const hasMultipleProjects = projectCount > 1;
-
-  const scrollProjects = (direction: 'prev' | 'next') => {
-    const container = projectsCarouselRef.current;
-    if (!container) return;
-
-    const firstCard = container.querySelector<HTMLElement>('[data-project-slide]');
-    if (!firstCard) return;
-
-    const styles = getComputedStyle(container);
-    const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
-    const amount = firstCard.getBoundingClientRect().width + gap;
-
-    container.scrollBy({
-      left: direction === 'next' ? amount : -amount,
-      behavior: 'smooth',
-    });
-  };
 
   const handleCvDownload = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -1062,10 +1558,6 @@ export default function App() {
 
   return (
     <>
-      <AnimatePresence>
-        {loading && <Loader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
-
       <div className="atmosphere-bg"></div>
 
       <Announcement
@@ -1076,8 +1568,8 @@ export default function App() {
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
         className="min-h-screen flex flex-col items-center relative z-10"
       >
         {/* Navbar */}
@@ -1103,12 +1595,12 @@ export default function App() {
               >
                 {lang === 'fr' ? (
                   <>
-                    <img src="https://flagcdn.com/w20/gb.png" className="w-4 h-auto rounded-sm" alt="EN" />
+                    <img src="https://flagcdn.com/w20/gb.png" width="20" height="15" loading="lazy" decoding="async" className="w-4 h-auto rounded-sm" alt="EN" />
                     <span>EN</span>
                   </>
                 ) : (
                   <>
-                    <img src="https://flagcdn.com/w20/fr.png" className="w-4 h-auto rounded-sm" alt="FR" />
+                    <img src="https://flagcdn.com/w20/fr.png" width="20" height="15" loading="lazy" decoding="async" className="w-4 h-auto rounded-sm" alt="FR" />
                     <span>FR</span>
                   </>
                 )}
@@ -1220,53 +1712,39 @@ export default function App() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
               id="projects"
-              className="scroll-mt-[100px] flex flex-col gap-12"
+              className="scroll-mt-[100px] flex flex-col gap-10"
             >
               <motion.div variants={fadeIn} className="flex items-center gap-4">
                 <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">{t.projects.title}</h2>
                 <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
               </motion.div>
-              <motion.div variants={fadeIn} className="relative left-1/2 w-screen -translate-x-1/2 px-6 md:px-10 lg:px-12">
-                {hasMultipleProjects && (
-                  <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#05050A] to-transparent" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#05050A] to-transparent" />
-                    <button
-                      type="button"
-                      onClick={() => scrollProjects('prev')}
-                      aria-label="Previous project"
-                      className="absolute left-3 top-1/2 z-20 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => scrollProjects('next')}
-                      aria-label="Next project"
-                      className="absolute right-3 top-1/2 z-20 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </>
-                )}
 
-                <div
-                  ref={projectsCarouselRef}
-                  className="flex items-stretch gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              {/* Featured Project (first item) */}
+              {t.projects.items.length > 0 && (
+                <motion.div
+                  variants={fadeIn}
+                  onClick={() => setSelectedProject(t.projects.items[0])}
+                  className="cursor-pointer transition-transform duration-300 hover:scale-[1.01]"
                 >
-                  {t.projects.items.map((proj, i) => (
+                  <ProjectCard project={t.projects.items[0]} featured />
+                </motion.div>
+              )}
+
+              {/* Grid of remaining projects */}
+              {t.projects.items.length > 1 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {t.projects.items.slice(1).map((proj, i) => (
                     <motion.div
                       key={`${proj.title}-${i}`}
-                      data-project-slide
                       variants={fadeIn}
                       onClick={() => setSelectedProject(proj)}
-                      className="h-full shrink-0 basis-[88%] sm:basis-[72%] md:basis-[52%] lg:basis-[40%] xl:basis-[34%] snap-start cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+                      className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
                     >
                       <ProjectCard project={proj} />
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+              )}
             </motion.section>
 
             {/* Testimonials - Social proof through collaboration */}
