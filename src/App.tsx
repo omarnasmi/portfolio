@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense, type MouseEvent } from 'react';
+import { trackEvent } from './analytics';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube, Target, Lightbulb, TrendingUp } from 'lucide-react';
 import profileImage from '../assets/others/image.png';
@@ -816,6 +817,107 @@ const translations = {
       title: "Personal Projects",
       items: [
         {
+          title: "Alternance Hunter",
+          desc: "Intelligent job-search automation pipeline: scraping, AI evaluation of offers, automated LaTeX CV/cover letter generation, and a BI dashboard.",
+          tags: ["n8n", "PostgreSQL", "Metabase", "Gemini 2.5 Pro", "Docker", "Firecrawl", "Tavily", "Telegram API", "LaTeX"],
+          media: projectMedia.aiJobScout,
+          details: [
+            "Orchestrated complex n8n workflows for daily sourcing and tailored application generation.",
+            "Semantic evaluation and scoring of apprenticeship listings via the Gemini API to instantly discard irrelevant posts.",
+            "Metabase analytics cockpit to visualize the prospecting funnel in real time."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "The Problem",
+              items: [
+                "Automate the tedious apprenticeship search and filter noise (school ads, incompatible contract formats, search-result pages).",
+                "Generate highly customized applications (CVs and cover letters) for each target company without hours of manual work.",
+                "Track application conversion metrics efficiently."
+              ]
+            },
+            {
+              icon: "Layers",
+              title: "Architecture & Solution",
+              items: [
+                "Scout workflow: automated web search via Tavily, targeted scraping with Firecrawl, strict analysis and scoring by Gemini AI, then storage in PostgreSQL.",
+                "Generator workflow: triggered by Telegram webhooks; the AI generates LaTeX content, compiles it to PDF via a dedicated Docker microservice, and prepares a draft in Gmail.",
+                "BI dashboard: Metabase interface connected to PostgreSQL to track KPIs (conversion funnel, daily volume, AI relevance score)."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Automatically filtered over 80% of noise (junk, fake listings, result pages) before any human intervention.",
+                "Application time drastically reduced: full PDF dossier and cover email generated in seconds via a single Telegram click.",
+                "Full visibility into search performance via an analytics funnel (Scouted → Generated → Applied)."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "Automated recruiter discovery (LinkedIn/Apollo scraping) to capture direct hiring-manager contacts.",
+                "Automated email sending and an integrated follow-up system within the workflow.",
+                "Local AI model setup (via Ollama) to reduce reliance on external APIs and optimize costs."
+              ]
+            }
+          ]
+        },
+        {
+          title: "Crousti 51 - Web App & Showcase",
+          desc: "Mobile-first web app for a local fast-food restaurant: premium app-like UI/UX, smooth animations, and conversion optimization toward delivery platforms.",
+          tags: ["React", "Tailwind CSS", "Framer Motion", "Mobile-First", "UI/UX", "Vite"],
+          link: "https://crousti51.vercel.app",
+          linkLabel: "View site",
+          linkIcon: "external",
+          media: projectMedia.crousti51,
+          details: [
+            "Designed and built a responsive frontend with an immersive dark design and dynamic visual accents.",
+            "App-like mobile architecture with a fixed bottom nav and horizontal carousels for optimal ergonomics.",
+            "Full legal compliance (mandatory legal notices, SIRET) for safe deployment and hosting in France."
+          ],
+          sections: [
+            {
+              icon: "Target",
+              title: "The Problem",
+              items: [
+                "Modernize the restaurant's digital image to attract and retain a demanding local customer base.",
+                "Replace traditional brochure sites with a smooth mobile experience similar to a native app to reduce bounce rate.",
+                "Direct web traffic efficiently to the ordering platform (Deliveroo) to increase sales volume."
+              ]
+            },
+            {
+              icon: "Layers",
+              title: "Architecture & Solution",
+              items: [
+                "Mobile-first frontend: React and Tailwind CSS for a fully responsive design with a strong focus on touch targets.",
+                "Advanced UI/UX components: sticky bottom nav and swipeable carousels to navigate the menu without vertical scroll fatigue.",
+                "Strategic animations: Framer Motion micro-interactions and smooth transitions (fade-in, slide-up) without hurting mobile performance."
+              ]
+            },
+            {
+              icon: "TrendingUp",
+              title: "Key Results",
+              items: [
+                "Highly optimized mobile navigation experience with a professional finish that sets the restaurant apart locally.",
+                "Premium presentation of the catalog (family menus, sides) with clear, persuasive visual hierarchy.",
+                "Frictionless user journey from menu discovery to the order CTA click."
+              ]
+            },
+            {
+              icon: "Rocket",
+              title: "Future Features",
+              items: [
+                "Native Click & Collect module to reduce reliance on third-party platforms and fees.",
+                "Headless CMS connection (e.g., Strapi) so the owner can update prices and new items independently.",
+                "Event tracking and analytics dashboard to monitor landing-page to Deliveroo conversion rate."
+              ]
+            }
+          ]
+        },
+        {
           title: "Traefik Vanguard",
           desc: "High-availability distributed infrastructure: secure reverse proxy, automated TLS, Zero Trust SSO, and full-stack monitoring via ELK Stack.",
           tags: ["Traefik", "WordPress", "MySQL", "phpMyAdmin", "Keycloak", "Filebeat", "Elasticsearch", "Logstash", "Kibana", "Uptime Kuma"],
@@ -1308,7 +1410,7 @@ const ProjectModal = ({
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); trackEvent('click_project_source', { project: project.title, location: 'modal_header' }); }}
                 className="w-8 h-8 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
               >
                 <LinkIcon className="w-3.5 h-3.5" />
@@ -1466,6 +1568,7 @@ const ProjectModal = ({
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => trackEvent('click_project_source', { project: project.title, location: 'modal_cta' })}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#6366F1]/15 border border-[#6366F1]/30 text-white hover:bg-[#6366F1]/25 hover:border-[#6366F1]/50 transition-all text-[0.82rem] font-medium"
                   >
                     <LinkIcon className="w-4 h-4" />
@@ -1539,12 +1642,14 @@ export default function App() {
     setLang(next);
     localStorage.setItem('omar_lang', next);
     setSelectedProject(null);
+    trackEvent('switch_language', { to: next });
   };
 
   const t = translations[lang];
 
   const handleCvDownload = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    trackEvent('download_cv', { location: 'hero' });
 
     window.open(cvFile, '_blank', 'noopener,noreferrer');
 
@@ -1583,10 +1688,10 @@ export default function App() {
               Omar Nasmi
             </div>
             <div className="hidden md:flex gap-10 text-[0.75rem] uppercase tracking-widest font-medium text-text-muted">
-              <a href="#experience" className="hover:text-white transition-colors duration-300">{t.nav.experience}</a>
-              <a href="#skills" className="hover:text-white transition-colors duration-300">{t.nav.skills}</a>
-              <a href="#projects" className="hover:text-white transition-colors duration-300">{t.nav.projects}</a>
-              <a href="#certifications" className="hover:text-white transition-colors duration-300">{t.nav.certifications}</a>
+              <a href="#experience" onClick={() => trackEvent('nav_click', { section: 'experience' })} className="hover:text-white transition-colors duration-300">{t.nav.experience}</a>
+              <a href="#skills" onClick={() => trackEvent('nav_click', { section: 'skills' })} className="hover:text-white transition-colors duration-300">{t.nav.skills}</a>
+              <a href="#projects" onClick={() => trackEvent('nav_click', { section: 'projects' })} className="hover:text-white transition-colors duration-300">{t.nav.projects}</a>
+              <a href="#certifications" onClick={() => trackEvent('nav_click', { section: 'certifications' })} className="hover:text-white transition-colors duration-300">{t.nav.certifications}</a>
             </div>
             <div className="flex items-center gap-6">
               <button
@@ -1611,6 +1716,7 @@ export default function App() {
               </div>
               <a
                 href="#contact"
+                onClick={() => trackEvent('nav_click', { section: 'contact' })}
                 className="hidden md:inline-flex px-5 py-2 rounded bg-white/5 border border-white/10 text-[0.75rem] uppercase tracking-widest font-medium hover:bg-white hover:text-black transition-all duration-300"
               >
                 {t.nav.contact}
@@ -1675,13 +1781,13 @@ export default function App() {
               </motion.div>
 
               <motion.div variants={fadeIn} className="mt-6 flex gap-6 text-text-muted">
-                <a href="https://github.com/omarnasmi" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <a href="https://github.com/omarnasmi" target="_blank" rel="noreferrer" onClick={() => trackEvent('click_social', { platform: 'github', location: 'hero' })} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
                   <Github size={18} />
                 </a>
-                <a href="https://linkedin.com/in/omar-nasmi" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <a href="https://linkedin.com/in/omar-nasmi" target="_blank" rel="noreferrer" onClick={() => trackEvent('click_social', { platform: 'linkedin', location: 'hero' })} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
                   <Linkedin size={18} />
                 </a>
-                <a href="mailto:omarnasmiprofessional@gmail.com" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
+                <a href="mailto:omarnasmiprofessional@gmail.com" onClick={() => trackEvent('click_email', { location: 'hero' })} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
                   <Mail size={18} />
                 </a>
               </motion.div>
@@ -1698,6 +1804,7 @@ export default function App() {
                 </a>
                 <a
                   href="#projects"
+                  onClick={() => trackEvent('click_cta', { label: 'view_projects', location: 'hero' })}
                   className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-white/20 text-white text-[0.72rem] uppercase tracking-[0.18em] font-bold hover:border-[#6366F1]/60 hover:bg-white/5 transition-colors"
                 >
                   {t.cta.viewProjects}
@@ -1723,7 +1830,7 @@ export default function App() {
               {t.projects.items.length > 0 && (
                 <motion.div
                   variants={fadeIn}
-                  onClick={() => setSelectedProject(t.projects.items[0])}
+                  onClick={() => { trackEvent('click_project', { project: t.projects.items[0].title, featured: true }); setSelectedProject(t.projects.items[0]); }}
                   className="cursor-pointer transition-transform duration-300 hover:scale-[1.01]"
                 >
                   <ProjectCard project={t.projects.items[0]} featured />
@@ -1737,7 +1844,7 @@ export default function App() {
                     <motion.div
                       key={`${proj.title}-${i}`}
                       variants={fadeIn}
-                      onClick={() => setSelectedProject(proj)}
+                      onClick={() => { trackEvent('click_project', { project: proj.title }); setSelectedProject(proj); }}
                       className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
                     >
                       <ProjectCard project={proj} />
@@ -1762,7 +1869,7 @@ export default function App() {
                 </div>
                 <p className="text-[0.72rem] font-mono text-white/30 uppercase tracking-widest">
                   {t.testimonials.subtitle}{' '}
-                  <a href="https://www.fiverr.com/omarnasmi" target="_blank" rel="noreferrer" className="text-[#6366F1]/60 hover:text-[#6366F1] transition-colors underline underline-offset-2">Fiverr</a>
+                  <a href="https://www.fiverr.com/omarnasmi" target="_blank" rel="noreferrer" onClick={() => trackEvent('click_social', { platform: 'fiverr', location: 'testimonials' })} className="text-[#6366F1]/60 hover:text-[#6366F1] transition-colors underline underline-offset-2">Fiverr</a>
                 </p>
               </motion.div>
               <div className="grid md:grid-cols-3 gap-5">
@@ -1836,6 +1943,7 @@ export default function App() {
                               target="_blank"
                               rel="noreferrer"
                               aria-label={`Visit ${job.company}`}
+                              onClick={() => trackEvent('click_experience_link', { company: job.company })}
                               className="w-6 h-6 rounded-full border border-white/10 text-text-muted hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
                             >
                               <ExternalLink className="w-3 h-3" />
@@ -1881,6 +1989,7 @@ export default function App() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`Visit ${edu.school}`}
+                            onClick={() => trackEvent('click_education_link', { school: edu.school })}
                             className="w-6 h-6 rounded-full border border-white/10 text-text-muted hover:text-white hover:border-[#6366F1]/50 transition-colors flex items-center justify-center"
                           >
                             <ExternalLink className="w-3 h-3" />
@@ -2025,7 +2134,7 @@ export default function App() {
               </motion.div>
               <div className="flex flex-wrap justify-center gap-12">
                 {badges.map((badge, i) => (
-                  <a key={i} href={badge.url} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
+                  <a key={i} href={badge.url} target="_blank" rel="noreferrer" onClick={() => trackEvent('click_certification', { badge: badge.title })} className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
                     <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
                       <img
                         src={badge.img}
@@ -2071,6 +2180,7 @@ export default function App() {
               <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
                 <a
                   href="mailto:omarnasmiprofessional@gmail.com"
+                  onClick={() => trackEvent('click_email', { location: 'contact_section' })}
                   className="relative overflow-hidden group px-10 py-4 bg-white text-black text-[0.85rem] uppercase tracking-[0.2em] font-bold rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]"
                 >
                   <span className="relative z-10">{lang === 'fr' ? 'Écrire un email' : 'Send an email'}</span>
@@ -2080,6 +2190,7 @@ export default function App() {
                   href="https://linkedin.com/in/omar-nasmi"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent('click_social', { platform: 'linkedin', location: 'contact_section' })}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-white/15 text-white text-[0.85rem] uppercase tracking-[0.2em] font-bold hover:border-[#6366F1]/50 hover:bg-white/5 transition-all duration-300"
                 >
                   <Linkedin className="w-4 h-4" />
