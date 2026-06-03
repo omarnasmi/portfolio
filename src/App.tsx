@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense, type MouseEvent } from 'react';
 import { trackEvent } from './analytics';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube, Target, Lightbulb, TrendingUp } from 'lucide-react';
+import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube, Target, Lightbulb, TrendingUp, Maximize2, Minimize2 } from 'lucide-react';
 import profileImage from '../assets/others/image.png';
 import cvFile from '../assets/cv/ITII - NASMI OMAR - CV Ingénieur Informatique.pdf';
 
@@ -1368,6 +1368,7 @@ const ProjectModal = ({
   sourceLabel: string;
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const hasMultipleMedia = project.media.length > 1;
   const linkLabel = project.linkLabel ?? sourceLabel;
   const LinkIcon = project.linkIcon === 'external' ? ExternalLink : Github;
@@ -1381,6 +1382,14 @@ const ProjectModal = ({
     setActiveImageIndex((current) => (current + 1) % project.media.length);
   };
 
+  const toggleZoom = () => {
+    setIsZoomed((current) => !current);
+  };
+
+  const toggleFullScreen = () => {
+    setIsFullScreen((current) => !current);
+  };
+
   useEffect(() => {
     setActiveImageIndex(0);
   }, [project]);
@@ -1391,7 +1400,7 @@ const ProjectModal = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[120] bg-black/85 backdrop-blur-md px-4 py-4 md:px-6 md:py-6 flex items-center justify-center"
+      className={`fixed inset-0 z-[120] bg-black/85 backdrop-blur-md flex ${isFullScreen ? 'p-0 items-stretch justify-stretch' : 'px-4 py-4 md:px-6 md:py-6 items-center justify-center'}`}
     >
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
@@ -1399,7 +1408,7 @@ const ProjectModal = ({
         exit={{ opacity: 0, y: 30, scale: 0.96 }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         onClick={(event) => event.stopPropagation()}
-        className="bg-[#0a0a0f] border border-white/10 rounded-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden flex flex-col"
+        className={`bg-[#0a0a0f] border border-white/10 overflow-hidden flex flex-col w-full ${isFullScreen ? 'max-w-none max-h-[100vh] h-full rounded-none' : 'max-w-5xl max-h-[95vh] rounded-2xl'}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 md:px-8 pt-6 pb-4 border-b border-white/5 shrink-0">
@@ -1417,23 +1426,34 @@ const ProjectModal = ({
               </a>
             )}
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close project details"
-            className="w-9 h-9 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleFullScreen}
+              aria-label={isFullScreen ? 'Exit full screen' : 'Open full screen'}
+              aria-pressed={isFullScreen}
+              className="w-9 h-9 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
+            >
+              {isFullScreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close project details"
+              className="w-9 h-9 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Body — two columns on desktop */}
         <div className="flex-1 overflow-y-auto">
-          <div className="grid md:grid-cols-[45%_55%] gap-0 min-h-0">
+          <div className={`grid gap-0 min-h-0 ${isFullScreen ? 'md:grid-cols-[50%_50%]' : 'md:grid-cols-[45%_55%]'}`}>
             {/* Left: Image gallery */}
             <div className="md:sticky md:top-0 md:self-start p-5 md:p-6 flex flex-col gap-4">
               {/* Main image */}
-              <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#0d0d12] h-[220px] md:h-[350px]">
+              <div className={`relative overflow-hidden rounded-xl border border-white/10 bg-[#0d0d12] ${isFullScreen ? 'h-[260px] md:h-[60vh]' : 'h-[220px] md:h-[350px]'}`}>
                 {project.media[activeImageIndex] ? (
                   <img
                     src={project.media[activeImageIndex]}
