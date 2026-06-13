@@ -1384,9 +1384,6 @@ const ProjectModal = ({
     setActiveImageIndex((current) => (current + 1) % project.media.length);
   };
 
-  const toggleZoom = () => {
-    setIsZoomed((current) => !current);
-  };
 
   const toggleFullScreen = () => {
     setIsFullScreen((current) => !current);
