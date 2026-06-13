@@ -47,8 +47,10 @@ const badges = [
   { title: "Introduction to Ai", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
   { title: "Digital Safety and Security Awareness", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
   { title: "Network Technician Career Path", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
-  { title: "Introduction to IoT", url: "https://www.credly.com/badges/43d821ce-1ebf-40a7-b1b7-452c3b242635", img: "https://images.credly.com/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png" },
-  { title: "Cisco Hackaton 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" }
+  { title: "Ethics in the Age of Generative AI", url: "https://www.linkedin.com/learning/certificates/6bde726dbb03e232ecc3a5766e05b44d6631db60ce41d2c6dff73aa336072c24", img: "https://www.itta.net/wp-content/uploads/2022/12/atp_badge_atp_badge_violet_full_color_rgb.png" },
+  { title: "Cisco Hackaton 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" },
+  { title: "Career Essentials in Generative AI", url: "https://www.linkedin.com/learning/certificates/8b2876b2a7e97d50e83a910b19ef2ec7cd786a813a9be8b5c1a3b965af80327a", img: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
+  { title: "Microsoft 365 Copilot for Work", url: "https://www.linkedin.com/learning/certificates/8da2b9a83cfe6ee7cd2cfc8638b06443863fd2acb520b101d7a2dde5591482b8", img: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" }
 ];
 
 const TechIcon = ({ tag }: { tag: string }) => {
