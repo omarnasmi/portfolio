@@ -42,15 +42,38 @@ const UKFlag = () => (
   </svg>
 );
 
+// Tier 1 — Institutional / high-value certifications
+const premiumBadges = [
+  {
+    title: "Career Essentials in Generative AI",
+    issuer: "Microsoft",
+    url: "https://www.linkedin.com/learning/certificates/8b2876b2a7e97d50e83a910b19ef2ec7cd786a813a9be8b5c1a3b965af80327a",
+    img: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    color: "#00A4EF",
+  },
+  {
+    title: "Responsible AI in a Global Context",
+    issuer: "United Nations University",
+    url: "https://www.linkedin.com/learning/certificates/617e60b01693514249e053514f4379c4d7a93053037f683256f83e0af927c7fa",
+    img: "https://upload.wikimedia.org/wikipedia/commons/e/ee/UN_emblem_blue.svg",
+    color: "#009EDB",
+  },
+  {
+    title: "Ethics in the Age of Generative AI",
+    issuer: "Project Management Institute",
+    url: "https://www.linkedin.com/learning/certificates/6bde726dbb03e232ecc3a5766e05b44d6631db60ce41d2c6dff73aa336072c24",
+    img: "https://cdn.iconscout.com/icon/free/png-256/pmi-1-282496.png",
+    color: "#E21D27",
+  },
+];
+
+// Tier 2 — Technical track badges
 const badges = [
   { title: "Introduction to Cybersecurity", url: "https://www.credly.com/badges/5445de2e-c511-4a64-a180-cea415ac483f", img: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" },
-  { title: "Introduction to Ai", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
-  { title: "Digital Safety and Security Awareness", url: "https://www.credly.com/badges/9b64def7-d226-46c5-ad09-0b30af632da6", img: "https://images.credly.com/images/92d90000-9c96-4dbd-a37d-8c47bf338bca/blob" },
+  { title: "Introduction to AI", url: "https://www.credly.com/badges/3f692317-db25-42aa-8d92-023640c22eff", img: "https://images.credly.com/images/e2d12302-10f9-40d4-8ff1-066a7008b61d/blob" },
   { title: "Network Technician Career Path", url: "https://www.credly.com/badges/df44b497-ce77-44cd-8b5d-eb287ae08e83", img: "https://images.credly.com/images/978f88dc-c247-4093-9d39-6efac3651297/image.png" },
-  { title: "Ethics in the Age of Generative AI", url: "https://www.linkedin.com/learning/certificates/6bde726dbb03e232ecc3a5766e05b44d6631db60ce41d2c6dff73aa336072c24", img: "https://www.itta.net/wp-content/uploads/2022/12/atp_badge_atp_badge_violet_full_color_rgb.png" },
-  { title: "Cisco Hackaton 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" },
-  { title: "Career Essentials in Generative AI", url: "https://www.linkedin.com/learning/certificates/8b2876b2a7e97d50e83a910b19ef2ec7cd786a813a9be8b5c1a3b965af80327a", img: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
-  { title: "Microsoft 365 Copilot for Work", url: "https://www.linkedin.com/learning/certificates/8da2b9a83cfe6ee7cd2cfc8638b06443863fd2acb520b101d7a2dde5591482b8", img: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" }
+  { title: "Cisco Hackathon 2026", url: "https://www.credly.com/badges/3b181449-a46f-478f-a3c6-62d227e6acf1", img: "https://images.credly.com/images/7bf55491-f0df-488f-84bf-4d51ada45316/blob" },
+  { title: "Microsoft 365 Copilot for Work", url: "https://www.linkedin.com/learning/certificates/8da2b9a83cfe6ee7cd2cfc8638b06443863fd2acb520b101d7a2dde5591482b8", img: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" },
 ];
 
 const TechIcon = ({ tag }: { tag: string }) => {
@@ -1222,7 +1245,10 @@ const Announcement = ({ message, isVisible, onClose }: { message: string, isVisi
             </span>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => {
+              trackEvent('close_announcement');
+              onClose();
+            }}
             className="absolute right-3 p-1 hover:text-white transition-colors text-white/30 z-20"
           >
             <X size={14} />
@@ -1377,16 +1403,22 @@ const ProjectModal = ({
   const hasLink = Boolean(project.link);
 
   const goToPrevImage = () => {
-    setActiveImageIndex((current) => (current === 0 ? project.media.length - 1 : current - 1));
+    const prevIndex = activeImageIndex === 0 ? project.media.length - 1 : activeImageIndex - 1;
+    trackEvent('navigate_project_images', { project: project.title, direction: 'prev', index: prevIndex });
+    setActiveImageIndex(prevIndex);
   };
 
   const goToNextImage = () => {
-    setActiveImageIndex((current) => (current + 1) % project.media.length);
+    const nextIndex = (activeImageIndex + 1) % project.media.length;
+    trackEvent('navigate_project_images', { project: project.title, direction: 'next', index: nextIndex });
+    setActiveImageIndex(nextIndex);
   };
 
 
   const toggleFullScreen = () => {
-    setIsFullScreen((current) => !current);
+    const nextVal = !isFullScreen;
+    trackEvent('toggle_project_fullscreen', { project: project.title, fullscreen: nextVal });
+    setIsFullScreen(nextVal);
   };
 
   useEffect(() => {
@@ -1398,7 +1430,10 @@ const ProjectModal = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={onClose}
+      onClick={() => {
+        trackEvent('close_project_modal', { project: project.title, method: 'backdrop' });
+        onClose();
+      }}
       className={`fixed inset-0 z-[120] bg-black/85 backdrop-blur-md flex ${isFullScreen ? 'p-0 items-stretch justify-stretch' : 'px-4 py-4 md:px-6 md:py-6 items-center justify-center'}`}
     >
       <motion.div
@@ -1437,7 +1472,10 @@ const ProjectModal = ({
             </button>
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                trackEvent('close_project_modal', { project: project.title, method: 'button' });
+                onClose();
+              }}
               aria-label="Close project details"
               className="w-9 h-9 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors flex items-center justify-center"
             >
@@ -1499,7 +1537,10 @@ const ProjectModal = ({
                     <button
                       key={idx}
                       type="button"
-                      onClick={() => setActiveImageIndex(idx)}
+                      onClick={() => {
+                        trackEvent('navigate_project_images', { project: project.title, direction: 'thumbnail', index: idx });
+                        setActiveImageIndex(idx);
+                      }}
                       aria-label={`Go to image ${idx + 1}`}
                       className={`shrink-0 w-16 h-11 rounded-lg overflow-hidden border-2 transition-all ${
                         activeImageIndex === idx
@@ -1617,7 +1658,10 @@ export default function App() {
     if (!selectedProject) return;
 
     const onEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedProject(null);
+      if (event.key === 'Escape') {
+        trackEvent('close_project_modal', { project: selectedProject.title, method: 'escape' });
+        setSelectedProject(null);
+      }
     };
 
     document.body.style.overflow = 'hidden';
@@ -1760,6 +1804,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'hero' })}
               className="flex flex-col items-center text-center gap-6 py-12"
             >
               <motion.div variants={fadeIn} className="relative w-36 h-36 mb-4 rounded-full overflow-hidden border border-white/10 p-1 bg-gradient-to-br from-[#6366F1]/30 to-transparent backdrop-blur-sm">
@@ -1790,6 +1835,36 @@ export default function App() {
                 </div>
               </motion.div>
 
+              {/* Credential strip — institutional trust signals */}
+              <motion.div variants={fadeIn} className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+                {premiumBadges.map((b, i) => (
+                  <a
+                    key={i}
+                    href={b.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent('click_hero_credential', { issuer: b.issuer })}
+                    className="flex items-center gap-2 group"
+                  >
+                    <img
+                      src={b.img}
+                      alt={b.issuer}
+                      width="16"
+                      height="16"
+                      loading="eager"
+                      decoding="async"
+                      className="w-4 h-4 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                    />
+                    <span className="text-[0.62rem] font-mono uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors whitespace-nowrap">
+                      {b.issuer}
+                    </span>
+                    {i < premiumBadges.length - 1 && (
+                      <span className="text-white/15 text-[0.5rem] ml-3">·</span>
+                    )}
+                  </a>
+                ))}
+              </motion.div>
+
               <motion.div variants={fadeIn} className="mt-4 flex flex-col gap-3 max-w-[620px]">
                 <p className="text-[1.2rem] md:text-[1.35rem] font-serif font-semibold text-white leading-snug">
                   {t.hero.headline}
@@ -1809,6 +1884,22 @@ export default function App() {
                 <a href="mailto:omarnasmiprofessional@gmail.com" onClick={() => trackEvent('click_email', { location: 'hero' })} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:text-white hover:border-[#6366F1]/50 transition-all">
                   <Mail size={18} />
                 </a>
+              </motion.div>
+
+              {/* Stats strip — scannable credibility row */}
+              <motion.div variants={fadeIn} className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
+                {[
+                  { val: '2 yrs', label: lang === 'fr' ? 'Freelance' : 'Freelance' },
+                  { val: '4.7/5', label: 'Fiverr' },
+                  { val: '2', label: lang === 'fr' ? 'Stages' : 'Internships' },
+                  { val: '8', label: lang === 'fr' ? 'Certifications' : 'Certifications' },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-baseline gap-1.5">
+                    <span className="text-[0.9rem] font-mono font-bold text-white">{s.val}</span>
+                    <span className="text-[0.62rem] font-mono uppercase tracking-[0.15em] text-white/35">{s.label}</span>
+                    {i < 3 && <span className="ml-4 text-white/10 text-[0.5rem]">·</span>}
+                  </div>
+                ))}
               </motion.div>
 
               <motion.div variants={fadeIn} className="mt-4 flex flex-wrap items-center justify-center gap-4">
@@ -1836,6 +1927,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'projects' })}
               variants={staggerContainer}
               id="projects"
               className="scroll-mt-[100px] flex flex-col gap-10"
@@ -1878,6 +1970,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'testimonials' })}
               variants={staggerContainer}
               className="flex flex-col gap-8"
             >
@@ -1929,6 +2022,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'experience' })}
               variants={staggerContainer}
               id="experience"
               className="scroll-mt-[100px] flex flex-col gap-12"
@@ -2028,6 +2122,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'skills' })}
               variants={staggerContainer}
               id="skills"
               className="scroll-mt-[100px] flex flex-col gap-12"
@@ -2106,6 +2201,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'about' })}
               variants={fadeIn}
               id="about"
               className="scroll-mt-[100px] flex flex-col gap-6"
@@ -2138,26 +2234,43 @@ export default function App() {
               </motion.div>
             </motion.section>
 
-            {/* Certifications - Professional Grid */}
+            {/* Certifications — Two-tier layout */}
             <motion.section
               id="certifications"
               variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'certifications' })}
               className="scroll-mt-[100px] flex flex-col gap-12 py-16 border-y border-white/5 transition-all duration-700"
             >
               <motion.div variants={fadeIn} className="flex items-center gap-4">
-                <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">Badges & Certifications</h2>
+                <h2 className="text-[0.75rem] font-mono uppercase tracking-[0.4em] text-[#6366F1] font-semibold">
+                  {lang === 'fr' ? 'Certifications institutionnelles' : 'Institutional Certifications'}
+                </h2>
                 <div className="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
               </motion.div>
-              <div className="flex flex-wrap justify-center gap-12">
-                {badges.map((badge, i) => (
-                  <a key={i} href={badge.url} target="_blank" rel="noreferrer" onClick={() => trackEvent('click_certification', { badge: badge.title })} className="flex flex-col items-center gap-4 group transform hover:scale-105 transition-all">
-                    <div className="w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
+
+              {/* Tier 1 — Institutional / premium cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {premiumBadges.map((badge, i) => (
+                  <a
+                    key={i}
+                    href={badge.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent('click_certification', { badge: badge.title, tier: 'premium' })}
+                    className="group relative flex flex-col items-center text-center gap-5 p-7 rounded-2xl border border-white/8 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300 overflow-hidden"
+                  >
+                    {/* Subtle color glow behind logo */}
+                    <div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-28 blur-[50px] rounded-full opacity-20 group-hover:opacity-35 transition-opacity duration-500"
+                      style={{ backgroundColor: badge.color }}
+                    />
+                    <div className="relative w-16 h-16 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/10 group-hover:border-white/20 transition-colors shadow-lg shadow-black/50">
                       <img
                         src={badge.img}
-                        alt={badge.title}
+                        alt={badge.issuer}
                         width="64"
                         height="64"
                         loading="lazy"
@@ -2165,11 +2278,50 @@ export default function App() {
                         className="w-full h-full object-contain filter drop-shadow-md"
                       />
                     </div>
-                    <span className="max-w-[140px] text-center text-[0.6rem] text-white/50 group-hover:text-white transition-colors font-mono uppercase tracking-widest leading-tight">
-                      {badge.title}
-                    </span>
+                    <div className="relative flex flex-col gap-1.5">
+                      <p className="text-[0.7rem] font-mono uppercase tracking-[0.2em] font-bold" style={{ color: badge.color }}>
+                        {badge.issuer}
+                      </p>
+                      <p className="text-[0.85rem] font-medium text-white leading-snug">
+                        {badge.title}
+                      </p>
+                      <span className="mt-1 inline-flex items-center gap-1.5 text-[0.58rem] font-mono uppercase tracking-[0.2em] text-white/30">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/60" />
+                        {lang === 'fr' ? 'Vérifié' : 'Verified'}
+                      </span>
+                    </div>
                   </a>
                 ))}
+              </div>
+
+              {/* Tier 2 — Technical track */}
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-[0.65rem] font-mono uppercase tracking-[0.35em] text-white/30">
+                    {lang === 'fr' ? 'Parcours technique' : 'Technical Track'}
+                  </span>
+                  <div className="h-[1px] flex-grow bg-gradient-to-r from-white/8 to-transparent" />
+                </div>
+                <div className="flex flex-wrap justify-center gap-10">
+                  {badges.map((badge, i) => (
+                    <a key={i} href={badge.url} target="_blank" rel="noreferrer" onClick={() => trackEvent('click_certification', { badge: badge.title, tier: 'technical' })} className="flex flex-col items-center gap-3 group transform hover:scale-105 transition-all">
+                      <div className="w-14 h-14 flex items-center justify-center p-2 rounded-xl bg-white/5 border border-white/5 group-hover:border-[#6366F1]/30 transition-colors shadow-lg shadow-black/40">
+                        <img
+                          src={badge.img}
+                          alt={badge.title}
+                          width="56"
+                          height="56"
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-contain filter drop-shadow-md"
+                        />
+                      </div>
+                      <span className="max-w-[120px] text-center text-[0.58rem] text-white/40 group-hover:text-white/70 transition-colors font-mono uppercase tracking-widest leading-tight">
+                        {badge.title}
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.section>
 
@@ -2178,6 +2330,7 @@ export default function App() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
+              onViewportEnter={() => trackEvent('view_section', { section: 'contact' })}
               variants={fadeIn}
               id="contact"
               className="scroll-mt-[100px] py-16 flex flex-col items-center text-center gap-8 relative overflow-hidden"
