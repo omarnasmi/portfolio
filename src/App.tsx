@@ -3,7 +3,7 @@ import { trackEvent } from './analytics';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Shield, Code, Github, ExternalLink, Mail, Globe, Box, Layers, Cpu, Container, Palette, Sparkles, CheckSquare, Layout, Rocket, Lock, Share2, Feather, Linkedin, Database, X, ChevronLeft, ChevronRight, Music, BookOpen, Activity, Quote, Zap, Server, BarChart3, TestTube, Target, Lightbulb, TrendingUp, Maximize2, Minimize2 } from 'lucide-react';
 import profileImage from '../assets/others/image.png';
-import cvFile from '../assets/cv/ITII - NASMI OMAR - CV Ingénieur Informatique.pdf';
+import cvFile from '../assets/cv/CV_Omar_NASMI.pdf';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -266,13 +266,13 @@ const translations = {
     nav: { experience: "Expérience", projects: "Projets", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     cta: { contact: "Me contacter", downloadCV: "Télécharger mon CV", viewProjects: "Voir mes projets" },
     hero: {
-      role: "Futur Ingénieur Informatique · Alternant",
+      role: "Apprenti Ingénieur Logiciel · Master ILSEN",
       headline: "Je comprends les systèmes de bout en bout — du code au déploiement.",
-      subheadline: "2 ans de freelance, 2 stages, un mastère en cours et un diplôme d'ingénieur à venir. Je cherche une alternance de 3 ans dès Sept. 2026 dans une équipe qui construit des choses sérieuses."
+      subheadline: "2 ans de freelance, 2 stages, un Master 1 en cours et le Master Informatique (ILSEN) à Avignon Université à venir. Je cherche une alternance de 2 ans dès Sept. 2026 dans une équipe qui construit des choses sérieuses."
     },
     about: {
       title: "Un peu plus sur moi",
-      description: "J'ai commencé par le terrain : 2 ans à livrer des projets en freelance, à cadrer des besoins clients, à automatiser des process. Puis 2 stages pour structurer tout ça. Aujourd'hui en mastère à l'ESGI, j'intègre le CNAM en septembre pour un diplôme d'ingénieur informatique. Ce qui me plaît, c'est voir un projet de bout en bout — comprendre le besoin, choisir l'architecture, construire, déployer, et livrer dans les temps.",
+      description: "J'ai commencé par le terrain : 2 ans à livrer des projets en freelance, à cadrer des besoins clients, à automatiser des process. Puis 2 stages pour structurer tout ça. Actuellement en Master 1 à l'ESGI, j'intègre en septembre Avignon Université (CERI) en Master Informatique - Ingénierie du Logiciel (ILSEN). Basé à Avignon (Région PACA / Vallée du Rhône, mobilité vers Aix-en-Provence, Marseille, Lyon), ce qui me plaît, c'est voir un projet de bout en bout — comprendre le besoin, choisir l'architecture, construire, déployer, et livrer dans les temps.",
       hobbiesTitle: "Ce qui me définit en dehors du code",
       hobbies: [
         { label: "Histoire (1870s-1920s)", desc: "L'époque où le monde a basculé. Ingénieurs, révolutions, premiers systèmes industriels — ça ressemble beaucoup à ce qui se passe avec l'IA aujourd'hui.", icon: "BookOpen" },
@@ -325,8 +325,8 @@ const translations = {
         }
       ],
       education: [
-        { degree: "Diplôme d’Ingénieur Informatique", school: "CNAM / ITII Picardie", detail: "Admis pour la rentrée 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s", link: "https://www.itii-picardie.fr/filieres/informatique-numerique-cybersecurite/" },
-        { degree: "Mastère 1 Ingénierie Web", school: "ESGI Reims", detail: "2025 - 2026 (En cours)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
+        { degree: "Master Informatique - Ingénierie du Logiciel (ILSEN)", school: "CERI - Avignon Université", detail: "2026 - 2028 (Alternance 24 mois)", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mdnFShGSKWDN1qG-SPb7AjtamOmbuI5Xkp5pSaDVgh_g=s900-c-k-c0x00ffffff-no-rj", link: "https://ceri.univ-avignon.fr/" },
+        { degree: "Mastère 1 Ingénierie Web", school: "ESGI", detail: "2025 - 2026", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
         { degree: "Licence Ingénierie Logicielle", school: "Centre d'Excellence - Université Ibnou Zohr", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s", link: "https://ma.linkedin.com/company/tamyouz-fsa" },
         { degree: "DUT en Génie Informatique", school: "Ecole Supérieure de Technologie Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s", link: "https://www.esta.ac.ma/?page_id=117" }
       ]
@@ -714,19 +714,19 @@ const translations = {
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Badges et certifications officielles vérifiables" },
-    status: "Alternance 3 ans · Ingénieur Informatique · Sept. 2026"
+    status: "Alternance 2 ans · Apprenti Ingénieur Logiciel (Master ILSEN) · Sept. 2026"
   },
   en: {
     nav: { experience: "Experience", projects: "Projects", skills: "Expertise", certifications: "Certifications", contact: "Contact" },
     cta: { contact: "Get in touch", downloadCV: "Download Resume", viewProjects: "View Projects" },
     hero: {
-      role: "Computer Engineering Student · Apprentice",
+      role: "Software Engineering Master's Student · Apprentice",
       headline: "I understand systems end-to-end — from code to deployment.",
-      subheadline: "2 years of freelance, 2 internships, a Master's in progress and an engineering degree ahead. Looking for a 3-year apprenticeship from Sept. 2026 with a team that builds serious things."
+      subheadline: "2 years of freelance, 2 internships, a Master's 1 in progress and the Software Engineering Master's (ILSEN - Avignon University) ahead. Looking for a 2-year apprenticeship from Sept. 2026 with a team that builds serious things."
     },
     about: {
       title: "A bit more about me",
-      description: "I started with the real thing: 2 years delivering projects as a freelancer, scoping client needs, automating processes. Then 2 internships to structure it all. Now pursuing a Master's at ESGI, I'm joining CNAM in September for a computer engineering degree. What I enjoy most is seeing a project end-to-end — understanding the need, choosing the architecture, building, deploying, and delivering on time.",
+      description: "I started with the real thing: 2 years delivering projects as a freelancer, scoping client needs, automating processes. Then 2 internships to structure it all. Currently in Master 1 at ESGI, I'm joining Avignon University (CERI) in September for the Software Engineering Master's program (ILSEN). Based in Avignon (PACA / Rhône Valley region, mobile across Aix-en-Provence, Marseille, Lyon), what I enjoy most is seeing a project end-to-end — understanding the need, choosing the architecture, building, deploying, and delivering on time.",
       hobbiesTitle: "What defines me outside of code",
       hobbies: [
         { label: "History (1870s-1920s)", desc: "The era when everything shifted. Engineers, revolutions, early industrial systems — sounds a lot like what's happening with AI today.", icon: "BookOpen" },
@@ -779,8 +779,8 @@ const translations = {
         }
       ],
       education: [
-        { degree: "Computer Engineering Degree", school: "CNAM / ITII Picardie", detail: "Admitted for Fall 2026", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36dHmmjf0euqrWzAnuA4Bse7JKiuxDRMrrA&s", link: "https://www.itii-picardie.fr/filieres/informatique-numerique-cybersecurite/" },
-        { degree: "Master 1 in Web Engineering", school: "ESGI Reims", detail: "2025 - 2026 (In progress)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
+        { degree: "Master in Computer Science - Software Engineering (ILSEN)", school: "CERI - Avignon University", detail: "Admitted for Fall 2026 (24-Month Apprenticeship)", logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Universit%C3%A9_d%27Avignon_%28logo_2018%29.svg", link: "https://ceri.univ-avignon.fr/" },
+        { degree: "Master 1 in Web Engineering", school: "ESGI", detail: "2025 - 2026 (In progress)", logo: "https://d18qa1zi1lagoc.cloudfront.net/profile_pictures/2021/ViN7dniG2IFWOk1KHriewjZjWL3HTx1JkDvghx6O.jpg", link: "https://www.esgi.fr/programmes/ingenierie-web.html" },
         { degree: "Bachelor in Software Engineering", school: "Excellence Center - Ibnou Zohr University", detail: "2024-2025", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgis3cvDz0a8Gd1sGSCxoj8WCJCgIchBh2WA&s", link: "https://ma.linkedin.com/company/tamyouz-fsa" },
         { degree: "Associate Degree in Computer Science", school: "Higher School of Technology of Agadir", detail: "2022-2024", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzcHSdQHhNyz_wIXqlZxYnn_UvMLfav960Q&s", link: "https://www.esta.ac.ma/?page_id=117" }
       ]
@@ -1169,7 +1169,7 @@ const translations = {
       ]
     },
     certifications: { title: "Cisco Networking Academy", desc: "Official verifiable badges and certifications" },
-    status: "Open to a 3-year apprenticeship · Computer Engineering · Sept. 2026"
+    status: "Open to a 2-year apprenticeship · Master's Apprentice (ILSEN) · Sept. 2026"
   }
 };
 
@@ -1678,12 +1678,12 @@ export default function App() {
 
     const title =
       lang === 'fr'
-        ? 'Omar Nasmi | Développeur Full-Stack & Futur Ingénieur'
-        : 'Omar Nasmi | Full-Stack Developer & Engineering Apprentice';
+        ? 'Omar Nasmi | Développeur Full-Stack & Apprenti Ingénieur Logiciel'
+        : "Omar Nasmi | Full-Stack Developer & Master's Apprentice";
     const description =
       lang === 'fr'
-        ? "Portfolio d'Omar Nasmi : projets full-stack, architecture logicielle, DevOps, automatisation et IA."
-        : 'Portfolio of Omar Nasmi: full-stack projects, software architecture, DevOps, automation, and AI.';
+        ? "Portfolio d'Omar Nasmi : projets full-stack, architecture logicielle, DevOps, automatisation et IA. Recherche alternance de 2 ans (Master ILSEN - CERI Avignon Université)."
+        : "Portfolio of Omar Nasmi: full-stack projects, software architecture, DevOps, automation, and AI. Open to a 2-year apprenticeship (Software Engineering Master's - Avignon University).";
 
     document.title = title;
 
@@ -2342,8 +2342,8 @@ export default function App() {
                 </h2>
                 <p className="text-text-muted text-[1.05rem]">
                   {lang === 'fr'
-                    ? 'Je recherche une alternance de 3 ans dès septembre 2026 — Je cherche une équipe où je pourrai apprendre vite, contribuer concrètement, et évoluer pendant 3 ans sur des projets réels.'
-                    : "I'm looking for a 3-year apprenticeship starting September 2026 — I'm looking for a team where I can learn fast, contribute meaningfully, and grow over 3 years on real projects."}
+                    ? 'Je recherche une alternance de 2 ans dès septembre 2026 — Basé à Avignon (Région PACA / Vallée du Rhône, mobilité vers Aix-en-Provence, Marseille, Lyon), je cherche une équipe où je pourrai apprendre vite, contribuer concrètement, et évoluer pendant 2 ans sur des projets réels.'
+                    : "I'm looking for a 2-year apprenticeship starting September 2026 — Based in Avignon (PACA Region / Rhône Valley, mobile towards Aix-en-Provence, Marseille, Lyon), I'm looking for a team where I can learn fast, contribute meaningfully, and grow over 2 years on real projects."}
                 </p>
                 <p className="text-[0.72rem] font-mono text-white/30 uppercase tracking-widest mt-1">
                   {lang === 'fr' ? '↳ Réponse sous 24h garantie' : '↳ Response within 24h guaranteed'}
@@ -2372,7 +2372,7 @@ export default function App() {
             </motion.section>
 
             <footer className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[0.65rem] font-mono uppercase tracking-[0.2em] text-text-muted">
-              <p>© {new Date().getFullYear()} Omar Nasmi <span className="text-[#6366F1]">//</span> Engineering</p>
+              <p>© {new Date().getFullYear()} Omar Nasmi <span className="text-[#6366F1]">//</span> Software Engineering</p>
               <p>Built from scratch · Every line is intentional.</p>
             </footer>
 
